@@ -1,81 +1,50 @@
-# Filament Starter
+Aplikasi Informatika - Buku Tamu Digital Kabupaten Malang
+Ini adalah proyek tugas mata kuliah Pemrograman Web berupa website Buku Tamu Digital terintegrasi untuk berbagai Perangkat Daerah di Kabupaten Malang yang dikembangkan menggunakan Laravel Filament Starter sebagai admin panel.
 
-Here lives a beautiful starting point to quickly bootstrap your next [TALL stack](https://tallstack.dev/) application utilizing [Filament](https://filamentphp.com/) for the admin panel.
+📌 Deskripsi Proyek
+Proyek ini adalah implementasi sistem buku tamu modern untuk efisiensi pendataan kunjungan pada instansi pemerintahan. Website memiliki dua bagian utama:
 
-![Screenshot](https://i.imgur.com/AxerbeO.png)
+Client-side (Frontend) — Halaman pengisian tamu dinamis berdasarkan Perangkat Daerah (PD) yang dituju, mendukung pengambilan foto webcam, tanda tangan digital, dan scan QR Code.
 
-## Features
+Admin Panel (Filament) — Dashboard untuk Superadmin dan Admin Perangkat Daerah untuk mengelola data kunjungan, generate QR Code, dan menyediakan akses data melalui API.
 
-- 🚀 Quick, clean starting point with an example **Post** model and resource.
-- 🧑‍💻 Fully pre-configured and [customized](#plugins-used) Filament panel with best practices in place.
-- 🎨 Clean, minimally styled frontend powered by [Livewire](https://livewire.laravel.com/).
-- 💄 [TailwindCSS](https://tailwindcss.com/) and [Vite](https://vitejs.dev/) ready for immediate use.
-- 👷 Pre-bundled Livewire and [Alpine](https://alpinejs.dev/) for easy extendability.
-- ⚡️ SPA-ready in both Filament and the frontend.
-- 🔨 GitHub Actions workflows for [Pint](https://github.com/laravel/pint) with pre-configured Dependabot for dependencies.
-- 🔍️ Easy programmatic SEO using [romanzipp/laravel-seo](https://github.com/romanzipp/Laravel-SEO).
+🚀 Teknologi Digunakan
+Laravel 12 + Filament Admin Panel
 
-## Requirements
+Livewire & Alpine.js (Form interaktif & Signature Pad)
 
-Make sure all dependencies have been installed before moving on:
+TailwindCSS & Vite
 
-- [PHP](https://secure.php.net/manual/en/install.php) >= 8.2
-- [Composer](https://getcomposer.org/download/)
-- [Node.js](http://nodejs.org/) >= 18
+Webcam API & QR Code Generator
 
-## Getting Started
+PHP 8.2+, Node.js 18+, Composer
 
-Start by creating the project using Composer and configuring the `.env` file:
+---
 
-```sh
-composer create-project log1x/filament-starter:dev-main
-cd filament-starter
-```
+## 🚀 Clone & Setup
 
-After `.env` is configured, you can proceed to migrate & seed the database:
+```bash
+# 1. Download file dari GitHub
+git clone [https://github.com/Steven-Juan/buku-tamu-malang-kabupaten.git](https://github.com/Steven-Juan/buku-tamu-malang-kabupaten.git)
+cd buku-tamu-malang-kabupaten
 
-```sh
-php artisan migrate:fresh --seed
-```
+# 2. Install PHP dependencies
+composer install
 
-Once the database is seeded, you can login at `/admin` using the default admin user:
-
-```yaml
-Username: admin
-Password: admin
-```
-
-### Build Assets
-
-The project assets are compiled using Vite. This can be done by installing the dependencies and running the build command with npm.
-
-```sh
+# 3. Install frontend assets
 npm install
 npm run build
-```
 
-## Plugins Used
+# 4. Konfigurasi .env & jalankan migrasi
+copy .env.example .env
+# Update database dan nama database di file .env
+php artisan key:generate
+php artisan migrate --seed
 
-The following [Filament plugins](https://filamentphp.com/plugins) come fully implemented and configured out of the box:
-
-| **Plugin**                                                          | **Description**                                    | **Author**                                      |
-| :------------------------------------------------------------------ | :------------------------------------------------- | :---------------------------------------------- |
-| [Curator](https://github.com/awcodes/filament-curator)              | A beautiful media library.                         | [awcodes](https://github.com/awcodes)           |
-| [Gravatar](https://github.com/awcodes/filament-gravatar)            | Easy avatar integration powered by Gravatar.       | [awcodes](https://github.com/awcodes)           |
-| [Exceptions](https://github.com/bezhansalleh/filament-exceptions)   | A simple but powerful Exception viewer.            | [bezhansalleh](https://github.com/bezhansalleh) |
-| [Jobs Monitor](https://github.com/croustibat/filament-jobs-monitor) | Easily monitor background jobs and their progress. | [croustibat](https://github.com/croustibat)     |
-| [Breezy](https://github.com/jeffgreco13/filament-breezy)            | Customizable user profile pages and 2FA support.   | [jeffgreco13](https://github.com/jeffgreco13)   |
-| [Peek](https://github.com/pboivin/filament-peek)                    | Quick & efficient front-end previews of resources. | [pboivin](https://github.com/pboivin)           |
-| [Logger](https://github.com/z3d0x/filament-logger)                  | Zero-config resource activity logging.             | [z3d0x](https://github.com/z3d0x)               |
-
-## Bug Reports
-
-If you discover a bug in Filament Starter, please [open an issue](https://github.com/log1x/filament-starter/issues).
-
-## Contributing
-
-Contributing whether it be through PRs, reporting an issue, or suggesting an idea is encouraged and appreciated.
-
-## License
-
-Filament Starter is provided under the [MIT License](LICENSE.md).
+# 5. Jalankan server
+php artisan serve
+🔑 Akses Login
+Untuk mengelola data tamu dan pengaturan Perangkat Daerah, silakan akses panel administrasi:
+URL: http://localhost:8000/admin
+Username: admin
+Password: admin
