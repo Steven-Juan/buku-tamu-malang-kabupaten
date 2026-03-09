@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Post;
+use App\Models\Guest;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\SchemaOrg\Schema;
@@ -20,7 +20,7 @@ class Home extends Component
     {
         seo()
             ->title($title = config('app.name'))
-            ->description($description = 'Lorem ipsum...')
+            ->description($description = 'Buku Tamu Digital Kabupaten Malang')
             ->canonical($url = route('home'))
             ->addSchema(
                 Schema::webPage()
@@ -30,10 +30,13 @@ class Home extends Component
                     ->author(Schema::organization()->name($title))
             );
 
-        $posts = Post::published()
-            ->latest('published_at')
+        /**
+         * Get the latest guests with their associated office (Perangkat Daerah).
+         */
+        $guests = Guest::with('perangkatDaerah')
+            ->latest()
             ->paginate(6);
 
-        return view('livewire.home', compact('posts'));
+        return view('livewire.home', compact('guests'));
     }
 }

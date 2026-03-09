@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -20,6 +21,7 @@ class User extends Authenticatable implements FilamentUser
      * @var list<string>
      */
     protected $fillable = [
+        'perangkat_daerah_id',
         'name',
         'email',
         'password',
@@ -57,12 +59,10 @@ class User extends Authenticatable implements FilamentUser
     }
 
     /**
-     * The posts that belong to the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get the office (Perangkat Daerah) that the user belongs to.
      */
-    public function posts()
+    public function perangkatDaerah(): BelongsTo
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsTo(PerangkatDaerah::class, 'perangkat_daerah_id');
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use App\Livewire\Home;
-use App\Livewire\Post\Show as PostShow;
+use App\Livewire\Guest\Show as GuestShow;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class)->name('home');
-Route::get('/article/{post:slug}', PostShow::class)->name('post.show');
+Route::get('/article/{guest:slug}', GuestShow::class)->name('guest.show');
