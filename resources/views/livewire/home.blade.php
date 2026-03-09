@@ -54,7 +54,7 @@
             class="inline-block bg-secondary/10 text-secondary text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest mb-4">Official
             Directory</span>
         <h1
-            class="text-4xl md:text-6xl font-extrabold text-text-dark dark:text-text-light max-w-[850px] leading-[1.1] tracking-tight">
+            class="text-4xl md:text-6xl font-semibold text-text-dark dark:text-text-light max-w-[850px] leading-[1.1] tracking-tight">
             Selamat Datang di Portal <br> <span class="text-primary">Buku Tamu Digital</span>
         </h1>
         <p class="text-gray-500 dark:text-gray-400 text-sm md:text-base max-w-xl mt-6 mx-auto leading-relaxed">
