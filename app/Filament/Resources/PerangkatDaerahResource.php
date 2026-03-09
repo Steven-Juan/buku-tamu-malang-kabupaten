@@ -96,7 +96,7 @@ class PerangkatDaerahResource extends Resource
 
                                 Forms\Components\TextInput::make('api_token')
                                     ->label('API Token')
-                                    ->default(fn() => Str::random(32))
+                                    ->default(fn () => Str::random(32))
                                     ->password()
                                     ->revealable()
                                     ->readOnly()

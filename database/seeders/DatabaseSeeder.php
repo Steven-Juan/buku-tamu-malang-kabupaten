@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\PerangkatDaerah;
 use App\Models\Guest;
+use App\Models\PerangkatDaerah;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -40,17 +40,17 @@ class DatabaseSeeder extends Seeder
 
         foreach ($daftarPD as $pd) {
             $perangkat = PerangkatDaerah::create([
-                'nama_pd'   => $pd['nama'],
-                'slug'      => $pd['slug'],
-                'alamat'    => 'Jl. Raya Kabupaten Malang No. ' . rand(1, 100),
-                'telepon'   => '0341-' . rand(111111, 999999),
+                'nama_pd' => $pd['nama'],
+                'slug' => $pd['slug'],
+                'alamat' => 'Jl. Raya Kabupaten Malang No. '.rand(1, 100),
+                'telepon' => '0341-'.rand(111111, 999999),
                 'api_token' => Str::random(32),
             ]);
 
             User::create([
                 'perangkat_daerah_id' => $perangkat->id,
-                'name' => 'Admin ' . $pd['slug'],
-                'email' => $pd['slug'] . '@malangkab.go.id',
+                'name' => 'Admin '.$pd['slug'],
+                'email' => $pd['slug'].'@malangkab.go.id',
                 'password' => Hash::make('admin123'),
             ]);
         }
@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
             'Rian Ardiansyah',
             'Siska Amelia',
             'Taufik Hidayat',
-            'Yuni Shara'
+            'Yuni Shara',
         ];
 
         $daftarUniversitas = [
@@ -98,9 +98,9 @@ class DatabaseSeeder extends Seeder
                 'perangkat_daerah_id' => $allPD->random()->id,
                 'nama' => $daftarNama[array_rand($daftarNama)],
                 'asal_instansi' => $daftarUniversitas[array_rand($daftarUniversitas)],
-                'keperluan' => 'Keperluan urusan dinas nomor ' . $i,
+                'keperluan' => 'Keperluan urusan dinas nomor '.$i,
                 'pesan_kesan' => 'Pelayanan memuaskan.',
-                'ttd_digital' => 'data:image/png;base64,sample' . $i,
+                'ttd_digital' => 'data:image/png;base64,sample'.$i,
                 'foto' => 'images/user.png',
                 'created_at' => now()->subDays(rand(1, 30)),
             ]);

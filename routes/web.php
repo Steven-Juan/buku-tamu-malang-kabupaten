@@ -1,7 +1,7 @@
 <?php
 
-use App\Livewire\Home;
 use App\Livewire\Guest\Show as GuestShow;
+use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class)->name('home');

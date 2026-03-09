@@ -45,11 +45,11 @@ class Show extends Component
     public function render()
     {
         seo()
-            ->title("Guest Visit: " . $this->guest->nama)
-            ->description("Visit details for " . $this->guest->nama . " at " . $this->guest->perangkatDaerah->nama_pd)
+            ->title('Guest Visit: '.$this->guest->nama)
+            ->description('Visit details for '.$this->guest->nama.' at '.$this->guest->perangkatDaerah->nama_pd)
             ->addSchema(
                 Schema::article()
-                    ->headline("Guest Visit: " . $this->guest->nama)
+                    ->headline('Guest Visit: '.$this->guest->nama)
                     ->articleBody($this->guest->keperluan)
                     ->image($this->guest->foto)
                     ->datePublished($this->guest->created_at)
@@ -58,7 +58,7 @@ class Show extends Component
             );
 
         if ($this->guest->foto) {
-            seo()->image(asset('storage/' . $this->guest->foto));
+            seo()->image(asset('storage/'.$this->guest->foto));
         }
 
         return view('livewire.guest.show');

@@ -14,8 +14,6 @@ class EditPerangkatDaerah extends EditRecord
 
     /**
      * The resource model.
-     *
-     * @var string
      */
     protected static string $resource = PerangkatDaerahResource::class;
 
@@ -45,7 +43,7 @@ class EditPerangkatDaerah extends EditRecord
                 ->label('Open Live Form')
                 ->color('gray')
                 ->icon('heroicon-m-arrow-top-right-on-square')
-                ->url(fn($record) => route('guest.form', $record->slug))
+                ->url(fn ($record) => route('guest.form', $record->slug))
                 ->openUrlInNewTab(),
 
             Actions\DeleteAction::make(),
