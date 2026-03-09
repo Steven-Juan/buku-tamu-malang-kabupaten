@@ -2,41 +2,23 @@
 
 namespace App\Livewire;
 
-use App\Models\Guest;
+use App\Models\PerangkatDaerah;
 use Livewire\Component;
-use Livewire\WithPagination;
-use Spatie\SchemaOrg\Schema;
 
 class Home extends Component
 {
-    use WithPagination;
+    // Variabel untuk menangkap ketikan di kotak pencarian
+    public $search = '';
 
-    /**
-     * Render the component.
-     *
-     * @return \Illuminate\View\View
-     */
     public function render()
     {
-        seo()
-            ->title($title = config('app.name'))
-            ->description($description = 'Buku Tamu Digital Kabupaten Malang')
-            ->canonical($url = route('home'))
-            ->addSchema(
-                Schema::webPage()
-                    ->name($title)
-                    ->description($description)
-                    ->url($url)
-                    ->author(Schema::organization()->name($title))
-            );
+        // Cari perangkat daerah berdasarkan nama yang diketik, atau tampilkan semua jika kosong
+        $daftarPd = PerangkatDaerah::where('nama_pd', 'like', '%' . $this->search . '%')
+            ->orderBy('nama_pd')
+            ->get();
 
-        /**
-         * Get the latest guests with their associated office (Perangkat Daerah).
-         */
-        $guests = Guest::with('perangkatDaerah')
-            ->latest()
-            ->paginate(6);
-
-        return view('livewire.home', compact('guests'));
+        return view('livewire.home', [
+            'daftarPd' => $daftarPd,
+        ])->title('Portal Buku Tamu Digital - Kabupaten Malang');
     }
 }
