@@ -59,14 +59,8 @@ class PerangkatDaerahResource extends Resource
                                 Forms\Components\TextInput::make('nama_pd')
                                     ->label('Nama Perangkat Daerah')
                                     ->placeholder('Contoh: Dinas Komunikasi dan Informatika')
-                                    ->live()
-                                    ->afterStateUpdated(function (Get $get, Set $set, string $operation, ?string $old, ?string $state) {
-                                        if (($get('slug') ?? '') !== Str::slug($old) || $operation !== 'create') {
-                                            return;
-                                        }
-
-                                        $set('slug', Str::slug($state));
-                                    })
+                                    ->live(onBlur: true) // PERBAIKAN: Gunakan onBlur agar tidak menghapus ketikan
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
