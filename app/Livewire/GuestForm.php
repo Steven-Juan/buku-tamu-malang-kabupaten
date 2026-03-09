@@ -12,12 +12,17 @@ class GuestForm extends Component
     use WithFileUploads;
 
     public $instansiTujuan; // Untuk menyimpan objek Perangkat Daerah
-    
+
     public $perangkat_daerah_id;
+
     public $nama;
+
     public $asal_instansi;
+
     public $keperluan;
+
     public $pesan_kesan;
+
     public $ttd_digital;
 
     /**
@@ -28,7 +33,7 @@ class GuestForm extends Component
     {
         // Cari dinas berdasarkan slug. Jika tidak ada, otomatis muncul error 404
         $this->instansiTujuan = PerangkatDaerah::where('slug', $slug)->firstOrFail();
-        
+
         // Kunci ID dinas tujuan agar tamu tidak perlu memilih lagi
         $this->perangkat_daerah_id = $this->instansiTujuan->id;
     }
@@ -54,14 +59,14 @@ class GuestForm extends Component
 
         $this->reset(['nama', 'asal_instansi', 'keperluan', 'pesan_kesan', 'ttd_digital']);
 
-        session()->flash('success', 'Terima kasih, data kunjungan Anda ke ' . $this->instansiTujuan->nama_pd . ' telah tersimpan.');
+        session()->flash('success', 'Terima kasih, data kunjungan Anda ke '.$this->instansiTujuan->nama_pd.' telah tersimpan.');
     }
 
     public function render()
     {
-        // Secara default, jika menggunakan full-page Livewire component, 
+        // Secara default, jika menggunakan full-page Livewire component,
         // ia akan mencari layout di components/layouts/app.blade.php
         return view('livewire.guest-form')
-            ->title('Buku Tamu - ' . $this->instansiTujuan->nama_pd);
+            ->title('Buku Tamu - '.$this->instansiTujuan->nama_pd);
     }
 }
