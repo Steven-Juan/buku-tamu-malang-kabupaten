@@ -34,9 +34,9 @@
                 <p
                     class="text-center text-sm text-gray-500 dark:text-gray-400 mt-4 animate-fade-in-up animation-delay-200">
                     <span x-text="
-                        greeting < 12 ? 'Selamat Pagi' : 
+                        greeting < 10 ? 'Selamat Pagi' : 
                         greeting < 15 ? 'Selamat Siang' : 
-                        greeting < 19 ? 'Selamat Sore' : 'Selamat Malam'
+                        greeting < 18 ? 'Selamat Sore' : 'Selamat Malam'
                     "></span>,
                     <span class="font-semibold text-primary">Pengunjung</span> 👋
                 </p>
