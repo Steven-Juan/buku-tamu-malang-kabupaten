@@ -42,7 +42,7 @@
 @layer components {
     .button-bg-animate {
         background-size: 300% 300%;
-        animation: shine-logic 6s ease-out infinite;
+        animation: shine-logic 5s ease-out infinite;
         background-image: conic-gradient(
             from 0deg,
             var(--accent),

@@ -18,11 +18,11 @@
     };
 
     $iconSize = match ($size) {
-        'xs' => 'w-3 h-3',
-        'sm' => 'w-3.5 h-3.5',
-        'md' => 'w-4 h-4',
-        'lg' => 'w-5 h-5',
-        default => 'w-4 h-4',
+        'xs' => 'w-4 h-4',
+        'sm' => 'w-5 h-5',
+        'md' => 'w-5.5 h-5.5',
+        'lg' => 'w-6 h-6',
+        default => 'w-5 h-5',
     };
 
     $tag = $url ? 'a' : $tag;
@@ -35,9 +35,9 @@
     <{{ $tag }}
         {{ $attributes->merge([
             'class' => "{$widthClass} {$sizeClass} flex items-center justify-center rounded-full font-bold
-                           bg-slate-100 dark:bg-slate-800
-                           text-slate-800 dark:text-slate-100
-                           transition-all duration-300 shadow-inner",
+                                           bg-slate-100 dark:bg-slate-800
+                                           text-slate-800 dark:text-slate-100
+                                           transition-all duration-300 shadow-inner",
         ]) }}
         @if ($url) href="{{ $url }}" @endif>
 

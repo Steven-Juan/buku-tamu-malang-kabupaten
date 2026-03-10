@@ -37,18 +37,27 @@
         {{-- Right section --}}
         <div class="flex items-center gap-2 md:gap-4">
 
-            {{-- Digital Clock: Warna Polos (Primary) --}}
+            {{-- Date & Digital Clock Section --}}
             @unless ($hideClock)
                 <div
                     class="hidden md:flex flex-col items-end leading-none border-r border-gray-200 dark:border-gray-700 pr-4 mr-1">
-                    <span id="digital-clock"
-                        class="font-mono font-bold text-primary dark:text-accent tracking-widest text-sm">
-                        00:00:00
+                    {{-- Tanggal Utama (Besar di Atas) --}}
+                    <span
+                        class="text-sm md:text-base font-bold text-primary dark:text-accent tracking-tighter uppercase mb-1">
+                        {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
                     </span>
-                    <span class="text-[9px] uppercase font-bold text-gray-400 flex items-center gap-1">
-                        <span class="w-1 h-1 rounded-full bg-green-500 animate-pulse"></span>
-                        WIB
-                    </span>
+
+                    {{-- Jam & WIB (Menyamping di Bawah) --}}
+                    <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                        <span id="digital-clock" class="font-mono font-bold text-[13px] tracking-widest">
+                            00:00:00
+                        </span>
+                        <span
+                            class="text-[9px] uppercase font-black flex items-center gap-1 bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-gray-400 border border-gray-200 dark:border-gray-700">
+                            <span class="w-1 h-1 rounded-full bg-green-500 animate-pulse"></span>
+                            WIB
+                        </span>
+                    </div>
                 </div>
             @endunless
 
@@ -57,12 +66,12 @@
                 class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all text-gray-600 dark:text-gray-400">
                 <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="2.5" stroke="currentColor"
-                    class="w-4 h-4 transition-transform group-hover/theme:rotate-90 duration-300">
+                    class="w-5 h-5 transition-transform group-hover/theme:rotate-90 duration-300">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                 </svg>
 
-                <svg x-show="darkMode" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     style="display: none;">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                         d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
@@ -70,7 +79,7 @@
             </button>
 
             {{-- Login Button: Solid color dari x-button --}}
-            <x-button :url="Filament\Pages\Dashboard::getUrl()" :color="Auth::check() ? 'primary' : 'dark'" size="xs" :icon="Auth::check() ? 'heroicon-o-cog-8-tooth' : 'heroicon-s-user'">
+            <x-button :url="Filament\Pages\Dashboard::getUrl()" :color="Auth::check() ? 'primary' : 'dark'" size="sm" :icon="Auth::check() ? 'heroicon-o-cog-6-tooth' : 'heroicon-s-user'">
                 <span>{{ Auth::check() ? 'Dashboard' : 'Login Admin' }}</span>
             </x-button>
         </div>
