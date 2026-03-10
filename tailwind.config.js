@@ -1,23 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   content: [
     './app/**/*.php',
     './config/**/*.php',
+    './resources/**/*.blade.php',
     './resources/**/*.{php,js}',
     './storage/framework/views/*.php',
-    "./src/**/*.{html,js}",
   ],
   darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        primary: '#0100CC',
-        secondary: '#0166FE',
-        accent: '#18D1FF',
-        light: '#F9FAFB',
+        text: 'var(--text)',
+        background: 'var(--background)',
+        primary: 'var(--primary)',
+        secondary: 'var(--secondary)',
+        accent: 'var(--accent)',
+
+        light: 'var(--background)',
         dark: '#020617',
       },
       fontFamily: {

@@ -1,5 +1,4 @@
 @import 'tippy.js/dist/tippy.css';
-
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @tailwind base;
@@ -7,11 +6,66 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply font-sans antialiased bg-light text-gray-900 dark:bg-dark dark:text-light;
-  }
+    :root {
+        --text: #0f172a;
+        --background: #F9FAFB;
+        --primary: #0100CC;
+        --secondary: #0166FE;
+        --accent: #18D1FF;
+    }
 
-  * {
-    font-family: 'Poppins', sans-serif;
-  }
+    .dark {
+        --text: #F9FAFB;
+        --background: #020617;
+        --primary: #3b82f6;
+        --secondary: #60a5fa;
+        --accent: #18D1FF;
+    }
+
+    body {
+        @apply font-sans antialiased transition-colors duration-300;
+        background-color: var(--background);
+        color: var(--text);
+    }
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+@keyframes shine-logic {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@layer components {
+    .button-bg-animate {
+        background-size: 300% 300%;
+        animation: shine-logic 6s ease-out infinite;
+        background-image: conic-gradient(
+            from 0deg,
+            var(--accent),
+            #e2e8f0,
+            #e2e8f0,
+            var(--primary),
+            #e2e8f0,
+            #e2e8f0,
+            var(--accent)
+        );
+    }
+
+    .dark .button-bg-animate,
+    html.dark .button-bg-animate {
+        background-image: conic-gradient(
+            from 0deg,
+            var(--accent),
+            #1e293b,
+            #1e293b,
+            var(--primary),
+            #1e293b,
+            #1e293b,
+            var(--accent)
+        ) !important;
+    }
 }
