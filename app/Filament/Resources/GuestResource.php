@@ -4,12 +4,15 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\GuestResource\Pages;
 use App\Models\Guest;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\HtmlString;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class GuestResource extends Resource
 {
@@ -38,7 +41,19 @@ class GuestResource extends Resource
      */
     public static function getNavigationBadge(): ?string
     {
-        return number_format(static::getModel()::count());
+        return number_format(static::getEloquentQuery()->count());
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        $user = Auth::user();
+
+        if ($user->perangkat_daerah_id) {
+            $query->where('perangkat_daerah_id', $user->perangkat_daerah_id);
+        }
+
+        return $query;
     }
 
     /**
@@ -79,7 +94,10 @@ class GuestResource extends Resource
                                     ->relationship('perangkatDaerah', 'nama_pd')
                                     ->searchable()
                                     ->preload()
-                                    ->required(),
+                                    ->required()
+                                    ->default(fn() => Auth::user()->perangkat_daerah_id)
+                                    ->disabled(fn() => Auth::user()->perangkat_daerah_id !== null)
+                                    ->dehydrated(),
 
                                 Forms\Components\FileUpload::make('foto')
                                     ->image()

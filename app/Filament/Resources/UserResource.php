@@ -26,6 +26,11 @@ class UserResource extends Resource
         return number_format(static::getModel()::count());
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->perangkat_daerah_id === null;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -48,9 +53,9 @@ class UserResource extends Resource
 
                                 Forms\Components\TextInput::make('password')
                                     ->password()
-                                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                                    ->dehydrated(fn ($state) => filled($state))
-                                    ->required(fn (string $operation): bool => $operation === 'create'),
+                                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                                    ->dehydrated(fn($state) => filled($state))
+                                    ->required(fn(string $operation): bool => $operation === 'create'),
                             ]),
 
                         Forms\Components\Section::make('Access Control')
@@ -88,13 +93,13 @@ class UserResource extends Resource
                     ->default('Superadmin')
                     ->formatStateUsing(function ($state, $record) {
                         if ($record->perangkat_daerah_id && $state) {
-                            return 'Admin '.$state;
+                            return 'Admin ' . $state;
                         }
 
                         return $state;
                     })
-                    ->icon(fn ($record): string => $record->perangkat_daerah_id ? 'heroicon-m-building-office' : 'heroicon-m-shield-check')
-                    ->color(fn ($record): string => $record->perangkat_daerah_id ? 'primary' : 'danger'),
+                    ->icon(fn($record): string => $record->perangkat_daerah_id ? 'heroicon-m-building-office' : 'heroicon-m-shield-check')
+                    ->color(fn($record): string => $record->perangkat_daerah_id ? 'primary' : 'danger'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

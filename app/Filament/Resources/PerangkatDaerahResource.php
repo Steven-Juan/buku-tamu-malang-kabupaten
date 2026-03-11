@@ -12,6 +12,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class PerangkatDaerahResource extends Resource
 {
@@ -38,9 +40,28 @@ class PerangkatDaerahResource extends Resource
     /**
      * Get the navigation badge for the resource.
      */
+
+
     public static function getNavigationBadge(): ?string
     {
-        return number_format(static::getModel()::count());
+        return number_format(static::getEloquentQuery()->count());
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $user = Auth::user();
+        $query = parent::getEloquentQuery();
+
+        if ($user && $user->perangkat_daerah_id) {
+            return $query->where('id', $user->perangkat_daerah_id);
+        }
+
+        return $query;
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->perangkat_daerah_id === null;
     }
 
     /**
@@ -60,7 +81,7 @@ class PerangkatDaerahResource extends Resource
                                     ->label('Nama Perangkat Daerah')
                                     ->placeholder('Contoh: Dinas Komunikasi dan Informatika')
                                     ->live(onBlur: true) // PERBAIKAN: Gunakan onBlur agar tidak menghapus ketikan
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
@@ -90,7 +111,7 @@ class PerangkatDaerahResource extends Resource
 
                                 Forms\Components\TextInput::make('api_token')
                                     ->label('API Token')
-                                    ->default(fn () => Str::random(32))
+                                    ->default(fn() => Str::random(32))
                                     ->password()
                                     ->revealable()
                                     ->readOnly()
@@ -144,8 +165,15 @@ class PerangkatDaerahResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                ])
+                    ->visible(fn() => auth()->user()->perangkat_daerah_id === null),
+            ])
+
+            ->content(function () {
+                if (Auth::user()->perangkat_daerah_id) {
+                    return null;
+                }
+            });
     }
 
     /**

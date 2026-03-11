@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             'panels::head.start',
-            fn (): string => '<meta name="robots" content="noindex,nofollow">'
+            fn(): string => '<meta name="robots" content="noindex,nofollow">'
         );
     }
 
