@@ -79,7 +79,7 @@ class PerangkatDaerahResource extends Resource
                                     ->label('Nama Perangkat Daerah')
                                     ->placeholder('Contoh: Dinas Komunikasi dan Informatika')
                                     ->live(onBlur: true) // PERBAIKAN: Gunakan onBlur agar tidak menghapus ketikan
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
@@ -109,7 +109,7 @@ class PerangkatDaerahResource extends Resource
 
                                 Forms\Components\TextInput::make('api_token')
                                     ->label('API Token')
-                                    ->default(fn () => Str::random(32))
+                                    ->default(fn() => Str::random(32))
                                     ->password()
                                     ->revealable()
                                     ->readOnly()
@@ -130,6 +130,10 @@ class PerangkatDaerahResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->contentGrid(fn() => Auth::user()->perangkat_daerah_id ? null : [
+                'md' => 2,
+                'xl' => 3,
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama_pd')
                     ->label('Nama Instansi')
@@ -164,7 +168,7 @@ class PerangkatDaerahResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ])
-                    ->visible(fn () => auth()->user()->perangkat_daerah_id === null),
+                    ->visible(fn() => auth()->user()->perangkat_daerah_id === null),
             ])
 
             ->content(function () {
