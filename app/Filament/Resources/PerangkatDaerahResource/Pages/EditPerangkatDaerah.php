@@ -5,7 +5,6 @@ namespace App\Filament\Resources\PerangkatDaerahResource\Pages;
 use App\Filament\Resources\PerangkatDaerahResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use Illuminate\Support\Facades\Auth;
 
 class EditPerangkatDaerah extends EditRecord
 {
@@ -15,7 +14,7 @@ class EditPerangkatDaerah extends EditRecord
     {
         return [
             Actions\DeleteAction::make()
-                ->visible(fn() => auth()->user()->perangkat_daerah_id === null),
+                ->visible(fn () => auth()->user()->perangkat_daerah_id === null),
         ];
     }
 

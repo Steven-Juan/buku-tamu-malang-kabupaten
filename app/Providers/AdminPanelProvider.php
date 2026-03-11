@@ -22,10 +22,10 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Pboivin\FilamentPeek\FilamentPeekPlugin;
-use Illuminate\Support\Facades\Auth;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -52,7 +52,7 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Media')
                     ->pluralLabel('Media Library')
                     ->navigationIcon('heroicon-o-photo')
-                    ->navigationGroup(fn() => Auth::user()?->perangkat_daerah_id ? null : 'Media')
+                    ->navigationGroup(fn () => Auth::user()?->perangkat_daerah_id ? null : 'Media')
                     ->navigationCountBadge(),
 
                 FilamentJobsMonitorPlugin::make()
@@ -67,7 +67,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->defaultAvatarProvider(GravatarProvider::class)
             ->favicon(asset('/favicon-32x32.png'))
-            ->brandLogo(fn() => view('components.logo'))
+            ->brandLogo(fn () => view('components.logo'))
             ->navigationGroups([
                 'Collections',
                 'Media',

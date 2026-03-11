@@ -4,15 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\GuestResource\Pages;
 use App\Models\Guest;
-use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\HtmlString;
 
 class GuestResource extends Resource
 {
@@ -95,8 +94,8 @@ class GuestResource extends Resource
                                     ->searchable()
                                     ->preload()
                                     ->required()
-                                    ->default(fn() => Auth::user()->perangkat_daerah_id)
-                                    ->disabled(fn() => Auth::user()->perangkat_daerah_id !== null)
+                                    ->default(fn () => Auth::user()->perangkat_daerah_id)
+                                    ->disabled(fn () => Auth::user()->perangkat_daerah_id !== null)
                                     ->dehydrated(),
 
                                 Forms\Components\FileUpload::make('foto')
