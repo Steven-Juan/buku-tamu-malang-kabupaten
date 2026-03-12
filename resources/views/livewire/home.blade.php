@@ -1,20 +1,21 @@
-<div x-data="search" class="bg-gradient-to-b from-light to-gray-50 dark:from-dark dark:to-gray-900 
-            text-text-dark dark:text-text-light min-h-screen transition-colors duration-300 
-            flex flex-col items-center">
+<div x-data="search" class="bg-gradient-to-b from-white via-indigo-50/40 to-slate-100 
+            dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
+            text-slate-800 dark:text-slate-200 min-h-screen 
+            transition-colors duration-300 flex flex-col items-center">
 
     {{-- Hero Section --}}
     <x-hero class="bg-transparent !mb-0 !py-16 md:!py-24 w-full relative overflow-hidden">
         {{-- Animated background elements --}}
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-accent/10 
+            <div class="absolute top-0 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-300/30 to-indigo-100/20 
                       rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/10 to-primary/10 
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-indigo-200/20 to-indigo-300/20 
                       rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
             <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=" 60" height="60" viewBox="0 0 60 60"
-                xmlns="http://www.w3.org/2000/svg" %3E%3Cg fill="none" fill-rule="evenodd" %3E%3Cg fill="%239C92AC"
-                fill-opacity="0.05" %3E%3Cpath
+                xmlns="http://www.w3.org/2000/svg" %3E%3Cg fill="none" fill-rule="evenodd" %3E%3Cg fill="%230100CC"
+                fill-opacity="0.03" %3E%3Cpath
                 d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"
-                /%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+                /%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
         </div>
 
         <x-slot name="title">
@@ -39,10 +40,10 @@
                 {{-- Greeting card --}}
                 <div class="flex justify-center mt-8 animate-fade-in-up animation-delay-400">
                     <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl
-                              bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
-                              border border-gray-200/50 dark:border-gray-700/50
-                              shadow-lg shadow-black/5">
-                        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                              bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm
+                              border border-gray-200 dark:border-gray-700/50
+                              shadow-md shadow-primary/5 dark:shadow-black/5">
+                        <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
                             <span x-data="greeting" x-text="message"></span>
                             , <span class="font-semibold bg-gradient-to-r from-primary to-accent 
@@ -68,7 +69,7 @@
                     @click.away="focused = false">
 
                     {{-- Search tips --}}
-                    <div class="flex justify-center gap-4 mb-4 text-xs text-gray-400">
+                    <div class="flex justify-center gap-4 mb-4 text-xs text-gray-500">
                         <span class="flex items-center gap-1">
                             <span class="w-1 h-1 rounded-full bg-primary"></span>
                             Ketik untuk mencari
@@ -83,17 +84,17 @@
 
                         {{-- Glow effects --}}
                         <div class="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent 
-                                  rounded-2xl opacity-0 group-hover:opacity-30 group-focus-within:opacity-50 
+                                  rounded-2xl opacity-0 group-hover:opacity-40 group-focus-within:opacity-60 
                                   transition-all blur-xl duration-500"></div>
                         <div class="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent 
-                                  rounded-2xl opacity-0 group-hover:opacity-50 group-focus-within:opacity-75 
+                                  rounded-2xl opacity-0 group-hover:opacity-60 group-focus-within:opacity-80 
                                   transition-all blur group-hover:duration-500"></div>
 
                         {{-- Search input --}}
-                        <div class="relative flex items-center bg-white/90 dark:bg-gray-800/90 
-                                  backdrop-blur-md h-16 border-2 border-transparent
+                        <div class="relative flex items-center bg-white dark:bg-gray-800/90 
+                                  h-16 border border-gray-200 dark:border-gray-700
                                   rounded-2xl w-full transition-all duration-300 
-                                  shadow-lg shadow-black/5 pr-2 pl-5" :class="{
+                                  shadow-md shadow-gray-200/50 dark:shadow-black/5 pr-2 pl-5" :class="{
                                  'border-primary shadow-xl shadow-primary/20 scale-[1.02]': focused,
                                  'hover:border-gray-300 dark:hover:border-gray-600': !focused
                              }" @focusin="focused = true" @focusout="focused = false">
@@ -115,7 +116,7 @@
                             </div>
 
                             <input wire:model.live.debounce.300ms="search" class="px-4 w-full h-full outline-none border-none focus:ring-0 
-                                          placeholder:text-gray-400 text-text-dark dark:text-text-light 
+                                          placeholder:text-gray-400 text-slate-700 dark:text-slate-200 
                                           bg-transparent text-base" type="text"
                                 placeholder="Cari Perangkat Daerah (Misal: Diskominfo, Bappeda...)"
                                 x-ref="searchInput" />
@@ -129,7 +130,7 @@
                                            hover:rotate-90 group/clear">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round" class="group-hover/clear:text-red-500 transition-colors">
+                                    stroke-linejoin="round" class="group-hover/clear:text-primary transition-colors">
                                     <path d="M18 6 6 18" />
                                     <path d="m6 6 12 12" />
                                 </svg>
@@ -172,20 +173,21 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
             @forelse ($daftarPd as $index => $pd)
             <a href="{{ route('department.detail', $pd->slug) }}" wire:navigate class="group relative block bg-white dark:bg-gray-800/50 
-                      hover:shadow-2xl hover:shadow-primary/20 
-                      transition-all duration-500 border border-gray-200/50 
+                      hover:shadow-xl hover:shadow-primary/25 
+                      dark:hover:shadow-2xl dark:hover:shadow-primary/20 
+                      transition-all duration-500 border border-gray-200 
                       dark:border-gray-700/50 rounded-3xl p-6 min-h-[240px] 
-                      hover:border-primary/50 dark:hover:border-primary/50
-                      hover:-translate-y-2 backdrop-blur-sm
+                      hover:border-primary dark:hover:border-primary
+                      hover:-translate-y-2
                       overflow-hidden" style="animation: fadeInUp 0.5s ease-out {{ $index * 0.05 }}s both;">
 
                 {{-- Background gradient effect --}}
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 
                           opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                {{-- Shine effect --}}
+                {{-- Shine effect: diubah ke indigo agar cocok dengan template PrebuiltUI --}}
                 <div class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] 
-                          bg-gradient-to-r from-transparent via-white/20 to-transparent 
+                          bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent 
                           transition-transform duration-1000"></div>
 
                 <div class="flex flex-col h-full justify-between relative z-10">
@@ -199,10 +201,10 @@
                                           group-hover:scale-150"></div>
 
                                 {{-- Icon container --}}
-                                <div class="relative bg-gradient-to-br from-primary/10 to-accent/10 
+                                <div class="relative bg-gradient-to-br from-primary/15 to-accent/15 
                                           p-3.5 rounded-2xl group-hover:bg-gradient-to-br 
                                           group-hover:from-primary group-hover:to-secondary 
-                                          transition-all duration-500 shadow-lg">
+                                          transition-all duration-500 shadow-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="text-primary group-hover:text-white 
@@ -214,9 +216,9 @@
                             </div>
 
                             {{-- Badge --}}
-                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tighter 
-                                       bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm
-                                       px-3 py-1.5 rounded-full border border-gray-200/50 
+                            <span class="text-[10px] font-bold text-gray-600 uppercase tracking-tighter 
+                                       bg-white dark:bg-gray-800/80
+                                       px-3 py-1.5 rounded-full border border-gray-200 
                                        dark:border-gray-700/50 shadow-sm">
                                 <span class="bg-gradient-to-r from-primary to-accent 
                                            bg-clip-text text-transparent">
@@ -225,7 +227,7 @@
                             </span>
                         </div>
 
-                        <h3 class="text-xl font-bold text-text-dark dark:text-text-light 
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 
                                    group-hover:text-primary transition-colors duration-300
                                    line-clamp-2 min-h-[3.5rem] mb-2">
                             {{ $pd->nama_pd }}
@@ -256,24 +258,20 @@
                               flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <span class="text-xs text-gray-400 flex items-center gap-1">
-                                <span class="w-1 h-1 rounded-full bg-green-500"></span>
-                                Buka
-                            </span>
-                            <span class="text-xs text-gray-300">•</span>
-                            <span class="text-xs text-gray-400">
-                                {{ rand(50, 500) }} kunjungan
+                                <span class="w-1 h-1 rounded-full bg-primary"></span>
+                                Detail
                             </span>
                         </div>
 
                         <div class="relative">
                             <div class="absolute inset-0 bg-accent rounded-full blur-md 
-                                      opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                                      opacity-0 group-hover:opacity-60 transition-opacity"></div>
                             <div class="relative w-10 h-10 rounded-full bg-accent/10 
                                       flex items-center justify-center 
                                       group-hover:bg-gradient-to-r group-hover:from-primary 
                                       group-hover:to-secondary group-hover:text-white 
                                       group-hover:scale-110 group-hover:rotate-0 
-                                      transition-all duration-500 text-text-dark
+                                      transition-all duration-500 text-accent
                                       border border-accent/20 group-hover:border-transparent">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
@@ -292,10 +290,10 @@
                     <div class="relative mb-8">
                         <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 
                                   rounded-full blur-3xl animate-pulse"></div>
-                        <div class="relative bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
+                        <div class="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm
                                   p-8 rounded-full w-32 h-32 mx-auto
                                   flex items-center justify-center
-                                  border-4 border-gray-200/50 dark:border-gray-700/50">
+                                  border-4 border-gray-200 dark:border-gray-700/50">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-400" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
