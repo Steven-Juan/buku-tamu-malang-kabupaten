@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pd');
             $table->string('slug')->unique();
+            $table->string('email')->nullable();
             $table->string('alamat')->nullable();
             $table->string('telepon')->nullable();
             $table->string('logo')->nullable();

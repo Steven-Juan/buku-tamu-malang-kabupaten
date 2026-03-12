@@ -1,16 +1,21 @@
-<div x-data="search" class="bg-gradient-to-b from-white via-indigo-50/40 to-slate-100 
+<div x-data="search"
+    class="bg-gradient-to-b from-white via-indigo-50/40 to-slate-100
             dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
-            text-slate-800 dark:text-slate-200 min-h-screen 
+            text-slate-800 dark:text-slate-200 min-h-screen
             transition-colors duration-300 flex flex-col items-center">
 
     {{-- Hero Section --}}
     <x-hero class="bg-transparent !mb-0 !py-16 md:!py-24 w-full relative overflow-hidden">
         {{-- Animated background elements --}}
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-0 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-300/30 to-indigo-100/20 
-                      rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-indigo-200/20 to-indigo-300/20 
-                      rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+            <div
+                class="absolute top-0 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-300/30 to-indigo-100/20
+                      rounded-full blur-3xl animate-pulse">
+            </div>
+            <div
+                class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-indigo-200/20 to-indigo-300/20
+                      rounded-full blur-3xl animate-pulse animation-delay-1000">
+            </div>
             <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=" 60" height="60" viewBox="0 0 60 60"
                 xmlns="http://www.w3.org/2000/svg" %3E%3Cg fill="none" fill-rule="evenodd" %3E%3Cg fill="%230100CC"
                 fill-opacity="0.03" %3E%3Cpath
@@ -20,17 +25,20 @@
 
         <x-slot name="title">
             <div class="relative">
-                <h1 class="text-center text-4xl md:text-5xl lg:text-6xl font-extrabold 
+                <h1
+                    class="text-center text-4xl md:text-5xl lg:text-6xl font-extrabold
                          leading-[1.1] tracking-tight mx-auto px-4">
                     <span class="inline-block animate-fade-in-up">Layanan</span>
                     <br />
                     <span class="relative inline-block mt-2 animate-fade-in-up animation-delay-200">
-                        <span class="bg-gradient-to-r from-primary via-secondary to-accent 
+                        <span
+                            class="bg-gradient-to-r from-primary via-secondary to-accent
                                    bg-clip-text text-transparent italic bg-size-200 animate-gradient">
                             Buku Tamu Digital
                         </span>
-                        <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-1 
-                                   bg-gradient-to-r from-primary via-secondary to-accent 
+                        <span
+                            class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-1
+                                   bg-gradient-to-r from-primary via-secondary to-accent
                                    rounded-full scale-x-0 animate-slide-in"></span>
                         <span class="absolute -top-6 -right-6 text-2xl animate-bounce animation-delay-400">✨</span>
                         <span class="absolute -bottom-4 -left-6 text-2xl animate-bounce animation-delay-600">⭐</span>
@@ -39,14 +47,16 @@
 
                 {{-- Greeting card --}}
                 <div class="flex justify-center mt-8 animate-fade-in-up animation-delay-400">
-                    <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl
+                    <div
+                        class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl
                               bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm
                               border border-gray-200 dark:border-gray-700/50
                               shadow-md shadow-primary/5 dark:shadow-black/5">
                         <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
                             <span x-data="greeting" x-text="message"></span>
-                            , <span class="font-semibold bg-gradient-to-r from-primary to-accent 
+                            , <span
+                                class="font-semibold bg-gradient-to-r from-primary to-accent
                                         bg-clip-text text-transparent">Pengunjung</span>
                         </p>
                     </div>
@@ -56,7 +66,8 @@
 
         <x-slot name="afterTitle">
             <div class="flex flex-col items-center relative z-10">
-                <p class="text-gray-500 dark:text-gray-400 text-base md:text-lg text-center 
+                <p
+                    class="text-gray-500 dark:text-gray-400 text-base md:text-lg text-center
                          max-w-2xl mt-8 px-6 leading-relaxed font-medium mx-auto
                          animate-fade-in-up animation-delay-600">
                     Selamat datang di portal resmi pendataan kunjungan.
@@ -83,63 +94,76 @@
                     <div class="relative group" :class="{ 'scale-[1.02]': focused }">
 
                         {{-- Glow effects --}}
-                        <div class="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent 
-                                  rounded-2xl opacity-0 group-hover:opacity-40 group-focus-within:opacity-60 
-                                  transition-all blur-xl duration-500"></div>
-                        <div class="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent 
-                                  rounded-2xl opacity-0 group-hover:opacity-60 group-focus-within:opacity-80 
-                                  transition-all blur group-hover:duration-500"></div>
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent
+                                  rounded-2xl opacity-0 group-hover:opacity-40 group-focus-within:opacity-60
+                                  transition-all blur-xl duration-500">
+                        </div>
+                        <div
+                            class="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent
+                                  rounded-2xl opacity-0 group-hover:opacity-60 group-focus-within:opacity-80
+                                  transition-all blur group-hover:duration-500">
+                        </div>
 
                         {{-- Search input --}}
-                        <div class="relative flex items-center bg-white dark:bg-gray-800/90 
+                        <div class="relative flex items-center bg-white dark:bg-gray-800/90
                                   h-16 border border-gray-200 dark:border-gray-700
-                                  rounded-2xl w-full transition-all duration-300 
-                                  shadow-md shadow-gray-200/50 dark:shadow-black/5 pr-2 pl-5" :class="{
-                                 'border-primary shadow-xl shadow-primary/20 scale-[1.02]': focused,
-                                 'hover:border-gray-300 dark:hover:border-gray-600': !focused
-                             }" @focusin="focused = true" @focusout="focused = false">
+                                  rounded-2xl w-full transition-all duration-300
+                                  shadow-md shadow-gray-200/50 dark:shadow-black/5 pr-2 pl-5"
+                            :class="{
+                                'border-primary shadow-xl shadow-primary/20 scale-[1.02]': focused,
+                                'hover:border-gray-300 dark:hover:border-gray-600': !focused
+                            }"
+                            @focusin="focused = true" @focusout="focused = false">
 
                             {{-- Search icon --}}
                             <div class="relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="text-gray-400 transition-all duration-500" :class="{ 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="text-gray-400 transition-all duration-500"
+                                    :class="{
                                         'text-primary scale-110 rotate-90': focused,
                                         'group-hover:scale-110': !focused
                                     }">
                                     <circle cx="11" cy="11" r="8" />
                                     <path d="m21 21-4.34-4.34" />
                                 </svg>
-                                <span class="absolute inset-0 rounded-full bg-primary/20 
-                                           animate-ping opacity-0 group-focus-within:opacity-100" x-show="focused"
-                                    x-cloak></span>
+                                <span
+                                    class="absolute inset-0 rounded-full bg-primary/20
+                                           animate-ping opacity-0 group-focus-within:opacity-100"
+                                    x-show="focused" x-cloak></span>
                             </div>
 
-                            <input wire:model.live.debounce.300ms="search" class="px-4 w-full h-full outline-none border-none focus:ring-0 
-                                          placeholder:text-gray-400 text-slate-700 dark:text-slate-200 
-                                          bg-transparent text-base" type="text"
-                                placeholder="Cari Perangkat Daerah (Misal: Diskominfo, Bappeda...)"
+                            <input wire:model.live.debounce.300ms="search"
+                                class="px-4 w-full h-full outline-none border-none focus:ring-0
+                                          placeholder:text-gray-400 text-slate-700 dark:text-slate-200
+                                          bg-transparent text-base"
+                                type="text" placeholder="Cari Perangkat Daerah (Misal: Diskominfo, Bappeda...)"
                                 x-ref="searchInput" />
 
                             {{-- Clear button --}}
                             <button wire:click="$set('search', '')" x-show="$wire.search.length > 0" x-cloak
                                 x-transition:enter="transition ease-out duration-200"
                                 x-transition:enter-start="opacity-0 scale-50"
-                                x-transition:enter-end="opacity-100 scale-100" class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 
+                                x-transition:enter-end="opacity-100 scale-100"
+                                class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700
                                            transition-all duration-300 mr-1
                                            hover:rotate-90 group/clear">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round" class="group-hover/clear:text-primary transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="group-hover/clear:text-primary transition-colors">
                                     <path d="M18 6 6 18" />
                                     <path d="m6 6 12 12" />
                                 </svg>
                             </button>
 
                             {{-- Search button --}}
-                            <button class="px-6 py-2 bg-gradient-to-r from-primary to-secondary 
+                            <button
+                                class="px-6 py-2 bg-gradient-to-r from-primary to-secondary
                                          text-white rounded-xl font-semibold text-sm
-                                         hover:shadow-lg hover:shadow-primary/30 
+                                         hover:shadow-lg hover:shadow-primary/30
                                          transition-all duration-300 hover:scale-105
                                          active:scale-95 ml-2">
                                 Cari
@@ -148,7 +172,8 @@
                     </div>
 
                     {{-- Search stats --}}
-                    <div class="flex justify-between items-center mt-4 text-xs 
+                    <div
+                        class="flex justify-between items-center mt-4 text-xs
                               text-gray-500 dark:text-gray-400 px-2">
                         <span x-show="$wire.daftarPd.length > 0" x-transition:enter="transition ease-out duration-300"
                             x-transition:enter-start="opacity-0 translate-y-2"
@@ -172,171 +197,199 @@
     <x-container size="lg" class="pb-24 w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
             @forelse ($daftarPd as $index => $pd)
-            <a href="{{ route('department.detail', $pd->slug) }}" wire:navigate class="group relative block bg-white dark:bg-gray-800/50 
-                      hover:shadow-xl hover:shadow-primary/25 
-                      dark:hover:shadow-2xl dark:hover:shadow-primary/20 
-                      transition-all duration-500 border border-gray-200 
-                      dark:border-gray-700/50 rounded-3xl p-6 min-h-[240px] 
+                <a href="{{ route('department.detail', $pd->slug) }}" wire:navigate
+                    class="group relative block bg-white dark:bg-gray-800/50
+                      hover:shadow-xl hover:shadow-primary/25
+                      dark:hover:shadow-2xl dark:hover:shadow-primary/20
+                      transition-all duration-500 border border-gray-200
+                      dark:border-gray-700/50 rounded-3xl p-6 min-h-[240px]
                       hover:border-primary dark:hover:border-primary
                       hover:-translate-y-2
-                      overflow-hidden" style="animation: fadeInUp 0.5s ease-out {{ $index * 0.05 }}s both;">
+                      overflow-hidden"
+                    style="animation: fadeInUp 0.5s ease-out {{ $index * 0.05 }}s both;">
 
-                {{-- Background gradient effect --}}
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 
-                          opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {{-- Background gradient effect --}}
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10
+                          opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
 
-                {{-- Shine effect: diubah ke indigo agar cocok dengan template PrebuiltUI --}}
-                <div class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] 
-                          bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent 
-                          transition-transform duration-1000"></div>
+                    {{-- Shine effect: diubah ke indigo agar cocok dengan template PrebuiltUI --}}
+                    <div
+                        class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%]
+                          bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent
+                          transition-transform duration-1000">
+                    </div>
 
-                <div class="flex flex-col h-full justify-between relative z-10">
-                    {{-- Header section --}}
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="relative">
-                                {{-- Glow effect --}}
-                                <div class="absolute inset-0 bg-primary/30 rounded-2xl blur-xl 
-                                          opacity-0 group-hover:opacity-100 transition-all duration-500 
-                                          group-hover:scale-150"></div>
+                    <div class="flex flex-col h-full justify-between relative z-10">
+                        {{-- Header section --}}
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="relative">
+                                    {{-- Glow effect --}}
+                                    <div
+                                        class="absolute inset-0 bg-primary/30 rounded-2xl blur-xl
+                                          opacity-0 group-hover:opacity-100 transition-all duration-500
+                                          group-hover:scale-150">
+                                    </div>
 
-                                {{-- Icon container --}}
-                                <div class="relative bg-gradient-to-br from-primary/15 to-accent/15 
-                                          p-3.5 rounded-2xl group-hover:bg-gradient-to-br 
-                                          group-hover:from-primary group-hover:to-secondary 
+                                    {{-- Icon container --}}
+                                    <div
+                                        class="relative bg-gradient-to-br from-primary/15 to-accent/15
+                                          p-3.5 rounded-2xl group-hover:bg-gradient-to-br
+                                          group-hover:from-primary group-hover:to-secondary
                                           transition-all duration-500 shadow-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="text-primary group-hover:text-white 
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="text-primary group-hover:text-white
                                                transition-colors duration-500
                                                group-hover:scale-110 group-hover:rotate-3">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                {{-- Badge --}}
+                                <span
+                                    class="text-[10px] font-bold text-gray-600 uppercase tracking-tighter
+                                       bg-white dark:bg-gray-800/80
+                                       px-3 py-1.5 rounded-full border border-gray-200
+                                       dark:border-gray-700/50 shadow-sm">
+                                    <span
+                                        class="bg-gradient-to-r from-primary to-accent
+                                           bg-clip-text text-transparent">
+                                        PD-{{ str_pad($pd->id, 3, '0', STR_PAD_LEFT) }}
+                                    </span>
+                                </span>
+                            </div>
+
+                            <h3
+                                class="text-xl font-bold text-slate-800 dark:text-slate-200
+                                   group-hover:text-primary transition-colors duration-300
+                                   line-clamp-2 min-h-[3.5rem] mb-2">
+                                {{ $pd->nama_pd }}
+                            </h3>
+
+                            <p
+                                class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 min-h-[2.5rem]
+                                  flex items-start gap-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    class="shrink-0 mt-0.5">
+                                    <path d="M20 10c0 4.418-8 12-8 12s-8-7.582-8-12a8 8 0 1 1 16 0Z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                {{ $pd->alamat ?? 'Pemerintah Kabupaten Malang' }}
+                            </p>
+
+                            @if (isset($pd->jenis))
+                                <span
+                                    class="inline-flex items-center gap-1 mt-4 text-xs px-3 py-1
+                                   bg-gradient-to-r from-accent/10 to-primary/10
+                                   text-accent rounded-full border border-accent/20">
+                                    <span class="w-1 h-1 rounded-full bg-accent animate-pulse"></span>
+                                    {{ $pd->jenis }}
+                                </span>
+                            @endif
+                        </div>
+
+                        {{-- Footer --}}
+                        <div
+                            class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800
+                              flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-gray-400 flex items-center gap-1">
+                                    <span class="w-1 h-1 rounded-full bg-green-500"></span>
+                                    Buka
+                                </span>
+                                <span class="text-xs text-gray-300">•</span>
+                                <span class="text-xs text-gray-400">
+                                    {{ number_format($pd->guests_count, 0, ',', '.') }} kunjungan
+                                </span>
+                            </div>
+
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-0 bg-accent rounded-full blur-md
+                                      opacity-0 group-hover:opacity-60 transition-opacity">
+                                </div>
+                                <div
+                                    class="relative w-10 h-10 rounded-full bg-accent/10
+                                      flex items-center justify-center
+                                      group-hover:bg-gradient-to-r group-hover:from-primary
+                                      group-hover:to-secondary group-hover:text-white
+                                      group-hover:scale-110 group-hover:rotate-0
+                                      transition-all duration-500 text-accent
+                                      border border-accent/20 group-hover:border-transparent">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="group-hover:translate-x-1 transition-transform duration-300">
+                                        <path d="m9 18 6-6-6-6" />
                                     </svg>
                                 </div>
                             </div>
-
-                            {{-- Badge --}}
-                            <span class="text-[10px] font-bold text-gray-600 uppercase tracking-tighter 
-                                       bg-white dark:bg-gray-800/80
-                                       px-3 py-1.5 rounded-full border border-gray-200 
-                                       dark:border-gray-700/50 shadow-sm">
-                                <span class="bg-gradient-to-r from-primary to-accent 
-                                           bg-clip-text text-transparent">
-                                    PD-{{ str_pad($pd->id, 3, '0', STR_PAD_LEFT) }}
-                                </span>
-                            </span>
-                        </div>
-
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 
-                                   group-hover:text-primary transition-colors duration-300
-                                   line-clamp-2 min-h-[3.5rem] mb-2">
-                            {{ $pd->nama_pd }}
-                        </h3>
-
-                        <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 min-h-[2.5rem]
-                                  flex items-start gap-1.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 mt-0.5">
-                                <path d="M20 10c0 4.418-8 12-8 12s-8-7.582-8-12a8 8 0 1 1 16 0Z" />
-                                <circle cx="12" cy="10" r="3" />
-                            </svg>
-                            {{ $pd->alamat ?? 'Pemerintah Kabupaten Malang' }}
-                        </p>
-
-                        @if(isset($pd->jenis))
-                        <span class="inline-flex items-center gap-1 mt-4 text-xs px-3 py-1 
-                                   bg-gradient-to-r from-accent/10 to-primary/10 
-                                   text-accent rounded-full border border-accent/20">
-                            <span class="w-1 h-1 rounded-full bg-accent animate-pulse"></span>
-                            {{ $pd->jenis }}
-                        </span>
-                        @endif
-                    </div>
-
-                    {{-- Footer --}}
-                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800
-                              flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-400 flex items-center gap-1">
-                                <span class="w-1 h-1 rounded-full bg-primary"></span>
-                                Detail
-                            </span>
-                        </div>
-
-                        <div class="relative">
-                            <div class="absolute inset-0 bg-accent rounded-full blur-md 
-                                      opacity-0 group-hover:opacity-60 transition-opacity"></div>
-                            <div class="relative w-10 h-10 rounded-full bg-accent/10 
-                                      flex items-center justify-center 
-                                      group-hover:bg-gradient-to-r group-hover:from-primary 
-                                      group-hover:to-secondary group-hover:text-white 
-                                      group-hover:scale-110 group-hover:rotate-0 
-                                      transition-all duration-500 text-accent
-                                      border border-accent/20 group-hover:border-transparent">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="group-hover:translate-x-1 transition-transform duration-300">
-                                    <path d="m9 18 6-6-6-6" />
-                                </svg>
-                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
             @empty
-            <div class="col-span-full py-20 text-center">
-                <div class="max-w-md mx-auto">
-                    <div class="relative mb-8">
-                        <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 
-                                  rounded-full blur-3xl animate-pulse"></div>
-                        <div class="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm
+                <div class="col-span-full py-20 text-center">
+                    <div class="max-w-md mx-auto">
+                        <div class="relative mb-8">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20
+                                  rounded-full blur-3xl animate-pulse">
+                            </div>
+                            <div
+                                class="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm
                                   p-8 rounded-full w-32 h-32 mx-auto
                                   flex items-center justify-center
                                   border-4 border-gray-200 dark:border-gray-700/50">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-400" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-400"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
                         </div>
-                    </div>
 
-                    <h4 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">
-                        Instansi Tidak Ditemukan
-                    </h4>
+                        <h4 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">
+                            Instansi Tidak Ditemukan
+                        </h4>
 
-                    <p class="text-gray-500 mb-6">
-                        @if(!empty($search))
-                        Tidak ada hasil untuk "{{ $search }}". Coba gunakan kata kunci lain.
-                        @else
-                        Belum ada data instansi yang tersedia.
-                        @endif
-                    </p>
+                        <p class="text-gray-500 mb-6">
+                            @if (!empty($search))
+                                Tidak ada hasil untuk "{{ $search }}". Coba gunakan kata kunci lain.
+                            @else
+                                Belum ada data instansi yang tersedia.
+                            @endif
+                        </p>
 
-                    @if(!empty($search))
-                    <button wire:click="$set('search', '')" class="px-6 py-3 bg-gradient-to-r from-primary to-secondary 
+                        @if (!empty($search))
+                            <button wire:click="$set('search', '')"
+                                class="px-6 py-3 bg-gradient-to-r from-primary to-secondary
                                    text-white rounded-xl font-semibold
-                                   hover:shadow-lg hover:shadow-primary/30 
+                                   hover:shadow-lg hover:shadow-primary/30
                                    transition-all duration-300 hover:scale-105
                                    active:scale-95 inline-flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5">
-                            <path d="M3 12h4l3-3 3 3h4" />
-                            <path d="M5 6v3h14V6" />
-                        </svg>
-                        Reset pencarian
-                    </button>
-                    @endif
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M3 12h4l3-3 3 3h4" />
+                                    <path d="M5 6v3h14V6" />
+                                </svg>
+                                Reset pencarian
+                            </button>
+                        @endif
+                    </div>
                 </div>
-            </div>
             @endforelse
         </div>
 
-        @if(method_exists($daftarPd, 'links'))
-        <div class="mt-12">
-            {{ $daftarPd->links() }}
-        </div>
+        @if (method_exists($daftarPd, 'links'))
+            <div class="mt-12">
+                {{ $daftarPd->links() }}
+            </div>
         @endif
     </x-container>
 </div>

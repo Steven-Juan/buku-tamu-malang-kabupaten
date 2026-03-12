@@ -13,7 +13,8 @@ class Home extends Component
     public function render()
     {
         // Cari perangkat daerah berdasarkan nama yang diketik, atau tampilkan semua jika kosong
-        $daftarPd = PerangkatDaerah::where('nama_pd', 'like', '%'.$this->search.'%')
+        $daftarPd = PerangkatDaerah::withCount('guests')
+            ->where('nama_pd', 'like', '%'.$this->search.'%')
             ->orderBy('nama_pd')
             ->get();
 

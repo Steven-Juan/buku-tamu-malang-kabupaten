@@ -83,7 +83,12 @@ class PerangkatDaerahResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
-
+                                Forms\Components\TextInput::make('email')
+                                    ->label('Alamat Email Resmi')
+                                    ->email()
+                                    ->placeholder('dinas@malangkab.go.id')
+                                    ->required()
+                                    ->maxLength(255),
                                 Forms\Components\Textarea::make('alamat')
                                     ->placeholder('Masukkan alamat lengkap kantor')
                                     ->required()
@@ -138,6 +143,11 @@ class PerangkatDaerahResource extends Resource
                 Tables\Columns\TextColumn::make('nama_pd')
                     ->label('Nama Instansi')
                     ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->icon('heroicon-m-envelope')
                     ->searchable(),
 
                 Tables\Columns\ImageColumn::make('logo')
