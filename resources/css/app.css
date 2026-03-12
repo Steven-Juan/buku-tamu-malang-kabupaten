@@ -38,12 +38,6 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
 @layer components {
     /* Button animation - TETAP SEPERTI ASLINYA */
     .button-bg-animate {
@@ -74,15 +68,12 @@
             var(--accent)
         ) !important;
     }
-
-    /* Additional utility classes untuk elemen lain */
-    .glass-effect {
-        @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-md 
-               border border-white/20 dark:border-gray-800/50
-               shadow-lg shadow-black/5;
-    }
-
-    .hover-lift {
-        @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
-    }
 }
+
+/* Import semua file CSS tambahan - pindahkan ke sini */
+@import './animations/buttons.css';
+@import './animations/cards.css';
+@import './animations/effects.css';
+@import './components/header.css';
+@import './components/footer.css';
+@import './utilities/scrollbar.css';

@@ -1,0 +1,44 @@
+@layer components {
+    .footer {
+        @apply py-8 mt-12 border-t bg-gradient-to-b from-gray-50/50 to-white 
+               dark:from-gray-900/50 dark:to-gray-900;
+    }
+
+    .footer-container {
+        @apply flex flex-col md:flex-row justify-between items-center gap-4;
+    }
+
+    .footer-copyright {
+        @apply text-sm text-gray-500 dark:text-gray-400 order-2 md:order-1;
+    }
+
+    .footer-copyright-text {
+        @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-semibold;
+    }
+
+    .footer-links {
+        @apply flex items-center gap-6 order-1 md:order-2;
+    }
+
+    .footer-link {
+        @apply text-xs text-gray-400 hover:text-primary transition-colors 
+               relative group;
+    }
+
+    .footer-link-underline {
+        @apply absolute -bottom-1 left-0 w-full h-px bg-primary scale-x-0 
+               group-hover:scale-x-100 transition-transform;
+    }
+
+    .footer-divider {
+        @apply text-gray-300 dark:text-gray-700;
+    }
+
+    .footer-version {
+        @apply text-xs text-gray-400 order-3;
+    }
+
+    .footer-decorative {
+        @apply mt-6 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent;
+    }
+}

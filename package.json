@@ -6,6 +6,8 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@alpinejs/intersect": "^3.15.8",
+    "@alpinejs/persist": "^3.15.8",
     "@ryangjchandler/alpine-tooltip": "^2.0.0",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.19",
@@ -17,6 +19,7 @@
     "vite": "^6.0.11"
   },
   "dependencies": {
+    "alpinejs": "^3.15.8",
     "tippy.js": "^6.3.7"
   }
 }
