@@ -38,6 +38,7 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
 @layer components {
     /* Button animation - TETAP SEPERTI ASLINYA */
     .button-bg-animate {
@@ -70,8 +71,7 @@
     }
 }
 
-/* Import semua file CSS tambahan - pindahkan ke sini */
-@import './animations/buttons.css';
+/* Import semua file CSS tambahan */
 @import './animations/cards.css';
 @import './animations/effects.css';
 @import './components/header.css';
