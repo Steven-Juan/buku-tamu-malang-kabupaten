@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="{{ asset('logos/logo_kabmalang.svg') }}">
     {{ seo()->render() }}
 
     @stack('head')
@@ -15,9 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }"
-    x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))"
-    :class="{ 'dark': darkMode }"
+<body x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }" x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))" :class="{ 'dark': darkMode }"
     class="font-sans text-base leading-normal tracking-tight text-text-dark bg-light dark:bg-dark dark:text-text-light antialiased transition-colors duration-300">
 
     <div class="flex flex-col min-h-screen">
