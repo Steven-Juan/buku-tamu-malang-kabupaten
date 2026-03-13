@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use Awcodes\Curator\Models\Media; // Pastikan ada titik koma di sini
-use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\User; // Pastikan ada titik koma di sini
+use Awcodes\Curator\Models\Media;
 
 class MediaPolicy
 {

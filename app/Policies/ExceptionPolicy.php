@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use BezhanSalleh\FilamentExceptions\Models\Exception; // Perbaikan: Namespace vendor yang benar
-use Illuminate\Auth\Access\Response;
 
 class ExceptionPolicy
 {

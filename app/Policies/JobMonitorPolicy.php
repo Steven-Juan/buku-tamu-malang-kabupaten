@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use Croustibat\FilamentJobsMonitor\Models\QueueMonitor; // Perbaikan: Namespace vendor yang benar
-use Illuminate\Auth\Access\Response;
 
 class JobMonitorPolicy
 {
