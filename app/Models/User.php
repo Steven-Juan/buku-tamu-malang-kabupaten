@@ -55,7 +55,18 @@ class User extends Authenticatable implements FilamentUser
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        // Kondisi 1: Super Admin (perangkat_daerah_id kosong) boleh akses semua
+        if ($this->perangkat_daerah_id === null) {
+            return true;
+        }
+
+        // Kondisi 2: Admin PD hanya boleh masuk ke panel 'admin' (atau id panel Anda)
+        // Dan pastikan mereka memang memiliki ID Perangkat Daerah
+        if ($panel->getId() === 'admin') {
+            return $this->perangkat_daerah_id !== null;
+        }
+
+        return false;
     }
 
     /**
