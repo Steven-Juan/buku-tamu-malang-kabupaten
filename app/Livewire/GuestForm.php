@@ -12,18 +12,29 @@ class GuestForm extends Component
     use WithFileUploads;
 
     public $instansiTujuan;
+
     public $currentStep = 1;
 
     // Step 1: Identitas
-    public $nama, $asal_instansi, $keperluan, $pesan_kesan;
+    public $nama;
+
+    public $asal_instansi;
+
+    public $keperluan;
+
+    public $pesan_kesan;
 
     // Step 2: Avatar & TTD
     public $selectedAvatar = 'man-young.png';
+
     public $ttd_digital;
 
     // Step 3: Captcha (Simulasi sederhana)
     public $captcha_answer;
-    public $captcha_val1, $captcha_val2;
+
+    public $captcha_val1;
+
+    public $captcha_val2;
 
     public function mount($slug)
     {
@@ -51,7 +62,7 @@ class GuestForm extends Component
                 'selectedAvatar' => 'required',
             ]);
         }
-        
+
         $this->currentStep++;
     }
 
@@ -63,11 +74,12 @@ class GuestForm extends Component
     public function submit()
     {
         $this->validate([
-            'captcha_answer' => 'required|numeric'
+            'captcha_answer' => 'required|numeric',
         ]);
 
         if (intval($this->captcha_answer) !== ($this->captcha_val1 + $this->captcha_val2)) {
             $this->addError('captcha_answer', 'Jawaban captcha salah.');
+
             return;
         }
 
@@ -77,11 +89,12 @@ class GuestForm extends Component
             'asal_instansi' => $this->asal_instansi,
             'keperluan' => $this->keperluan,
             'pesan_kesan' => $this->pesan_kesan,
-            'foto' => 'avatars/' . $this->selectedAvatar,
+            'foto' => 'avatars/'.$this->selectedAvatar,
             'ttd_digital' => $this->ttd_digital,
         ]);
 
         session()->flash('success', 'Data berhasil dikirim!');
+
         return redirect()->route('home');
     }
 
