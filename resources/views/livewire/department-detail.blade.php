@@ -1,16 +1,8 @@
-<div x-data="{ 
-        activeTab: 'qr',
-        showCopyNotification: false,
-        stats: {
-            visitors: {{ $totalKunjungan }},
-            today: {{ $kunjunganHariIni ?? 0 }},
-            week: {{ $kunjunganMingguIni ?? 0 }}
-        }
-    }"
+<section
     class="bg-light dark:bg-dark text-text-dark dark:text-text-light min-h-screen transition-colors duration-300 flex flex-col items-center">
 
     {{-- HERO SECTION with animated background --}}
-    <x-hero class="bg-transparent !mb-0 !py-16 md:!py-24 w-full relative overflow-hidden">
+    <div class="w-full relative overflow-hidden bg-transparent py-16 md:py-24">
 
         {{-- Animated background elements --}}
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -23,111 +15,71 @@
             </div>
         </div>
 
-        <x-slot name="title">
-            <div class="relative animate-fade-in-up">
-                {{-- Badge instansi --}}
-                <div class="flex justify-center mb-4">
+        {{-- Title Section --}}
+        <div class="relative animate-fade-in-up px-4">
+            {{-- Badge instansi --}}
+            <div class="flex justify-center mb-4">
+                <span
+                    class="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-bold px-4 py-2 rounded-full border border-primary/20">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    PERANGKAT DAERAH
+                </span>
+            </div>
+
+            <h1
+                class="text-center text-text-dark dark:text-text-light text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mx-auto px-4">
+                Portal
+                <span class="relative inline-block">
                     <span
-                        class="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-bold px-4 py-2 rounded-full border border-primary/20">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        PERANGKAT DAERAH
+                        class="bg-gradient-to-r from-[#0100CC] via-[#0166FE] to-[#18D1FF] bg-clip-text text-transparent italic">
+                        {{ $instansiTujuan->nama_pd }}
                     </span>
-                </div>
+                    {{-- Animated underline --}}
+                    <span
+                        class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#0100CC] via-[#0166FE] to-[#18D1FF] rounded-full scale-x-0 animate-slide-in"></span>
+                </span>
+            </h1>
 
-                <h1
-                    class="text-center text-text-dark dark:text-text-light text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mx-auto px-4">
-                    Portal
-                    <span class="relative inline-block">
-                        <span
-                            class="bg-gradient-to-r from-[#0100CC] via-[#0166FE] to-[#18D1FF] bg-clip-text text-transparent italic">
-                            {{ $instansiTujuan->nama_pd }}
-                        </span>
-                        {{-- Animated underline --}}
-                        <span
-                            class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#0100CC] via-[#0166FE] to-[#18D1FF] rounded-full scale-x-0 animate-slide-in"></span>
-                    </span>
-                </h1>
-
-                {{-- Info tambahan instansi --}}
-                @if($instansiTujuan->alamat || $instansiTujuan->kontak)
-                <div class="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-500 dark:text-gray-400">
-                    @if($instansiTujuan->alamat)
-                    <div class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span>{{ $instansiTujuan->alamat }}</span>
-                    </div>
-                    @endif
-
-                    @if($instansiTujuan->kontak)
-                    <div class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        <span>{{ $instansiTujuan->kontak }}</span>
-                    </div>
-                    @endif
-                </div>
-                @endif
-            </div>
-        </x-slot>
-
-        <x-slot name="afterTitle">
-            <div class="flex flex-col items-center relative z-10 animate-fade-in-up animation-delay-400">
-                <p
-                    class="text-gray-500 dark:text-gray-400 text-base md:text-lg text-center max-w-2xl mt-6 px-6 leading-relaxed font-medium mx-auto">
-                    Silakan scan QR Code atau klik tombol di bawah untuk mengisi buku tamu digital
-                    pada instansi ini.
-                </p>
-
-                {{-- Back button with improved design --}}
-                <div class="mt-8 group">
-                    <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-primary 
-                               transition-all duration-300 hover:gap-3 gap-2 bg-gray-100 dark:bg-gray-800 
-                               px-4 py-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-                        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        <span>Kembali ke Beranda</span>
-                    </a>
+            {{-- Info tambahan instansi --}}
+            <div class="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-500 dark:text-gray-400">
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Pemerintah Kabupaten Malang</span>
                 </div>
             </div>
-        </x-slot>
-    </x-hero>
+
+            {{-- Back button with improved design --}}
+            <div class="flex justify-center mt-8 group">
+                <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-primary 
+                           transition-all duration-300 hover:gap-3 gap-2 bg-gray-100 dark:bg-gray-800 
+                           px-4 py-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span>Kembali ke Beranda</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     {{-- CONTENT SECTION --}}
-    <x-container size="lg" class="pb-24 w-full">
+    <div class="w-full max-w-6xl px-4 pb-24">
 
-        {{-- Tab Navigation for Mobile (optional) --}}
-        <div class="flex md:hidden justify-center mb-6 gap-2">
-            <button @click="activeTab = 'qr'" class="px-4 py-2 rounded-full text-sm font-bold transition-all"
-                :class="activeTab === 'qr' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'">
-                QR Code
-            </button>
-            <button @click="activeTab = 'stats'" class="px-4 py-2 rounded-full text-sm font-bold transition-all"
-                :class="activeTab === 'stats' ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'">
-                Statistik
-            </button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {{-- LEFT COLUMN: QR CODE CARD --}}
-            <div x-show="activeTab === 'qr' || window.innerWidth >= 768"
-                x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
-                x-transition:enter-end="opacity-100 scale-100" class="md:block">
-
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {{-- QR CODE CARD --}}
+            <div class="md:col-span-1">
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 
                           hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group/qr
-                          relative overflow-hidden">
+                          relative overflow-hidden h-full flex flex-col">
 
                     {{-- Decorative elements --}}
                     <div
@@ -139,35 +91,10 @@
 
                     {{-- Header --}}
                     <div class="relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full 
-                                       shadow-lg shadow-primary/30">
-                                PORTAL LAYANAN TAMU
-                            </span>
-
-                            {{-- Copy link button --}}
-                            <button @click="
-                                    navigator.clipboard.writeText(window.location.href);
-                                    showCopyNotification = true;
-                                    setTimeout(() => showCopyNotification = false, 2000);
-                                " class="text-gray-400 hover:text-primary transition-colors relative">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-
-                                {{-- Notification toast --}}
-                                <div x-show="showCopyNotification" x-transition:enter="transition ease-out duration-200"
-                                    x-transition:enter-start="opacity-0 translate-y-1"
-                                    x-transition:enter-end="opacity-100 translate-y-0"
-                                    x-transition:leave="transition ease-in duration-150"
-                                    x-transition:leave-start="opacity-100 translate-y-0"
-                                    x-transition:leave-end="opacity-0 translate-y-1"
-                                    class="absolute top-full right-0 mt-2 bg-gray-900 text-white text-xs py-1 px-2 rounded shadow-lg whitespace-nowrap">
-                                    Link disalin!
-                                </div>
-                            </button>
-                        </div>
+                        <span class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full 
+                                   shadow-lg shadow-primary/30 inline-block mb-6">
+                            PORTAL LAYANAN TAMU
+                        </span>
 
                         <h2
                             class="text-2xl font-bold text-text-dark dark:text-text-light mb-2 group-hover/qr:text-primary transition-colors">
@@ -184,13 +111,13 @@
                     </div>
 
                     {{-- QR Code with animation --}}
-                    <div class="relative flex justify-center mb-8">
+                    <div class="relative flex justify-center mb-8 flex-1">
                         <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl 
                                   group-hover/qr:blur-3xl transition-all opacity-50 group-hover/qr:opacity-70"></div>
 
                         <div class="relative bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 
                                   group-hover/qr:scale-105 group-hover/qr:rotate-1 transition-all duration-500">
-                            <div class="w-[220px] h-[220px] md:w-[250px] md:h-[250px]">
+                            <div class="w-[200px] h-[200px]">
                                 {!! $qrCode !!}
                             </div>
 
@@ -205,15 +132,15 @@
                         </div>
                     </div>
 
-                    {{-- Instruction and CTA --}}
-                    <div class="relative z-10 text-center">
-                        <p class="text-sm text-gray-500 mb-6 max-w-xs mx-auto flex items-center justify-center gap-2">
+                    {{-- CTA Button --}}
+                    <div class="relative z-10">
+                        <p class="text-sm text-gray-500 mb-4 text-center flex items-center justify-center gap-2">
                             <svg class="w-5 h-5 text-primary animate-pulse" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
-                            Scan QR Code di atas menggunakan kamera HP Anda
+                            Scan QR Code di atas atau isi manual
                         </p>
 
                         <a href="{{ route('guest.form', $instansiTujuan->slug) }}" wire:navigate class="group/btn w-full py-4 bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary 
@@ -232,11 +159,8 @@
             </div>
 
             {{-- RIGHT COLUMN: STATISTICS + HISTORY --}}
-            <div x-show="activeTab === 'stats' || window.innerWidth >= 768"
-                x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
-                x-transition:enter-end="opacity-100 scale-100" class="flex flex-col gap-6">
-
-                {{-- STATISTICS CARD with counter animation --}}
+            <div class="md:col-span-2 flex flex-col gap-6">
+                {{-- STATISTICS CARD --}}
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 
                           hover:shadow-2xl transition-all duration-500 group/stats">
 
@@ -265,44 +189,23 @@
                         </span>
                     </div>
 
-                    {{-- Main stat --}}
-                    <div class="mb-6 p-4 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl">
-                        <div class="flex items-end gap-3">
+                    {{-- Stats grid --}}
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="p-4 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl text-center">
                             <span
-                                class="text-5xl md:text-6xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
-                                x-text="stats.visitors" x-init="
-                                    let start = 0;
-                                    let end = {{ $totalKunjungan }};
-                                    let duration = 1500;
-                                    let increment = end / (duration / 16);
-                                    
-                                    function animate() {
-                                        start += increment;
-                                        if (start < end) {
-                                            stats.visitors = Math.floor(start);
-                                            requestAnimationFrame(animate);
-                                        } else {
-                                            stats.visitors = end;
-                                        }
-                                    }
-                                    animate();
-                                  ">
+                                class="text-3xl md:text-4xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                                 {{ $totalKunjungan }}
                             </span>
-                            <span class="text-gray-500 font-medium mb-2">
-                                Total Kunjungan
-                            </span>
+                            <p class="text-xs text-gray-500 mt-1">Total Kunjungan</p>
                         </div>
-                    </div>
 
-                    {{-- Additional stats --}}
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                            <span class="text-2xl font-bold text-primary" x-text="stats.today">0</span>
+                        <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                            <span class="text-2xl font-bold text-secondary">{{ $kunjunganHariIni }}</span>
                             <p class="text-xs text-gray-500">Hari Ini</p>
                         </div>
-                        <div class="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                            <span class="text-2xl font-bold text-accent" x-text="stats.week">0</span>
+
+                        <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                            <span class="text-2xl font-bold text-blue-500">{{ $kunjunganMingguIni }}</span>
                             <p class="text-xs text-gray-500">Minggu Ini</p>
                         </div>
                     </div>
@@ -332,10 +235,7 @@
 
                     <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                         @forelse($riwayatTerbaru as $index => $tamu)
-                        <div x-show="true" x-transition:enter="transition ease-out duration-300"
-                            x-transition:enter-start="opacity-0 translate-x-4"
-                            x-transition:enter-end="opacity-100 translate-x-0" x-transition:delay="{{ $index * 50 }}ms"
-                            class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 
+                        <div class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 
                                     transition-all group/item">
 
                             {{-- Avatar with gradient --}}
@@ -347,7 +247,6 @@
                                         {{ substr($tamu->nama, 0, 1) }}
                                     </span>
                                 </div>
-                                {{-- Online indicator --}}
                                 <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white 
                                            dark:border-gray-800 rounded-full"></span>
                             </div>
@@ -383,14 +282,10 @@
                                 </div>
                             </div>
 
-                            {{-- View details icon on hover --}}
-                            <button class="opacity-0 group-hover/item:opacity-100 transition-opacity">
-                                <svg class="w-4 h-4 text-gray-400 hover:text-primary" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
+                            <div class="text-right">
+                                <p class="text-[10px] font-bold text-primary uppercase">
+                                    {{ $tamu->created_at->format('H:i') }}</p>
+                            </div>
                         </div>
                         @empty
                         <div class="text-center py-12">
@@ -423,8 +318,8 @@
                 </div>
             </div>
         </div>
-    </x-container>
-</div>
+    </div>
+</section>
 
 {{-- Add custom styles --}}
 @push('styles')
@@ -441,6 +336,40 @@
 
 .animate-slow-spin {
     animation: slow-spin 20s linear infinite;
+}
+
+.animation-delay-1000 {
+    animation-delay: 1000ms;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: scaleX(0);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+.animate-slide-in {
+    animation: slide-in 0.8s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -468,13 +397,4 @@
     background: #718096;
 }
 </style>
-@endpush
-
-@push('scripts')
-<script>
-// Optional: Add smooth counter animation when stats change
-document.addEventListener('livewire:load', function() {
-    // Any additional JavaScript can go here
-});
-</script>
 @endpush
