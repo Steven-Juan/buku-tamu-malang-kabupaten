@@ -4,13 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Guest;
 use App\Models\PerangkatDaerah;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class GuestForm extends Component
 {
-    use WithFileUploads;
-
     public $instansiTujuan;
 
     public $currentStep = 1;
@@ -24,12 +23,16 @@ class GuestForm extends Component
 
     public $pesan_kesan;
 
-    // Step 2: Avatar & TTD
+    // Step 2: Avatar / Kamera & TTD
+    public $foto_metode = 'avatar'; // Pilihan: 'avatar' atau 'kamera'
+
     public $selectedAvatar = 'man-young.png';
+
+    public $foto_base64; // Menampung data kamera
 
     public $ttd_digital;
 
-    // Step 3: Captcha (Simulasi sederhana)
+    // Step 3: Captcha
     public $captcha_answer;
 
     public $captcha_val1;
@@ -46,6 +49,7 @@ class GuestForm extends Component
     {
         $this->captcha_val1 = rand(1, 10);
         $this->captcha_val2 = rand(1, 10);
+        $this->captcha_answer = ''; // Reset jawaban jika generate ulang
     }
 
     public function nextStep()
@@ -59,8 +63,18 @@ class GuestForm extends Component
         } elseif ($this->currentStep == 2) {
             $this->validate([
                 'ttd_digital' => 'required',
-                'selectedAvatar' => 'required',
             ]);
+
+            // Validasi khusus berdasarkan metode foto yang dipilih
+            if ($this->foto_metode === 'avatar' && empty($this->selectedAvatar)) {
+                $this->addError('selectedAvatar', 'Silakan pilih avatar.');
+
+                return;
+            } elseif ($this->foto_metode === 'kamera' && empty($this->foto_base64)) {
+                $this->addError('foto_base64', 'Silakan ambil foto terlebih dahulu.');
+
+                return;
+            }
         }
 
         $this->currentStep++;
@@ -79,8 +93,25 @@ class GuestForm extends Component
 
         if (intval($this->captcha_answer) !== ($this->captcha_val1 + $this->captcha_val2)) {
             $this->addError('captcha_answer', 'Jawaban captcha salah.');
+            $this->generateCaptcha(); // Generate ulang agar aman
 
             return;
+        }
+
+        // Proses penyimpanan Foto (Avatar vs Kamera)
+        $fotoPath = '';
+        if ($this->foto_metode === 'avatar') {
+            $fotoPath = 'images/avatars/'.$this->selectedAvatar; // Simpan path avatar
+        } else {
+            // Konversi Base64 dari kamera menjadi file fisik agar terbaca di Filament
+            if (preg_match('/^data:image\/(\w+);base64,/', $this->foto_base64, $type)) {
+                $data = substr($this->foto_base64, strpos($this->foto_base64, ',') + 1);
+                $type = strtolower($type[1]);
+                $data = base64_decode($data);
+                $filename = 'guests/photos/'.Str::uuid().'.'.$type;
+                Storage::disk('public')->put($filename, $data);
+                $fotoPath = $filename;
+            }
         }
 
         Guest::create([
@@ -89,13 +120,13 @@ class GuestForm extends Component
             'asal_instansi' => $this->asal_instansi,
             'keperluan' => $this->keperluan,
             'pesan_kesan' => $this->pesan_kesan,
-            'foto' => 'avatars/'.$this->selectedAvatar,
+            'foto' => $fotoPath,
             'ttd_digital' => $this->ttd_digital,
         ]);
 
-        session()->flash('success', 'Data berhasil dikirim!');
-
-        return redirect()->route('home');
+        // Memicu event Javascript untuk pop-up sukses dan berikan URL kembalinya
+        $redirectUrl = route('department.detail', $this->instansiTujuan->slug);
+        $this->dispatch('tamu-berhasil-disimpan', redirect_url: $redirectUrl);
     }
 
     public function render()
