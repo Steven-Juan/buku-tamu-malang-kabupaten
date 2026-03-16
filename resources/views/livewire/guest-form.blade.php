@@ -96,20 +96,26 @@
                     @endif
                 </div>
 
-                <div x-data="signaturePad(@entangle('ttd_digital'))" class="pt-6 border-t border-gray-100">
-                    <div class="flex items-center justify-between mb-2">
-                        <label class="block font-bold text-lg">Goreskan Tanda Tangan Anda *</label>
-                        <button type="button" @click="clear()"
-                            class="text-xs font-semibold text-red-500 bg-red-50 px-3 py-1 rounded-full hover:bg-red-100 transition-colors">Ulangi
-                            Tanda Tangan</button>
+                <div class="pt-6 border-t border-gray-100">
+                    <label class="block font-bold text-lg mb-2">Goreskan Tanda Tangan Anda *</label>
+
+                    <div wire:ignore x-data="signaturePad(@entangle('ttd_digital'))">
+                        <div class="flex justify-end mb-2">
+                            <button type="button" @click="clear()"
+                                class="text-xs font-semibold text-red-500 bg-red-50 px-3 py-1 rounded-full hover:bg-red-100 transition-colors">
+                                Ulangi Tanda Tangan
+                            </button>
+                        </div>
+                        <div
+                            class="relative w-full h-48 bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl overflow-hidden">
+                            <canvas x-ref="canvas" @mousedown="start" @mousemove="draw" @mouseup="stop"
+                                @mouseleave="stop" @touchstart.prevent="start" @touchmove.prevent="draw"
+                                @touchend.prevent="stop" class="absolute top-0 left-0 w-full h-full cursor-crosshair"
+                                style="touch-action: none;">
+                            </canvas>
+                        </div>
                     </div>
-                    <div
-                        class="relative w-full h-48 bg-gray-50 border-2 border-dashed border-gray-300 rounded-2xl overflow-hidden">
-                        <canvas x-ref="canvas" @mousedown="start" @mousemove="draw" @mouseup="stop" @mouseleave="stop"
-                            @touchstart.prevent="start" @touchmove.prevent="draw" @touchend.prevent="stop"
-                            class="absolute top-0 left-0 w-full h-full cursor-crosshair"
-                            style="touch-action: none;"></canvas>
-                    </div>
+
                     @error('ttd_digital') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                 </div>
             </div>
