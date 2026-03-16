@@ -32,24 +32,9 @@ class GuestForm extends Component
 
     public $ttd_digital;
 
-    // Step 3: Captcha
-    public $captcha_answer;
-
-    public $captcha_val1;
-
-    public $captcha_val2;
-
     public function mount($slug)
     {
         $this->instansiTujuan = PerangkatDaerah::where('slug', $slug)->firstOrFail();
-        $this->generateCaptcha();
-    }
-
-    public function generateCaptcha()
-    {
-        $this->captcha_val1 = rand(1, 10);
-        $this->captcha_val2 = rand(1, 10);
-        $this->captcha_answer = ''; // Reset jawaban jika generate ulang
     }
 
     public function nextStep()
@@ -85,18 +70,15 @@ class GuestForm extends Component
         $this->currentStep--;
     }
 
+    public $turnstile_token;
+
     public function submit()
     {
         $this->validate([
-            'captcha_answer' => 'required|numeric',
+            'turnstile_token' => 'required|turnstile',
+            'turnstile_token.required' => 'Silakan centang verifikasi keamanan.',
+            'turnstile_token.turnstile' => 'Verifikasi keamanan gagal, silakan coba lagi.',
         ]);
-
-        if (intval($this->captcha_answer) !== ($this->captcha_val1 + $this->captcha_val2)) {
-            $this->addError('captcha_answer', 'Jawaban captcha salah.');
-            $this->generateCaptcha(); // Generate ulang agar aman
-
-            return;
-        }
 
         // Proses penyimpanan Foto (Avatar vs Kamera)
         $fotoPath = '';
