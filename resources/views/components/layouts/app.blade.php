@@ -16,18 +16,23 @@
 </head>
 
 <body x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }" x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))" :class="{ 'dark': darkMode }"
-    class="font-sans text-base leading-normal tracking-tight text-text-dark bg-light dark:bg-dark dark:text-text-light antialiased transition-colors duration-300">
+    class="font-sans text-base leading-normal tracking-tight text-text-dark dark:text-text-light antialiased transition-colors duration-300">
+    <div
+        class="min-h-screen
+            bg-gradient-to-b
+            from-white via-indigo-50/40 to-slate-100
+            dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+        <div class="flex flex-col min-h-screen">
+            <x-sections.header />
+            <main class="flex-1 pt-28">
+                {{ $slot }}
+            </main>
+            <x-sections.footer />
+        </div>
 
-    <div class="flex flex-col min-h-screen">
-        <x-sections.header />
-        <main class="flex-1 pt-28">
-            {{ $slot }}
-        </main>
-        <x-sections.footer />
+        @livewireScriptConfig
+        @stack('scripts')
     </div>
-
-    @livewireScriptConfig
-    @stack('scripts')
 </body>
 
 </html>

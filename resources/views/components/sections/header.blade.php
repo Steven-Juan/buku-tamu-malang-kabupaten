@@ -3,9 +3,9 @@
 <header x-data="header" class="fixed top-4 left-0 right-0 z-50 transition-all duration-500">
     <x-container size="lg">
         <nav class="flex items-center justify-between px-4 md:px-6 py-3 rounded-2xl transition-all duration-500
-                    bg-white/80 dark:bg-gray-900/80 backdrop-blur-md
-                    border border-white/20 dark:border-gray-800/50
-                    shadow-lg shadow-black/5"
+                    bg-slate-100/90 dark:bg-slate-950/90 backdrop-blur-md
+                    border border-slate-100/40 dark:border-slate-800/50
+                    shadow-lg shadow-black/20""
             :class="{
                 'lg:rounded-full': !scrolled,
                 'lg:rounded-2xl shadow-xl shadow-primary/10 scale-[0.98]': scrolled,

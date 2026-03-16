@@ -1,49 +1,44 @@
 <div x-data="search"
-    class="bg-gradient-to-b from-white via-indigo-50/40 to-slate-100
+    class=" relative overflow-hidden bg-gradient-to-b from-white via-indigo-50/40 to-slate-100
             dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
             text-slate-800 dark:text-slate-200 min-h-screen
             transition-colors duration-300 flex flex-col items-center">
 
     {{-- Hero Section --}}
     <x-hero class="bg-transparent !mb-0 !py-16 md:!py-24 w-full relative overflow-hidden">
-        {{-- Animated background elements --}}
-        <div class="absolute inset-0 overflow-hidden">
-            <div
-                class="absolute top-0 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-300/30 to-indigo-100/20
-                      rounded-full blur-3xl animate-pulse">
-            </div>
-            <div
-                class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-indigo-200/20 to-indigo-300/20
-                      rounded-full blur-3xl animate-pulse animation-delay-1000">
-            </div>
-            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=" 60" height="60" viewBox="0 0 60 60"
-                xmlns="http://www.w3.org/2000/svg" %3E%3Cg fill="none" fill-rule="evenodd" %3E%3Cg fill="%230100CC"
-                fill-opacity="0.03" %3E%3Cpath
-                d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"
-                /%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
-        </div>
-
         <x-slot name="title">
             <div class="relative">
-                <h1
-                    class="text-center text-4xl md:text-5xl lg:text-6xl font-extrabold
+                <div aria-hidden="true" class="absolute inset-0 flex items-start justify-center z-0 pointer-events-none">
+                    <div
+                        class="w-[36rem] aspect-[1155/678] rounded-full
+                              bg-gradient-to-tr
+                              from-indigo-400/40 via-purple-300/30 to-sky-400/30
+                              dark:from-indigo-600/30 dark:via-purple-600/25 dark:to-indigo-700/30
+                              opacity-90 blur-3xl">
+                    </div>
+                </div>
+                <div class="relative z-10">
+                    <h1
+                        class="text-center text-4xl md:text-5xl lg:text-6xl font-extrabold
                          leading-[1.1] tracking-tight mx-auto px-4">
-                    <span class="inline-block animate-fade-in-up">Layanan</span>
-                    <br />
-                    <span class="relative inline-block mt-2 animate-fade-in-up animation-delay-200">
-                        <span
-                            class="bg-gradient-to-r from-primary via-secondary to-accent
+                        <span class="inline-block animate-fade-in-up">Layanan</span>
+                        <br />
+                        <span class="relative inline-block mt-2 animate-fade-in-up animation-delay-200">
+                            <span
+                                class="bg-gradient-to-r from-primary via-secondary to-accent
                                    bg-clip-text text-transparent italic bg-size-200 animate-gradient">
-                            Buku Tamu Digital
-                        </span>
-                        <span
-                            class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-1
+                                Buku Tamu Digital
+                            </span>
+                            <span
+                                class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-1
                                    bg-gradient-to-r from-primary via-secondary to-accent
                                    rounded-full scale-x-0 animate-slide-in"></span>
-                        <span class="absolute -top-6 -right-6 text-2xl animate-bounce animation-delay-400">✨</span>
-                        <span class="absolute -bottom-4 -left-6 text-2xl animate-bounce animation-delay-600">⭐</span>
-                    </span>
-                </h1>
+                            <span class="absolute -top-6 -right-6 text-2xl animate-bounce animation-delay-400">✨</span>
+                            <span
+                                class="absolute -bottom-4 -left-6 text-2xl animate-bounce animation-delay-600">⭐</span>
+                        </span>
+                    </h1>
+                </div>
 
                 {{-- Greeting card --}}
                 <div class="flex justify-center mt-8 animate-fade-in-up animation-delay-400">
