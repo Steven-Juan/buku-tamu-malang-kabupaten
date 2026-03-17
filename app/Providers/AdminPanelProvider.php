@@ -66,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->defaultAvatarProvider(GravatarProvider::class)
             ->favicon(asset('/favicon-32x32.png'))
-            ->brandLogo(fn () => view('components.logo'))
+            ->brandLogo(fn() => view('components.logo'))
             ->navigationGroups([
                 'Collections',
                 'Media',
@@ -101,7 +101,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->renderHook(
                 'panels::auth.login.form.after',
-                fn (): string => '
+                fn(): string => '
                 <div class="mt-4 text-center">
                     <a href="/" class="text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-500 flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -109,25 +109,31 @@ class AdminPanelProvider extends PanelProvider
                     </a>
                 </div>
                 <script>
+                    let turnstileLoaded = false;
+
                     (function loadTurnstile() {
                         const container = document.querySelector("[data-turnstile-container]");
-                        if (container && window.turnstile) {
+                        if (container && window.turnstile && !turnstileLoaded) {
                             if (container.children.length === 0) {
                                 turnstile.render(container, {
-                                    sitekey: "'.config('services.turnstile.sitekey').'",
+                                    sitekey: "' . config('services.turnstile.sitekey') . '",
                                     callback: (token) => {
-                                        // Cari Livewire component dan set token
-                                        const wireElement = document.querySelector("[wire\\\\:model]");
-                                        if (wireElement && wireElement.__livewire) {
-                                            wireElement.__livewire.set("turnstile_token", token);
+                                        // Set flag dan trigger form update
+                                        turnstileLoaded = true;
+                                        const form = document.querySelector("form");
+                                        if (form) {
+                                            // Trigger Livewire update
+                                            const inputs = form.querySelectorAll("input[wire\\\\:model]");
+                                            inputs.forEach(input => {
+                                                if (input.__livewire) {
+                                                    input.__livewire.set("turnstile_token", token);
+                                                }
+                                            });
                                         }
                                     }
                                 });
-                            } else {
-                                // Jika sudah ada, reset dulu
-                                turnstile.reset();
                             }
-                        } else if (!window.turnstile) {
+                        } else if (!window.turnstile && !turnstileLoaded) {
                             // Tunggu script Turnstile dimuat
                             setTimeout(loadTurnstile, 500);
                         }
@@ -136,7 +142,7 @@ class AdminPanelProvider extends PanelProvider
             )
             ->renderHook(
                 'panels::sidebar.footer',
-                fn (): string => '
+                fn(): string => '
                     <div class="p-4 border-t border-gray-200 dark:border-gray-800">
                         <a href="/" class="flex items-center gap-3 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
@@ -156,7 +162,7 @@ class AdminPanelProvider extends PanelProvider
                     return 'Super Admin';
                 }
 
-                return 'Admin '.($user->perangkatDaerah->nama_pd ?? 'Instansi');
+                return 'Admin ' . ($user->perangkatDaerah->nama_pd ?? 'Instansi');
             })
             ->favicon(asset('logos/logo_kabmalang.svg'));
     }
