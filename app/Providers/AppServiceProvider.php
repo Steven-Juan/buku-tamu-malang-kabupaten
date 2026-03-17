@@ -32,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(\Croustibat\FilamentJobsMonitor\Models\QueueMonitor::class, \App\Policies\JobMonitorPolicy::class);
         \Illuminate\Support\Facades\Gate::policy(\Spatie\Activitylog\Models\Activity::class, \App\Policies\ActivityLogPolicy::class);
 
+        FilamentView::registerRenderHook(
+            'panels::auth.before',
+            fn (): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
+        );
+
         Validator::extend('turnstile', function ($attribute, $value, $parameters, $validator) {
             $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
                 'secret' => env('TURNSTILE_SECRET'),

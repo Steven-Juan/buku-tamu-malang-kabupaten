@@ -102,12 +102,37 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 'panels::auth.login.form.after',
                 fn (): string => '
-                    <div class="mt-4 text-center">
-                        <a href="/" class="text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-500 flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                            Kembali ke Halaman Utama
-                        </a>
-                    </div>'
+                <div class="mt-4 text-center">
+                    <a href="/" class="text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-500 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Kembali ke Halaman Utama
+                    </a>
+                </div>
+                <script>
+                    (function loadTurnstile() {
+                        const container = document.querySelector("[data-turnstile-container]");
+                        if (container && window.turnstile) {
+                            if (container.children.length === 0) {
+                                turnstile.render(container, {
+                                    sitekey: "'.config('services.turnstile.sitekey').'",
+                                    callback: (token) => {
+                                        // Cari Livewire component dan set token
+                                        const wireElement = document.querySelector("[wire\\\\:model]");
+                                        if (wireElement && wireElement.__livewire) {
+                                            wireElement.__livewire.set("turnstile_token", token);
+                                        }
+                                    }
+                                });
+                            } else {
+                                // Jika sudah ada, reset dulu
+                                turnstile.reset();
+                            }
+                        } else if (!window.turnstile) {
+                            // Tunggu script Turnstile dimuat
+                            setTimeout(loadTurnstile, 500);
+                        }
+                    })();
+                </script>'
             )
             ->renderHook(
                 'panels::sidebar.footer',

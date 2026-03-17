@@ -4,6 +4,7 @@ namespace App\Filament\Auth;
 
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\View;
 use Filament\Forms\Form;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Pages\Auth\Login as BaseAuth;
@@ -11,6 +12,8 @@ use Illuminate\Validation\ValidationException;
 
 class Login extends BaseAuth
 {
+    public $turnstile_token = '';
+
     /**
      * Get the form for the resource.
      */
@@ -21,6 +24,8 @@ class Login extends BaseAuth
                 $this->getUsernameFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getRememberFormComponent(),
+                View::make('filament.turnstile-widget')
+                    ->dehydrated(false),
             ])
             ->statePath('data');
     }
@@ -56,9 +61,20 @@ class Login extends BaseAuth
      */
     public function authenticate(): ?LoginResponse
     {
+        // Validasi Turnstile
+        $this->validate([
+            'turnstile_token' => 'required|turnstile',
+        ], [
+            'turnstile_token.required' => 'Silakan centang verifikasi keamanan.',
+            'turnstile_token.turnstile' => 'Verifikasi keamanan gagal, silakan coba lagi.',
+        ]);
+
         try {
-            return parent::authenticate();
-        } catch (ValidationException) {
+            $response = parent::authenticate();
+
+            return $response;
+        } catch (ValidationException $e) {
+
             throw ValidationException::withMessages([
                 'data.username' => __('filament-panels::pages/auth/login.messages.failed'),
             ]);
