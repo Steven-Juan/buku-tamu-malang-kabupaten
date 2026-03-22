@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\KunjunganController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::prefix('v1')->group(function () {
+    Route::get('/kunjungan/{slug}', [KunjunganController::class, 'getKunjunganByDinas']);
+});
