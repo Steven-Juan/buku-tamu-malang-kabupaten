@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
+use App\Exports\GuestExport;
 use App\Filament\Resources\GuestResource\Pages;
 use App\Models\Guest;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\HtmlString;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GuestResource extends Resource
 {
@@ -43,7 +45,7 @@ class GuestResource extends Resource
         return number_format(static::getEloquentQuery()->count());
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         $query = parent::getEloquentQuery();
         $user = Auth::user();
@@ -156,6 +158,29 @@ class GuestResource extends Resource
                     ->label('Filter per Dinas')
                     ->relationship('perangkatDaerah', 'nama_pd'),
             ])
+            ->headerActions([
+                Tables\Actions\Action::make('export_excel_all')
+                    ->label('Export Excel (Semua)')
+                    ->icon('heroicon-o-document')
+                    ->action(function () {
+                        return Excel::download(new GuestExport(static::getEloquentQuery()), 'guests.xlsx');
+                    }),
+                Tables\Actions\Action::make('export_pdf_all')
+                    ->label('Export PDF (Semua)')
+                    ->icon('heroicon-o-document-text')
+                    ->action(function ($records = null) {
+                        $guests = $records ? $records : static::getEloquentQuery()->get();
+
+                        $pdf = Pdf::loadView('exports.guests', ['guests' => $guests])
+                            ->setPaper('a4', 'landscape')
+                            ->setOption('isRemoteEnabled', true)
+                            ->setOption('isHtml5ParserEnabled', true);
+
+                        return response()->streamDownload(function () use ($pdf) {
+                            echo $pdf->output();
+                        }, 'laporan-tamu-'.now()->format('Y-m-d').'.pdf');
+                    }),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
@@ -163,6 +188,29 @@ class GuestResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('export_excel')
+                        ->label('Export Excel')
+                        ->icon('heroicon-o-document')
+                        ->action(function ($records) {
+                            $query = Guest::whereIn('id', $records->pluck('id'));
+
+                            return Excel::download(new GuestExport($query), 'guests.xlsx');
+                        }),
+                    Tables\Actions\BulkAction::make('export_pdf')
+                        ->label('Export PDF')
+                        ->icon('heroicon-o-document-text')
+                        ->action(function ($records) {
+                            $guests = Guest::whereIn('id', $records->pluck('id'))->with('perangkatDaerah')->get();
+
+                            $pdf = Pdf::loadView('exports.guests', compact('guests'))
+                                ->setPaper('a4', 'landscape')
+                                ->setOption('isRemoteEnabled', true)
+                                ->setOption('isHtml5ParserEnabled', true);
+
+                            return response()->streamDownload(function () use ($pdf) {
+                                echo $pdf->output();
+                            }, 'guests-selected.pdf');
+                        }),
                 ]),
             ]);
     }
