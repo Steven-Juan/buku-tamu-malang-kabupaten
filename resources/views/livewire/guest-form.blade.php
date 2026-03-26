@@ -164,10 +164,14 @@
 
                     @if ($foto_metode == 'avatar')
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        @foreach ([['file' => 'man-young.png', 'emoji' => '👨'], ['file' => 'woman-young.png', 'emoji'
-                        => '👩'], ['file' => 'man-old.png', 'emoji' => '👨‍🎓'], ['file' => 'woman-old.png', 'emoji' =>
-                        '👩‍🎓'], ['file' => 'boy-child.png', 'emoji' => '👦'], ['file' => 'girl-child.png', 'emoji' =>
-                        '👧']] as $avatar)
+                        @foreach ([
+                        ['file' => 'man-young.png', 'emoji' => '👨'],
+                        ['file' => 'woman-young.png', 'emoji'=> '👩'],
+                        ['file' => 'student-male.png', 'emoji' => '👨‍🎓'],
+                        ['file' => 'student-female.png', 'emoji' => '👩‍🎓'],
+                        ['file' => 'boy-child.png', 'emoji' => '👦'],
+                        ['file' => 'girl-child.png', 'emoji' =>'👧']]
+                        as $avatar)
                         <div wire:click="$set('selectedAvatar', '{{ $avatar['file'] }}')"
                             class="cursor-pointer border-4 rounded-2xl p-3 transition-all duration-300 hover:scale-105
                {{ $selectedAvatar == $avatar['file'] ? 'border-[#0100CC] bg-blue-50 dark:bg-blue-900/20' : 'border-transparent bg-gray-50 dark:bg-gray-700/50 hover:border-gray-300 dark:hover:border-gray-600' }}">
