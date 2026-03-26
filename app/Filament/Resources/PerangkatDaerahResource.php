@@ -78,8 +78,8 @@ class PerangkatDaerahResource extends Resource
                                 Forms\Components\TextInput::make('nama_pd')
                                     ->label('Nama Perangkat Daerah')
                                     ->placeholder('Contoh: Dinas Komunikasi dan Informatika')
-                                    ->live(onBlur: true) // PERBAIKAN: Gunakan onBlur agar tidak menghapus ketikan
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
@@ -112,14 +112,6 @@ class PerangkatDaerahResource extends Resource
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
 
-                                Forms\Components\TextInput::make('api_token')
-                                    ->label('API Token')
-                                    ->default(fn () => Str::random(32))
-                                    ->password()
-                                    ->revealable()
-                                    ->readOnly()
-                                    ->helperText('Token otomatis untuk integrasi sistem.'),
-
                                 Forms\Components\FileUpload::make('logo')
                                     ->image()
                                     ->directory('logos')
@@ -135,7 +127,7 @@ class PerangkatDaerahResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->contentGrid(fn () => Auth::user()->perangkat_daerah_id ? null : [
+            ->contentGrid(fn() => Auth::user()->perangkat_daerah_id ? null : [
                 'md' => 2,
                 'xl' => 3,
             ])
@@ -173,19 +165,16 @@ class PerangkatDaerahResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn() => auth()->user()->perangkat_daerah_id === null),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ])
-                    ->visible(fn () => auth()->user()->perangkat_daerah_id === null),
-            ])
-
-            ->content(function () {
-                if (Auth::user()->perangkat_daerah_id) {
-                    return null;
-                }
-            });
+                    ->visible(fn() => auth()->user()->perangkat_daerah_id === null),
+            ]);
     }
 
     /**
