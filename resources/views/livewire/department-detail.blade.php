@@ -85,9 +85,9 @@
     {{-- CONTENT SECTION --}}
     <div class="w-full max-w-6xl px-4 pb-24">
 
-        {{-- MOBILE LAYOUT: Statistik (1 saja) → Riwayat → QR Code --}}
+        {{-- MOBILE LAYOUT: Statistik → Riwayat → QR Code --}}
         <div class="block md:hidden space-y-6">
-            {{-- STATISTICS CARD - Hanya 1 untuk mobile --}}
+            {{-- STATISTICS CARD - Mobile --}}
             <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl transition-all duration-500">
 
@@ -159,7 +159,7 @@
                     @endif
                 </div>
 
-                <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                     @forelse($riwayatTerbaru as $index => $tamu)
                     <div class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50
                                 transition-all group/item">
@@ -245,7 +245,6 @@
             <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group/qr
                       relative overflow-hidden">
-
                 {{-- Decorative elements --}}
                 <div
                     class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-accent/5 rounded-bl-full">
@@ -312,13 +311,13 @@
             </div>
         </div>
 
-        {{-- DESKTOP LAYOUT: Grid 2 kolom (QR Code kiri | Statistik + History kanan) --}}
-        <div class="hidden md:grid md:grid-cols-3 gap-8">
+        {{-- DESKTOP LAYOUT: Grid 2 kolom dengan items-start agar tinggi tidak sama --}}
+        <div class="hidden md:grid md:grid-cols-3 gap-8 items-start">
             {{-- QR CODE CARD - Kolom kiri (desktop) --}}
             <div class="md:col-span-1">
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                           hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group/qr
-                          relative overflow-hidden h-full flex flex-col">
+                          relative overflow-hidden">
 
                     {{-- Decorative elements --}}
                     <div
@@ -350,7 +349,7 @@
                     </div>
 
                     {{-- QR Code with animation --}}
-                    <div class="relative flex justify-center mb-8 flex-1">
+                    <div class="relative flex justify-center mb-8">
                         <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl
                                   group-hover/qr:blur-3xl transition-all opacity-50 group-hover/qr:opacity-70">
                         </div>
@@ -512,7 +511,8 @@
 
                             <div class="text-right">
                                 <p class="text-[10px] font-bold text-primary uppercase">
-                                    {{ $tamu->created_at->format('H:i') }}</p>
+                                    {{ $tamu->created_at->format('H:i') }}
+                                </p>
                             </div>
                         </div>
                         @empty
