@@ -24,8 +24,7 @@ class Login extends BaseAuth
                 $this->getUsernameFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getRememberFormComponent(),
-                View::make('filament.turnstile-widget')
-                    ->dehydrated(false),
+                View::make('filament.turnstile-widget'),
             ])
             ->statePath('data');
     }
@@ -70,10 +69,13 @@ class Login extends BaseAuth
         ]);
 
         try {
-            $response = parent::authenticate();
-
-            return $response;
+            return parent::authenticate();
         } catch (ValidationException $e) {
+            // KRITIKAL: Kirim sinyal ke browser untuk reset widget Turnstile
+            $this->dispatch('reset-turnstile');
+
+            // Reset token agar user harus centang ulang
+            $this->turnstile_token = '';
 
             throw ValidationException::withMessages([
                 'data.username' => __('filament-panels::pages/auth/login.messages.failed'),
