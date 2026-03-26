@@ -96,8 +96,8 @@ class GuestResource extends Resource
                                     ->searchable()
                                     ->preload()
                                     ->required()
-                                    ->default(fn () => Auth::user()->perangkat_daerah_id)
-                                    ->disabled(fn () => Auth::user()->perangkat_daerah_id !== null)
+                                    ->default(fn() => Auth::user()->perangkat_daerah_id)
+                                    ->disabled(fn() => Auth::user()->perangkat_daerah_id !== null)
                                     ->dehydrated(),
 
                                 Forms\Components\FileUpload::make('foto')
@@ -160,13 +160,13 @@ class GuestResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\Action::make('export_excel_all')
-                    ->label('Export Excel (Semua)')
+                    ->label('Export Excel')
                     ->icon('heroicon-o-document')
                     ->action(function () {
                         return Excel::download(new GuestExport(static::getEloquentQuery()), 'guests.xlsx');
                     }),
                 Tables\Actions\Action::make('export_pdf_all')
-                    ->label('Export PDF (Semua)')
+                    ->label('Export PDF')
                     ->icon('heroicon-o-document-text')
                     ->action(function ($records = null) {
                         $guests = $records ? $records : static::getEloquentQuery()->get();
@@ -178,7 +178,7 @@ class GuestResource extends Resource
 
                         return response()->streamDownload(function () use ($pdf) {
                             echo $pdf->output();
-                        }, 'laporan-tamu-'.now()->format('Y-m-d').'.pdf');
+                        }, 'laporan-tamu-' . now()->format('Y-m-d') . '.pdf');
                     }),
             ])
             ->actions([
