@@ -6,7 +6,6 @@ use App\Models\PerangkatDaerah;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class PerangkatDaerahSeeder extends Seeder
 {
@@ -106,8 +105,8 @@ class PerangkatDaerahSeeder extends Seeder
 
             User::create([
                 'perangkat_daerah_id' => $pd->id,
-                'name' => 'admin' . str_replace('-', '', $item['slug']),
-                'email' => $item['email'] ?? ($item['slug'] . '@placeholder.com'),
+                'name' => 'admin'.str_replace('-', '', $item['slug']),
+                'email' => $item['email'] ?? ($item['slug'].'@placeholder.com'),
                 'password' => Hash::make('admin123'),
             ]);
         }
