@@ -22,7 +22,6 @@ class PerangkatDaerah extends Model
         'alamat',
         'telepon',
         'logo',
-        'api_token',
     ];
 
     /**

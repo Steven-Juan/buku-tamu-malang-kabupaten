@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('telepon')->nullable();
             $table->string('logo')->nullable();
-            $table->string('api_token')->unique()->nullable();
             $table->timestamps();
         });
     }

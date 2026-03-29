@@ -102,13 +102,12 @@ class PerangkatDaerahSeeder extends Seeder
                 'email' => $item['email'],
                 'alamat' => $item['alamat'],
                 'telepon' => $item['telp'],
-                'api_token' => Str::random(32),
             ]);
 
             User::create([
                 'perangkat_daerah_id' => $pd->id,
-                'name' => 'admin'.str_replace('-', '', $item['slug']),
-                'email' => $item['email'] ?? ($item['slug'].'@placeholder.com'),
+                'name' => 'admin' . str_replace('-', '', $item['slug']),
+                'email' => $item['email'] ?? ($item['slug'] . '@placeholder.com'),
                 'password' => Hash::make('admin123'),
             ]);
         }
