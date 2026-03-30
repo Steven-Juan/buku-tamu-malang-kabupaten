@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PerangkatDaerahResource\Pages;
 use App\Models\PerangkatDaerah;
 use Filament\Forms;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -100,6 +101,21 @@ class PerangkatDaerahResource extends Resource
                                     ->tel()
                                     ->placeholder('0341-xxxxxx')
                                     ->maxLength(20),
+
+                                Forms\Components\TextInput::make('api_key')
+                                    ->label('API Key (Kunci Akses)')
+                                    ->readOnly() // Dibuat read-only agar admin tidak mengetik sembarangan
+                                    ->maxLength(255)
+                                    ->helperText('Gunakan tombol di sebelah kanan untuk membuat kunci baru.')
+                                    ->suffixAction(
+                                        Action::make('generate_key')
+                                            ->icon('heroicon-m-arrow-path')
+                                            ->color('primary')
+                                            ->action(function (Forms\Set $set) {
+                                                // Membuat kunci acak 32 karakter
+                                                $set('api_key', 'pd_'.Str::random(32));
+                                            })
+                                    ),
                             ]),
 
                         Forms\Components\Section::make('Pengaturan & Metadata')

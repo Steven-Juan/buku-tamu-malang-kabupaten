@@ -18,6 +18,7 @@ class PerangkatDaerah extends Model
     protected $fillable = [
         'nama_pd',
         'slug',
+        'api_key',
         'email',
         'alamat',
         'telepon',
