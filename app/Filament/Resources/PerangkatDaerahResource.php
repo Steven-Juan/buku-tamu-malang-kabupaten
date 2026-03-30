@@ -143,10 +143,6 @@ class PerangkatDaerahResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->contentGrid(fn () => Auth::user()->perangkat_daerah_id ? null : [
-                'md' => 2,
-                'xl' => 3,
-            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama_pd')
                     ->label('Nama Instansi')
