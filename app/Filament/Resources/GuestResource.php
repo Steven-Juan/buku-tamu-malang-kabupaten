@@ -134,6 +134,14 @@ class GuestResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('foto')
+                    ->label('Foto Profil')
+                    ->getStateUsing(function ($record) {
+                        if (\Illuminate\Support\Str::startsWith($record->foto, 'images/avatars/')) {
+                            return asset($record->foto);
+                        }
+
+                        return $record->foto;
+                    })
                     ->circular(),
 
                 Tables\Columns\TextColumn::make('nama')
