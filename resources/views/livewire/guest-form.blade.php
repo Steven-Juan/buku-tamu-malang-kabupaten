@@ -164,7 +164,7 @@
 
                         @if ($foto_metode == 'avatar')
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                @foreach ([['file' => 'man-young.png'], ['file' => 'woman-young.png'], ['file' => 'student-male.png'], ['file' => 'student-female.png'], ['file' => 'boy-child.png'], ['file' => 'girl-child.png']] as $avatar)
+                                @foreach ([['file' => 'scholar-man.png'], ['file' => 'scholar-woman.png'], ['file' => 'officer-man.png'], ['file' => 'officer-woman.png'], ['file' => 'guest-man.png'], ['file' => 'guest-woman.png']] as $avatar)
                                     <div wire:click="$set('selectedAvatar', '{{ $avatar['file'] }}')"
                                         class="cursor-pointer border-4 rounded-2xl p-2 transition-all duration-300 hover:scale-105
             {{ $selectedAvatar == $avatar['file'] ? 'border-[#0100CC] bg-blue-50 dark:bg-blue-900/20' : 'border-transparent bg-gray-50 dark:bg-gray-700/50 hover:border-gray-300 dark:hover:border-gray-600' }}">
@@ -281,10 +281,18 @@
                             {{-- Foto Profil --}}
                             <div class="shrink-0 text-center">
                                 @if ($foto_metode == 'avatar' && $selectedAvatar)
-                                    <div
-                                        class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg bg-white">
+                                    {{-- Preview Avatar --}}
+                                    <div class="relative w-28 h-28 mx-auto rounded-full group">
+
+                                        {{-- Efek Glow/Shadow Halus di Bawah Gambar --}}
+                                        <div
+                                            class="absolute inset-2 rounded-full bg-blue-400/20 dark:bg-blue-600/10 blur-xl transition-all duration-300 group-hover:blur-2xl opacity-0 group-hover:opacity-100">
+                                        </div>
+
+                                        {{-- Gambar Mentah dengan Shadow Floating --}}
                                         <img src="{{ asset('images/avatars/' . $selectedAvatar) }}"
-                                            class="w-full h-full object-cover">
+                                            alt="Preview Avatar"
+                                            class="relative w-full h-full object-contain rounded-full shadow-[0_15px_30px_-5px_rgba(0,0,0,0.1)] transition-transform duration-500 hover:scale-110">
                                     </div>
                                 @elseif($foto_metode == 'kamera' && $foto_base64)
                                     <img src="{{ $foto_base64 }}"
