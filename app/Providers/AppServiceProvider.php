@@ -6,6 +6,7 @@ use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 // 1. IMPORT LIVEWIRE & BREEZY
 use Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo;
@@ -22,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             'panels::head.start',
-            fn (): string => '<meta name="robots" content="noindex,nofollow">'
+            fn(): string => '<meta name="robots" content="noindex,nofollow">'
         );
     }
 
@@ -39,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentView::registerRenderHook(
             'panels::auth.before',
-            fn (): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
+            fn(): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
         );
 
         Validator::extend('turnstile', function ($attribute, $value, $parameters, $validator) {
@@ -60,5 +61,9 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('personal_info', PersonalInfo::class);
         Livewire::component('update_password', UpdatePassword::class);
         Livewire::component('two_factor_authentication', TwoFactorAuthentication::class);
+
+        if (app()->environment('local')) {
+            URL::forceRootUrl(config('app.url'));
+        }
     }
 }

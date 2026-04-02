@@ -1,4 +1,5 @@
-<section class="relative overflow-hidden bg-gradient-to-b from-white via-indigo-50/40 to-slate-100
+<section
+    class="relative overflow-hidden bg-gradient-to-b from-white via-indigo-50/40 to-slate-100
             dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
             text-slate-800 dark:text-slate-200 min-h-screen
             transition-colors duration-300 flex flex-col items-center">
@@ -21,7 +22,8 @@
         <div class="relative animate-fade-in-up px-4">
             {{-- Background Glow --}}
             <div aria-hidden="true" class="absolute inset-0 flex items-start justify-center z-0 pointer-events-none">
-                <div class="w-[24rem] aspect-[1155/678] rounded-full
+                <div
+                    class="w-[24rem] aspect-[1155/678] rounded-full
                           bg-gradient-to-tr from-indigo-400/40 via-purple-300/30 to-sky-400/30
                           dark:from-indigo-600/30 dark:via-purple-600/25 dark:to-indigo-700/30
                           opacity-90 blur-3xl">
@@ -43,7 +45,8 @@
                 class="text-center text-text-dark dark:text-text-light text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mx-auto px-4 relative z-10">
                 Portal
                 <span class="relative inline-block">
-                    <span class="bg-gradient-to-r from-primary via-secondary to-accent
+                    <span
+                        class="bg-gradient-to-r from-primary via-secondary to-accent
                                    bg-clip-text text-transparent italic bg-size-200 animate-gradient">
                         {{ $instansiTujuan->nama_pd }}
                     </span>
@@ -69,11 +72,12 @@
 
             {{-- Back button with improved design --}}
             <div class="flex justify-center mt-8 group relative z-10">
-                <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-primary
+                <a href="{{ route('home') }}" wire:navigate
+                    class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-primary
                            transition-all duration-300 hover:gap-3 gap-2 bg-gray-100 dark:bg-gray-800
                            px-4 py-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-                    <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2.5">
+                    <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                     <span>Kembali ke Beranda</span>
@@ -88,14 +92,16 @@
         {{-- MOBILE LAYOUT: Statistik → Riwayat → QR Code --}}
         <div class="block md:hidden space-y-6">
             {{-- STATISTICS CARD - Mobile --}}
-            <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+            <div
+                class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl transition-all duration-500">
 
                 <div class="flex items-start justify-between mb-4">
                     <div>
                         <h3 class="text-lg font-bold text-text-dark dark:text-text-light flex items-center gap-2">
                             <span class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                         d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                 </svg>
@@ -138,7 +144,8 @@
             </div>
 
             {{-- VISITOR HISTORY CARD - Mobile --}}
-            <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+            <div
+                class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl transition-all duration-500">
 
                 <div class="flex items-center justify-between mb-6">
@@ -153,96 +160,102 @@
                     </h3>
 
                     @if ($riwayatTerbaru->count() > 0)
-                    <span class="text-xs text-gray-500">
-                        {{ $riwayatTerbaru->count() }} kunjungan
-                    </span>
+                        <span class="text-xs text-gray-500">
+                            {{ $riwayatTerbaru->count() }} kunjungan
+                        </span>
                     @endif
                 </div>
 
                 <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                     @forelse($riwayatTerbaru as $index => $tamu)
-                    <div class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50
+                        <div
+                            class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50
                                 transition-all group/item">
 
-                        {{-- Avatar with gradient --}}
-                        <div class="relative">
-                            <div
-                                class="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-accent/20
+                            {{-- Avatar with gradient --}}
+                            <div class="relative">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-accent/20
                                       flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform">
-                                <span class="text-primary font-bold text-lg">
-                                    {{ substr($tamu->nama, 0, 1) }}
-                                </span>
-                            </div>
-                            <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white
-                                       dark:border-gray-800 rounded-full"></span>
-                        </div>
-
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between gap-2">
-                                <p class="font-bold text-sm text-text-dark dark:text-text-light truncate">
-                                    {{ $tamu->nama }}
-                                </p>
+                                    <span class="text-primary font-bold text-lg">
+                                        {{ substr($tamu->nama, 0, 1) }}
+                                    </span>
+                                </div>
                                 <span
-                                    class="text-[10px] font-medium text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
-                                    #{{ str_pad($tamu->id, 4, '0', STR_PAD_LEFT) }}
-                                </span>
+                                    class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white
+                                       dark:border-gray-800 rounded-full"></span>
                             </div>
 
-                            <p class="text-xs text-gray-500 truncate flex items-center gap-1 mt-0.5">
-                                <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                </svg>
-                                {{ $tamu->asal_instansi }}
-                            </p>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-2">
+                                    <p class="font-bold text-sm text-text-dark dark:text-text-light truncate">
+                                        {{ $tamu->nama }}
+                                    </p>
+                                    <span
+                                        class="text-[10px] font-medium text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
+                                        #{{ str_pad($tamu->id, 4, '0', STR_PAD_LEFT) }}
+                                    </span>
+                                </div>
 
-                            <div class="flex items-center gap-2 mt-1.5">
-                                <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor"
+                                <p class="text-xs text-gray-500 truncate flex items-center gap-1 mt-0.5">
+                                    <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                    {{ $tamu->asal_instansi }}
+                                </p>
+
+                                <div class="flex items-center gap-2 mt-1.5">
+                                    <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <p class="text-[10px] text-gray-400">
+                                        {{ $tamu->created_at->diffForHumans() }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <p class="text-[10px] font-bold text-primary uppercase">
+                                    {{ $tamu->created_at->format('H:i') }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-12">
+                            <div
+                                class="w-20 h-20 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <p class="text-[10px] text-gray-400">
-                                    {{ $tamu->created_at->diffForHumans() }}
-                                </p>
                             </div>
+                            <p class="text-sm text-gray-500 font-medium">Belum ada data kunjungan</p>
+                            <p class="text-xs text-gray-400 mt-1">Jadilah yang pertama mengisi buku tamu</p>
                         </div>
-
-                        <div class="text-right">
-                            <p class="text-[10px] font-bold text-primary uppercase">
-                                {{ $tamu->created_at->format('H:i') }}</p>
-                        </div>
-                    </div>
-                    @empty
-                    <div class="text-center py-12">
-                        <div
-                            class="w-20 h-20 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
-                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <p class="text-sm text-gray-500 font-medium">Belum ada data kunjungan</p>
-                        <p class="text-xs text-gray-400 mt-1">Jadilah yang pertama mengisi buku tamu</p>
-                    </div>
                     @endforelse
                 </div>
 
                 @if ($riwayatTerbaru->count() > 0)
-                <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
-                    <a href="#"
-                        class="text-xs text-primary hover:text-accent transition-colors flex items-center justify-center gap-1">
-                        Lihat Semua Riwayat
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <a href="#"
+                            class="text-xs text-primary hover:text-accent transition-colors flex items-center justify-center gap-1">
+                            Lihat Semua Riwayat
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
                 @endif
             </div>
 
             {{-- QR CODE CARD - Mobile (paling bawah) --}}
-            <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+            <div
+                class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group/qr
                       relative overflow-hidden">
                 {{-- Decorative elements --}}
@@ -255,7 +268,8 @@
 
                 {{-- Header --}}
                 <div class="relative z-10">
-                    <span class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full
+                    <span
+                        class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full
                                shadow-lg shadow-primary/30 inline-block mb-6">
                         PORTAL LAYANAN TAMU
                     </span>
@@ -276,20 +290,24 @@
 
                 {{-- QR Code with animation --}}
                 <div class="relative flex justify-center mb-6">
-                    <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl
                               group-hover/qr:blur-3xl transition-all opacity-50 group-hover/qr:opacity-70">
                     </div>
 
-                    <div class="relative bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100
+                    <div
+                        class="relative bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100
                               group-hover/qr:scale-105 group-hover/qr:rotate-1 transition-all duration-500">
                         <div class="w-[200px] h-[200px]">
                             {!! $qrCode !!}
                         </div>
 
                         {{-- Scan guide overlay --}}
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/qr:opacity-100
+                        <div
+                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/qr:opacity-100
                                   transition-opacity duration-300 pointer-events-none">
-                            <div class="bg-primary/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg
+                            <div
+                                class="bg-primary/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg
                                       transform -rotate-12">
                                 SCAN ME
                             </div>
@@ -315,7 +333,8 @@
         <div class="hidden md:grid md:grid-cols-3 gap-8 items-start">
             {{-- QR CODE CARD - Kolom kiri (desktop) --}}
             <div class="md:col-span-1">
-                <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                           hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group/qr
                           relative overflow-hidden">
 
@@ -329,7 +348,8 @@
 
                     {{-- Header --}}
                     <div class="relative z-10">
-                        <span class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full
+                        <span
+                            class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full
                                    shadow-lg shadow-primary/30 inline-block mb-6">
                             PORTAL LAYANAN TAMU
                         </span>
@@ -350,20 +370,24 @@
 
                     {{-- QR Code with animation --}}
                     <div class="relative flex justify-center mb-8">
-                        <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl
                                   group-hover/qr:blur-3xl transition-all opacity-50 group-hover/qr:opacity-70">
                         </div>
 
-                        <div class="relative bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100
+                        <div
+                            class="relative bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100
                                   group-hover/qr:scale-105 group-hover/qr:rotate-1 transition-all duration-500">
                             <div class="w-[200px] h-[200px]">
                                 {!! $qrCode !!}
                             </div>
 
                             {{-- Scan guide overlay --}}
-                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/qr:opacity-100
+                            <div
+                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/qr:opacity-100
                                       transition-opacity duration-300 pointer-events-none">
-                                <div class="bg-primary/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg
+                                <div
+                                    class="bg-primary/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg
                                           transform -rotate-12">
                                     SCAN ME
                                 </div>
@@ -388,7 +412,8 @@
             {{-- RIGHT COLUMN: STATISTICS + HISTORY (desktop) --}}
             <div class="md:col-span-2 flex flex-col gap-6">
                 {{-- STATISTICS CARD --}}
-                <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                           hover:shadow-2xl transition-all duration-500">
 
                     <div class="flex items-start justify-between mb-4">
@@ -439,13 +464,15 @@
                 </div>
 
                 {{-- VISITOR HISTORY CARD --}}
-                <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
                           hover:shadow-2xl transition-all duration-500 flex-1">
 
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-lg font-bold text-text-dark dark:text-text-light flex items-center gap-2">
                             <span class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
-                                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -454,94 +481,97 @@
                         </h3>
 
                         @if ($riwayatTerbaru->count() > 0)
-                        <span class="text-xs text-gray-500">
-                            {{ $riwayatTerbaru->count() }} kunjungan
-                        </span>
+                            <span class="text-xs text-gray-500">
+                                {{ $riwayatTerbaru->count() }} kunjungan
+                            </span>
                         @endif
                     </div>
 
                     <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                         @forelse($riwayatTerbaru as $index => $tamu)
-                        <div class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50
+                            <div
+                                class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50
                                     transition-all group/item">
 
-                            {{-- Avatar with gradient --}}
-                            <div class="relative">
-                                <div
-                                    class="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-accent/20
+                                {{-- Avatar with gradient --}}
+                                <div class="relative">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-accent/20
                                           flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform">
-                                    <span class="text-primary font-bold text-lg">
-                                        {{ substr($tamu->nama, 0, 1) }}
-                                    </span>
-                                </div>
-                                <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white
-                                           dark:border-gray-800 rounded-full"></span>
-                            </div>
-
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between gap-2">
-                                    <p class="font-bold text-sm text-text-dark dark:text-text-light truncate">
-                                        {{ $tamu->nama }}
-                                    </p>
+                                        <span class="text-primary font-bold text-lg">
+                                            {{ substr($tamu->nama, 0, 1) }}
+                                        </span>
+                                    </div>
                                     <span
-                                        class="text-[10px] font-medium text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
-                                        #{{ str_pad($tamu->id, 4, '0', STR_PAD_LEFT) }}
-                                    </span>
+                                        class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white
+                                           dark:border-gray-800 rounded-full"></span>
                                 </div>
 
-                                <p class="text-xs text-gray-500 truncate flex items-center gap-1 mt-0.5">
-                                    <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                    </svg>
-                                    {{ $tamu->asal_instansi }}
-                                </p>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <p class="font-bold text-sm text-text-dark dark:text-text-light truncate">
+                                            {{ $tamu->nama }}
+                                        </p>
+                                        <span
+                                            class="text-[10px] font-medium text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
+                                            #{{ str_pad($tamu->id, 4, '0', STR_PAD_LEFT) }}
+                                        </span>
+                                    </div>
 
-                                <div class="flex items-center gap-2 mt-1.5">
-                                    <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor"
+                                    <p class="text-xs text-gray-500 truncate flex items-center gap-1 mt-0.5">
+                                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                        </svg>
+                                        {{ $tamu->asal_instansi }}
+                                    </p>
+
+                                    <div class="flex items-center gap-2 mt-1.5">
+                                        <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <p class="text-[10px] text-gray-400">
+                                            {{ $tamu->created_at->diffForHumans() }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="text-right">
+                                    <p class="text-[10px] font-bold text-primary uppercase">
+                                        {{ $tamu->created_at->format('H:i') }}
+                                    </p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center py-12">
+                                <div
+                                    class="w-20 h-20 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+                                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <p class="text-[10px] text-gray-400">
-                                        {{ $tamu->created_at->diffForHumans() }}
-                                    </p>
                                 </div>
+                                <p class="text-sm text-gray-500 font-medium">Belum ada data kunjungan</p>
+                                <p class="text-xs text-gray-400 mt-1">Jadilah yang pertama mengisi buku tamu</p>
                             </div>
-
-                            <div class="text-right">
-                                <p class="text-[10px] font-bold text-primary uppercase">
-                                    {{ $tamu->created_at->format('H:i') }}
-                                </p>
-                            </div>
-                        </div>
-                        @empty
-                        <div class="text-center py-12">
-                            <div
-                                class="w-20 h-20 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
-                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <p class="text-sm text-gray-500 font-medium">Belum ada data kunjungan</p>
-                            <p class="text-xs text-gray-400 mt-1">Jadilah yang pertama mengisi buku tamu</p>
-                        </div>
                         @endforelse
                     </div>
 
                     @if ($riwayatTerbaru->count() > 0)
-                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
-                        <a href="#"
-                            class="text-xs text-primary hover:text-accent transition-colors flex items-center justify-center gap-1">
-                            Lihat Semua Riwayat
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                            <a href="#"
+                                class="text-xs text-primary hover:text-accent transition-colors flex items-center justify-center gap-1">
+                                Lihat Semua Riwayat
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -550,9 +580,10 @@
 
     {{-- FLOATING ACTION BUTTON - Tombol Mengambang untuk Mobile & Desktop --}}
     <div class="fixed bottom-8 right-8 z-50 group">
-        <a href="{{ route('guest.form', $instansiTujuan->slug) }}" wire:navigate class="group/btn flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-accent 
-                   hover:from-accent hover:to-primary text-white font-bold py-3 px-6 rounded-full 
-                   shadow-2xl shadow-primary/40 hover:shadow-xl transition-all duration-300 
+        <a href="{{ route('guest.form', $instansiTujuan->slug) }}" wire:navigate
+            class="group/btn flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-accent
+                   hover:from-accent hover:to-primary text-white font-bold py-3 px-6 rounded-full
+                   shadow-2xl shadow-primary/40 hover:shadow-xl transition-all duration-300
                    hover:scale-105 active:scale-95 backdrop-blur-sm bg-opacity-95">
 
             {{-- Icon Pena --}}
@@ -579,97 +610,97 @@
 
 {{-- Add custom styles --}}
 @push('styles')
-<style>
-@keyframes slow-spin {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
+    <style>
+        @keyframes slow-spin {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
 
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
 
-.animate-slow-spin {
-    animation: slow-spin 20s linear infinite;
-}
+        .animate-slow-spin {
+            animation: slow-spin 20s linear infinite;
+        }
 
-.animation-delay-1000 {
-    animation-delay: 1000ms;
-}
+        .animation-delay-1000 {
+            animation-delay: 1000ms;
+        }
 
-@keyframes slide-in {
-    0% {
-        transform: scaleX(0);
-    }
+        @keyframes slide-in {
+            0% {
+                transform: scaleX(0);
+            }
 
-    100% {
-        transform: scaleX(1);
-    }
-}
+            100% {
+                transform: scaleX(1);
+            }
+        }
 
-.animate-slide-in {
-    animation: slide-in 0.8s ease-out forwards;
-}
+        .animate-slide-in {
+            animation: slide-in 0.8s ease-out forwards;
+        }
 
-@keyframes fade-in-up {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out forwards;
-}
+        .animate-fade-in-up {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
 
-    50% {
-        background-position: 100% 50%;
-    }
+            50% {
+                background-position: 100% 50%;
+            }
 
-    100% {
-        background-position: 0% 50%;
-    }
-}
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-.animate-gradient {
-    background-size: 200% auto;
-    animation: gradient 3s ease infinite;
-}
+        .animate-gradient {
+            background-size: 200% auto;
+            animation: gradient 3s ease infinite;
+        }
 
-.custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-}
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-}
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
-    border-radius: 20px;
-}
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 20px;
+        }
 
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #4a5568;
-}
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4a5568;
+        }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #a0aec0;
-}
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
 
-.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #718096;
-}
-</style>
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+    </style>
 @endpush
