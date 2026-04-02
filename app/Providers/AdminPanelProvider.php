@@ -23,6 +23,10 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo;
+// 1. TAMBAHAN IMPORT KOMPONEN BREEZY DI SINI
+use Jeffgreco13\FilamentBreezy\Livewire\TwoFactorAuthentication;
+use Jeffgreco13\FilamentBreezy\Livewire\UpdatePassword;
 use Pboivin\FilamentPeek\FilamentPeekPlugin;
 
 class AdminPanelProvider extends PanelProvider
@@ -46,6 +50,12 @@ class AdminPanelProvider extends PanelProvider
                         shouldRegisterNavigation: false,
                         hasAvatars: false
                     )
+                    // 2. PENDAFTARAN KOMPONEN SECARA MANUAL DI SINI
+                    ->myProfileComponents([
+                        'personal_info' => PersonalInfo::class,
+                        'update_password' => UpdatePassword::class,
+                        'two_factor_authentication' => TwoFactorAuthentication::class,
+                    ])
                     ->enableTwoFactorAuthentication(),
 
                 CuratorPlugin::make()
@@ -85,10 +95,8 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 \App\Filament\Widgets\CustomWelcomeWidget::class,
-
                 \App\Filament\Widgets\SuperAdminStats::class,
                 \App\Filament\Widgets\AdminPdStats::class,
-
                 \App\Filament\Widgets\KunjunganChart::class,
                 \App\Filament\Widgets\GuestGrowthChart::class,
                 \App\Filament\Widgets\JamSibukChart::class,
@@ -128,7 +136,6 @@ class AdminPanelProvider extends PanelProvider
                     </div>'
             )
             ->brandName(function () {
-
                 $user = auth()->user();
 
                 if (! $user) {

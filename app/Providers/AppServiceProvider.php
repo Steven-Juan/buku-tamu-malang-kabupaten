@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+// 1. IMPORT LIVEWIRE & BREEZY
+use Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo;
+use Jeffgreco13\FilamentBreezy\Livewire\TwoFactorAuthentication;
+use Jeffgreco13\FilamentBreezy\Livewire\UpdatePassword;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,5 +55,10 @@ class AppServiceProvider extends ServiceProvider
         Validator::replacer('turnstile', function ($message, $attribute, $rule, $parameters) {
             return str_replace(':attribute', $attribute, 'Verifikasi keamanan gagal, silakan coba lagi.');
         });
+
+        // 2. KOMPONEN BREEZY
+        Livewire::component('personal_info', PersonalInfo::class);
+        Livewire::component('update_password', UpdatePassword::class);
+        Livewire::component('two_factor_authentication', TwoFactorAuthentication::class);
     }
 }
