@@ -10,7 +10,6 @@
   "license": "MIT",
   "require": {
     "php": "^8.2",
-    "awcodes/filament-curator": "^3.3",
     "awcodes/filament-gravatar": "^2.0",
     "barryvdh/laravel-dompdf": "^3.1",
     "bezhansalleh/filament-exceptions": "^2.0",
