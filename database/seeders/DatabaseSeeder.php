@@ -56,22 +56,22 @@ class DatabaseSeeder extends Seeder
                         'officer-man.png',
                         'officer-woman.png',
                         'guest-man.png',
-                        'guest-woman.png'
+                        'guest-woman.png',
                     ];
 
                     Guest::create([
                         'perangkat_daerah_id' => $pd->id,
-                        'nama'               => $daftarNama[array_rand($daftarNama)],
-                        'asal_instansi'      => $daftarUniversitas[array_rand($daftarUniversitas)],
-                        'keperluan'          => 'Koordinasi teknis data ke-' . $i . ' di ' . $pd->nama_pd,
-                        'pesan_kesan'        => 'Pelayanan cepat dan informatif.',
-                        'ttd_digital'        => 'data:image/png;base64,sample_seed_' . $pd->id . '_' . $i,
+                        'nama' => $daftarNama[array_rand($daftarNama)],
+                        'asal_instansi' => $daftarUniversitas[array_rand($daftarUniversitas)],
+                        'keperluan' => 'Koordinasi teknis data ke-'.$i.' di '.$pd->nama_pd,
+                        'pesan_kesan' => 'Pelayanan cepat dan informatif.',
+                        'ttd_digital' => 'data:image/png;base64,sample_seed_'.$pd->id.'_'.$i,
 
                         // Memilih avatar secara acak dari folder images/avatars
-                        'foto'               => 'images/avatars/' . $daftarAvatar[array_rand($daftarAvatar)],
+                        'foto' => 'images/avatars/'.$daftarAvatar[array_rand($daftarAvatar)],
 
-                        'created_at'         => $timestamp,
-                        'updated_at'         => $timestamp,
+                        'created_at' => $timestamp,
+                        'updated_at' => $timestamp,
                     ]);
                 }
             }

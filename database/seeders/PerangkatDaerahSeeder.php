@@ -579,8 +579,8 @@ class PerangkatDaerahSeeder extends Seeder
 
             User::create([
                 'perangkat_daerah_id' => $pd->id,
-                'name' => 'admin' . str_replace('-', '', $item['slug']),
-                'email' => $item['email'] ?? ($item['slug'] . '@placeholder.com'),
+                'name' => 'admin'.str_replace('-', '', $item['slug']),
+                'email' => $item['email'] ?? ($item['slug'].'@placeholder.com'),
                 'password' => Hash::make('admin123'),
             ]);
         }
