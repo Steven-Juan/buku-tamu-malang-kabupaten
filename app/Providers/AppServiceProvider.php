@@ -57,13 +57,17 @@ class AppServiceProvider extends ServiceProvider
             return str_replace(':attribute', $attribute, 'Verifikasi keamanan gagal, silakan coba lagi.');
         });
 
-        // 2. KOMPONEN BREEZY
+        // Logika untuk Ganti-ganti APPURL
+        $appUrl = config('app.url');
+
+        // Jika APP_URL bukan localhost atau 127.0.0.1, maka paksa Root URL ke IP tersebut
+        if (app()->environment('local') && !str_contains($appUrl, 'localhost') && !str_contains($appUrl, '127.0.0.1')) {
+            URL::forceRootUrl($appUrl);
+        }
+
+        // KOMPONEN BREEZY
         Livewire::component('personal_info', PersonalInfo::class);
         Livewire::component('update_password', UpdatePassword::class);
         Livewire::component('two_factor_authentication', TwoFactorAuthentication::class);
-
-        if (app()->environment('local')) {
-            URL::forceRootUrl(config('app.url'));
-        }
     }
 }
