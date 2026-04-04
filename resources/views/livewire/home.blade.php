@@ -39,23 +39,6 @@
                         </span>
                     </h1>
                 </div>
-
-                {{-- Greeting card --}}
-                <div class="flex justify-center mt-8 animate-fade-in-up animation-delay-400">
-                    <div
-                        class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl
-                              bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm
-                              border border-gray-200 dark:border-gray-700/50
-                              shadow-md shadow-primary/5 dark:shadow-black/5">
-                        <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">
-                            <span x-data="greeting" x-text="message"></span>
-                            , <span
-                                class="font-semibold bg-gradient-to-r from-primary to-accent
-                                        bg-clip-text text-transparent">Pengunjung</span>
-                        </p>
-                    </div>
-                </div>
             </div>
         </x-slot>
 
@@ -235,8 +218,8 @@
                                           group-hover:from-primary group-hover:to-secondary
                                           transition-all duration-500 shadow-md">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
                                             class="text-primary group-hover:text-white
                                                transition-colors duration-500
                                                group-hover:scale-110 group-hover:rotate-3">

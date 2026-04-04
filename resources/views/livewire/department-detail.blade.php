@@ -29,16 +29,18 @@
                           opacity-90 blur-3xl">
                 </div>
             </div>
-            {{-- Badge instansi --}}
-            <div class="flex justify-center mb-4 relative z-10">
-                <span
-                    class="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-bold px-4 py-2 rounded-full border border-primary/20">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                    PERANGKAT DAERAH
-                </span>
+
+            {{-- GREETING --}}
+            <div class="flex justify-center mb-6 animate-fade-in-up animation-delay-400">
+                <div
+                    class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700/50 shadow-md">
+                    <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        <span x-data="greeting" x-text="message"></span>,
+                        <span
+                            class="font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Pengunjung</span>
+                    </p>
+                </div>
             </div>
 
             <h1
@@ -46,29 +48,19 @@
                 Portal
                 <span class="relative inline-block">
                     <span
-                        class="bg-gradient-to-r from-primary via-secondary to-accent
-                                   bg-clip-text text-transparent italic bg-size-200 animate-gradient">
+                        class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent italic bg-size-200 animate-gradient">
                         {{ $instansiTujuan->nama_pd }}
                     </span>
+
+                    {{-- ANIMASI TAMBAHAN (✨ & ⭐) --}}
+                    <span class="absolute -top-6 -right-6 text-2xl animate-bounce animation-delay-400">✨</span>
+                    <span class="absolute -bottom-4 -left-6 text-2xl animate-bounce animation-delay-600">⭐</span>
+
                     {{-- Animated underline --}}
                     <span
                         class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#0100CC] via-[#0166FE] to-[#18D1FF] rounded-full scale-x-0 animate-slide-in"></span>
                 </span>
             </h1>
-
-            {{-- Info tambahan instansi --}}
-            <div
-                class="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-500 dark:text-gray-400 relative z-10">
-                <div class="flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>Pemerintah Kabupaten Malang</span>
-                </div>
-            </div>
 
             {{-- Back button with improved design --}}
             <div class="flex justify-center mt-8 group relative z-10">
