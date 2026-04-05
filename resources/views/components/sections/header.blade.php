@@ -5,8 +5,7 @@
         <nav class="flex items-center justify-between px-4 md:px-6 py-3 rounded-2xl transition-all duration-500
                     bg-slate-100/90 dark:bg-slate-950/90 backdrop-blur-md
                     border border-slate-100/40 dark:border-slate-800/50
-                    shadow-lg shadow-black/20""
-            :class="{
+                    shadow-lg shadow-black/20" :class="{
                 'lg:rounded-full': !scrolled,
                 'lg:rounded-2xl shadow-xl shadow-primary/10 scale-[0.98]': scrolled,
                 'ring-2 ring-primary/20': isHovered
@@ -17,15 +16,14 @@
                 aria-label="Buku Tamu Digital">
 
                 {{-- Background shimmer effect --}}
-                <div
-                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
                           -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
                 </div>
 
                 {{-- Logo Section --}}
                 <div class="relative flex items-center gap-3">
 
-                    {{-- Logo (Clean - No Hover Effect) --}}
+                    {{-- Logo --}}
                     <div class="relative flex-shrink-0">
                         <img src="{{ asset('logos/logo_kabmalang.svg') }}" alt="Logo Kabupaten Malang"
                             class="w-10 h-10 object-contain filter drop-shadow-sm">
@@ -33,17 +31,13 @@
 
                     {{-- Text Section --}}
                     <div class="flex flex-col leading-none">
-                        {{-- Main Text --}}
                         <span class="font-extrabold text-xl tracking-tighter">
                             <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                                 Malang<span class="text-primary italic">Kab</span>
                             </span>
                         </span>
-
-                        {{-- Sub-text --}}
-                        <span
-                            class="text-[9px] font-bold text-gray-400 uppercase tracking-widest
-                         group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-300">
+                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest
+                             group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-300">
                             Buku Tamu Digital
                         </span>
                     </div>
@@ -54,63 +48,57 @@
             {{-- Right section --}}
             <div class="flex items-center gap-2 md:gap-3">
 
-                {{-- Date & Digital Clock --}}
+                {{-- Date & Digital Clock (Desktop & Tablet) --}}
                 @unless ($hideClock)
-                    <div class="hidden md:flex flex-col items-end leading-none pr-4 mr-1 relative">
-                        {{-- Decorative line --}}
-                        <div
-                            class="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8
+                <div class="hidden md:flex flex-col items-end leading-none pr-4 mr-1 relative">
+                    {{-- Decorative line --}}
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8
                               bg-gradient-to-b from-transparent via-gray-300 dark:via-gray-700 to-transparent">
-                        </div>
+                    </div>
 
-                        {{-- Tanggal --}}
-                        <span
-                            class="text-sm md:text-base font-bold mb-1 px-3 py-1 rounded-full
+                    {{-- Tanggal --}}
+                    <span class="text-sm md:text-base font-bold mb-1 px-3 py-1 rounded-full
                                bg-gradient-to-r from-primary/10 to-accent/10
                                text-primary dark:text-accent">
-                            {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
-                        </span>
+                        {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
+                    </span>
 
-                        {{-- Jam --}}
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80
+                    {{-- Jam --}}
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80
                                   px-2 py-1 rounded-lg border border-gray-200/50 dark:border-gray-700/50
                                   backdrop-blur-sm">
-                                <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                                <span id="digital-clock"
-                                    class="font-mono font-bold text-[13px] tracking-widest
+                            <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                            <span id="digital-clock" class="font-mono font-bold text-[13px] tracking-widest
                                                            text-gray-700 dark:text-gray-300">
-                                    00:00:00
-                                </span>
-                                <span
-                                    class="text-[8px] font-black uppercase px-1.5 py-0.5
+                                00:00:00
+                            </span>
+                            <span class="text-[8px] font-black uppercase px-1.5 py-0.5
                                        bg-gray-200/50 dark:bg-gray-700/50 rounded
                                        text-gray-500 dark:text-gray-400">
-                                    WIB
-                                </span>
-                            </div>
+                                WIB
+                            </span>
                         </div>
                     </div>
+                </div>
                 @endunless
 
-                {{-- Theme toggle --}}
-                <button @click="darkMode = !darkMode; $dispatch('theme-toggled', darkMode)"
-                    class="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800
+                {{-- Theme toggle - DIPERBAIKI --}}
+                <button @click="toggleDarkMode()" class="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800
                                border border-gray-200 dark:border-gray-700 transition-all duration-300
                                text-gray-600 dark:text-gray-400 relative group/theme
                                hover:border-primary/50 hover:text-primary dark:hover:text-accent
                                hover:shadow-lg hover:shadow-primary/10">
 
                     {{-- Tooltip --}}
-                    <span
-                        class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px]
+                    <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px]
                                  bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900
                                  px-2 py-1 rounded opacity-0 group-hover/theme:opacity-100
-                                 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
-                        x-text="darkMode ? 'Mode Terang' : 'Mode Gelap'">
+                                 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+                        <span x-text="darkMode ? 'Mode Terang' : 'Mode Gelap'"></span>
                     </span>
 
+                    {{-- Icon mode terang --}}
                     <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="2.5" stroke="currentColor"
                         class="w-5 h-5 transition-transform duration-500 group-hover/theme:rotate-180">
@@ -118,18 +106,90 @@
                             d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                     </svg>
 
-                    <svg x-show="darkMode" class="w-5 h-5 transition-transform duration-500 group-hover/theme:rotate-12"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    {{-- Icon mode gelap --}}
+                    <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="2.5" stroke="currentColor"
+                        class="w-5 h-5 transition-transform duration-500 group-hover/theme:rotate-12">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                     </svg>
                 </button>
 
-                {{-- Login Button (tetap asli) --}}
-                <x-button :url="Filament\Pages\Dashboard::getUrl()" :color="Auth::check() ? 'primary' : 'dark'" size="sm" :icon="Auth::check() ? 'heroicon-o-cog-6-tooth' : 'heroicon-s-user'">
+                {{-- Login Button - Hanya tampil di desktop, di mobile akan muncul di footer --}}
+                <x-button :url="Filament\Pages\Dashboard::getUrl()" :color="Auth::check() ? 'primary' : 'dark'"
+                    size="sm" :icon="Auth::check() ? 'heroicon-o-cog-6-tooth' : 'heroicon-s-user'"
+                    class="hidden sm:inline-flex">
                     <span>{{ Auth::check() ? 'Dashboard' : 'Login Admin' }}</span>
                 </x-button>
             </div>
         </nav>
     </x-container>
 </header>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('header', () => ({
+        scrolled: false,
+        isHovered: false,
+        darkMode: false,
+
+        init() {
+            // Initialize dark mode dari localStorage
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode !== null) {
+                this.darkMode = savedMode === 'true';
+            } else {
+                this.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
+            // Apply dark mode
+            this.applyDarkMode();
+
+            // Scroll listener
+            window.addEventListener('scroll', () => {
+                this.scrolled = window.scrollY > 50;
+            });
+
+            // Digital clock
+            this.updateClock();
+            setInterval(() => this.updateClock(), 1000);
+
+            // Listen untuk event dari komponen lain
+            window.addEventListener('theme-toggled', (event) => {
+                this.darkMode = event.detail;
+                this.applyDarkMode();
+            });
+        },
+
+        toggleDarkMode() {
+            this.darkMode = !this.darkMode;
+            this.applyDarkMode();
+            // Dispatch event agar komponen lain bisa merespon
+            window.dispatchEvent(new CustomEvent('theme-toggled', {
+                detail: this.darkMode
+            }));
+        },
+
+        applyDarkMode() {
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
+            }
+        },
+
+        updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            const desktopClock = document.getElementById('digital-clock');
+            if (desktopClock) desktopClock.textContent = timeString;
+        }
+    }));
+});
+</script>
