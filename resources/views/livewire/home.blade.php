@@ -1,12 +1,12 @@
-<div x-data="search" class="relative overflow-hidden bg-gradient-to-b from-white via-indigo-50/40 to-slate-100
+<div x-data="search" class=" relative overflow-hidden bg-gradient-to-b from-white via-indigo-50/40 to-slate-100
             dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
             text-slate-800 dark:text-slate-200 min-h-screen
             transition-colors duration-300 flex flex-col items-center">
 
     {{-- Hero Section --}}
-    <x-hero class="bg-transparent !mb-0 !py-12 md:!py-24 w-full relative overflow-hidden">
+    <x-hero class="bg-transparent !mb-0 !py-16 md:!py-24 w-full relative overflow-hidden">
         <x-slot name="title">
-            <div class="relative px-4">
+            <div class="relative">
                 <div aria-hidden="true"
                     class="absolute inset-0 flex items-start justify-center z-0 pointer-events-none">
                     <div class="w-[36rem] aspect-[1155/678] rounded-full
@@ -17,8 +17,8 @@
                     </div>
                 </div>
                 <div class="relative z-10">
-                    <h1 class="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold
-                         leading-[1.2] sm:leading-[1.1] tracking-tight mx-auto">
+                    <h1 class="text-center text-4xl md:text-5xl lg:text-6xl font-extrabold
+                         leading-[1.1] tracking-tight mx-auto px-4">
                         <span class="inline-block animate-fade-in-up">Layanan</span>
                         <br />
                         <span class="relative inline-block mt-2 animate-fade-in-up animation-delay-200">
@@ -26,13 +26,12 @@
                                    bg-clip-text text-transparent italic bg-size-200 animate-gradient">
                                 Buku Tamu Digital
                             </span>
-                            <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/2 h-0.5
+                            <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-1
                                    bg-gradient-to-r from-primary via-secondary to-accent
                                    rounded-full scale-x-0 animate-slide-in"></span>
+                            <span class="absolute -top-6 -right-6 text-2xl animate-bounce animation-delay-400">✨</span>
                             <span
-                                class="absolute -top-4 -right-2 text-xl animate-bounce animation-delay-400 hidden sm:inline-block">✨</span>
-                            <span
-                                class="absolute -bottom-3 -left-2 text-xl animate-bounce animation-delay-600 hidden sm:inline-block">⭐</span>
+                                class="absolute -bottom-4 -left-6 text-2xl animate-bounce animation-delay-600">⭐</span>
                         </span>
                     </h1>
                 </div>
@@ -40,9 +39,9 @@
         </x-slot>
 
         <x-slot name="afterTitle">
-            <div class="flex flex-col items-center relative z-10 px-4">
-                <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg text-center
-                         max-w-2xl mt-6 px-4 leading-relaxed font-medium mx-auto
+            <div class="flex flex-col items-center relative z-10">
+                <p class="text-gray-500 dark:text-gray-400 text-base md:text-lg text-center
+                         max-w-2xl mt-8 px-6 leading-relaxed font-medium mx-auto
                          animate-fade-in-up animation-delay-600">
                     Selamat datang di portal resmi pendataan kunjungan.
                     Silakan cari dan pilih Perangkat Daerah tujuan Anda untuk memulai
@@ -50,11 +49,11 @@
                 </p>
 
                 {{-- Search Bar --}}
-                <div class="mt-8 w-full max-w-2xl mx-auto animate-fade-in-up animation-delay-800"
+                <div class="mt-12 w-full max-w-2xl mx-auto animate-fade-in-up animation-delay-800"
                     @click.away="focused = false">
 
-                    {{-- Search tips - hidden on mobile --}}
-                    <div class="hidden sm:flex justify-center gap-4 mb-4 text-xs text-gray-500">
+                    {{-- Search tips --}}
+                    <div class="flex justify-center gap-4 mb-4 text-xs text-gray-500">
                         <span class="flex items-center gap-1">
                             <span class="w-1 h-1 rounded-full bg-primary"></span>
                             Ketik untuk mencari
@@ -65,7 +64,7 @@
                         </span>
                     </div>
 
-                    <div class="relative group" :class="{ 'scale-[1.01] sm:scale-[1.02]': focused }">
+                    <div class="relative group" :class="{ 'scale-[1.02]': focused }">
 
                         {{-- Glow effects --}}
                         <div class="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent
@@ -79,19 +78,18 @@
 
                         {{-- Search input --}}
                         <div class="relative flex items-center bg-white dark:bg-gray-800/90
-                                  h-14 sm:h-16 border border-gray-200 dark:border-gray-700
+                                  h-16 border border-gray-200 dark:border-gray-700
                                   rounded-2xl w-full transition-all duration-300
-                                  shadow-md shadow-gray-200/50 dark:shadow-black/5 pr-2 pl-4 sm:pl-5" :class="{
-                                'border-primary shadow-xl shadow-primary/20 scale-[1.01] sm:scale-[1.02]': focused,
+                                  shadow-md shadow-gray-200/50 dark:shadow-black/5 pr-2 pl-5" :class="{
+                                'border-primary shadow-xl shadow-primary/20 scale-[1.02]': focused,
                                 'hover:border-gray-300 dark:hover:border-gray-600': !focused
                             }" @focusin="focused = true" @focusout="focused = false">
 
                             {{-- Search icon --}}
                             <div class="relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="text-gray-400 transition-all duration-500 sm:w-[22px] sm:h-[22px]" :class="{
+                                    stroke-linejoin="round" class="text-gray-400 transition-all duration-500" :class="{
                                         'text-primary scale-110 rotate-90': focused,
                                         'group-hover:scale-110': !focused
                                     }">
@@ -103,50 +101,50 @@
                                     x-cloak></span>
                             </div>
 
-                            <input wire:model.live.debounce.300ms="search" class="px-3 sm:px-4 w-full h-full outline-none border-none focus:ring-0
+                            <input wire:model.live.debounce.300ms="search" class="px-4 w-full h-full outline-none border-none focus:ring-0
                                           placeholder:text-gray-400 text-slate-700 dark:text-slate-200
-                                          bg-transparent text-sm sm:text-base" type="text"
-                                placeholder="Cari Perangkat Daerah" x-ref="searchInput" />
+                                          bg-transparent text-base" type="text"
+                                placeholder="Cari Perangkat Daerah (Misal: Diskominfo, Bappeda...)"
+                                x-ref="searchInput" />
 
                             {{-- Clear button --}}
                             <button wire:click="$set('search', '')" x-show="$wire.search.length > 0" x-cloak
                                 x-transition:enter="transition ease-out duration-200"
                                 x-transition:enter-start="opacity-0 scale-50"
-                                x-transition:enter-end="opacity-100 scale-100" class="p-1.5 sm:p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700
+                                x-transition:enter-end="opacity-100 scale-100" class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700
                                            transition-all duration-300 mr-1
                                            hover:rotate-90 group/clear">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="group-hover/clear:text-primary transition-colors sm:w-[18px] sm:h-[18px]">
+                                    stroke-linejoin="round" class="group-hover/clear:text-primary transition-colors">
                                     <path d="M18 6 6 18" />
                                     <path d="m6 6 12 12" />
                                 </svg>
                             </button>
 
                             {{-- Search button --}}
-                            <button class="px-4 sm:px-6 py-2 bg-gradient-to-r from-primary to-secondary
-                                         text-white rounded-xl font-semibold text-xs sm:text-sm
+                            <button class="px-6 py-2 bg-gradient-to-r from-primary to-secondary
+                                         text-white rounded-xl font-semibold text-sm
                                          hover:shadow-lg hover:shadow-primary/30
                                          transition-all duration-300 hover:scale-105
-                                         active:scale-95 ml-1 sm:ml-2">
+                                         active:scale-95 ml-2">
                                 Cari
                             </button>
                         </div>
                     </div>
 
                     {{-- Search stats --}}
-                    <div class="flex justify-between items-center mt-3 sm:mt-4 text-xs
+                    <div class="flex justify-between items-center mt-4 text-xs
                               text-gray-500 dark:text-gray-400 px-2">
                         <span x-show="$wire.daftarPd.length > 0" x-transition:enter="transition ease-out duration-300"
                             x-transition:enter-start="opacity-0 translate-y-2"
                             x-transition:enter-end="opacity-100 translate-y-0">
-                            <span class="hidden sm:inline">📊 Menampilkan </span>
-                            <span class="font-semibold text-primary" x-text="$wire.daftarPd.length"></span>
-                            <span class="hidden sm:inline"> Perangkat Daerah</span>
+                            📊 Menampilkan <span class="font-semibold text-primary"
+                                x-text="$wire.daftarPd.length"></span>
+                            Perangkat Daerah
                         </span>
                         <span x-show="$wire.daftarPd.length === 0 && $wire.search.length > 0"
-                            class="text-amber-500 flex items-center gap-1 text-xs sm:text-sm">
+                            class="text-amber-500 flex items-center gap-1">
                             <span>🔍</span>
                             Tidak ada hasil untuk "{{ $search }}"
                         </span>
@@ -157,16 +155,16 @@
     </x-hero>
 
     {{-- Grid Kartu Instansi --}}
-    <x-container size="lg" class="pb-24 w-full px-4 sm:px-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full auto-rows-fr">
+    <x-container size="lg" class="pb-24 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
             @forelse ($daftarPd as $index => $pd)
             <a href="{{ route('department.detail', $pd->slug) }}" wire:navigate class="group relative block bg-white dark:bg-gray-800/50
                       hover:shadow-xl hover:shadow-primary/25
                       dark:hover:shadow-2xl dark:hover:shadow-primary/20
                       transition-all duration-500 border border-gray-200
-                      dark:border-gray-700/50 rounded-2xl sm:rounded-3xl p-5 sm:p-6 min-h-[220px] sm:min-h-[240px]
+                      dark:border-gray-700/50 rounded-3xl p-6 min-h-[240px]
                       hover:border-primary dark:hover:border-primary
-                      hover:-translate-y-1 sm:hover:-translate-y-2
+                      hover:-translate-y-2
                       overflow-hidden" style="animation: fadeInUp 0.5s ease-out {{ $index * 0.05 }}s both;">
 
                 {{-- Background gradient effect --}}
@@ -174,7 +172,7 @@
                           opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
 
-                {{-- Shine effect --}}
+                {{-- Shine effect: diubah ke indigo agar cocok dengan template PrebuiltUI --}}
                 <div class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%]
                           bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent
                           transition-transform duration-1000">
@@ -183,30 +181,33 @@
                 <div class="flex flex-col h-full justify-between relative z-10">
                     {{-- Header section --}}
                     <div>
-                        <div class="flex items-center justify-between mb-3 sm:mb-4">
+                        <div class="flex items-center justify-between mb-4">
                             <div class="relative">
+                                {{-- Glow effect --}}
                                 <div class="absolute inset-0 bg-primary/30 rounded-2xl blur-xl
                                           opacity-0 group-hover:opacity-100 transition-all duration-500
                                           group-hover:scale-150">
                                 </div>
 
+                                {{-- Icon container --}}
                                 <div class="relative bg-gradient-to-br from-primary/15 to-accent/15
-                                          p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl group-hover:bg-gradient-to-br
+                                          p-3.5 rounded-2xl group-hover:bg-gradient-to-br
                                           group-hover:from-primary group-hover:to-secondary
                                           transition-all duration-500 shadow-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="text-primary group-hover:text-white
                                                transition-colors duration-500
-                                               group-hover:scale-110 group-hover:rotate-3 sm:w-[24px] sm:h-[24px]">
+                                               group-hover:scale-110 group-hover:rotate-3">
                                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                     </svg>
                                 </div>
                             </div>
 
-                            <span class="text-[9px] sm:text-[10px] font-bold text-gray-600 uppercase tracking-tighter
+                            {{-- Badge --}}
+                            <span class="text-[10px] font-bold text-gray-600 uppercase tracking-tighter
                                        bg-white dark:bg-gray-800/80
-                                       px-2 sm:px-3 py-1 rounded-full border border-gray-200
+                                       px-3 py-1.5 rounded-full border border-gray-200
                                        dark:border-gray-700/50 shadow-sm">
                                 <span class="bg-gradient-to-r from-primary to-accent
                                            bg-clip-text text-transparent">
@@ -215,25 +216,24 @@
                             </span>
                         </div>
 
-                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200
                                    group-hover:text-primary transition-colors duration-300
-                                   line-clamp-2 min-h-[2.5rem] sm:min-h-[3.5rem] mb-1 sm:mb-2">
+                                   line-clamp-2 min-h-[3.5rem] mb-2">
                             {{ $pd->nama_pd }}
                         </h3>
 
-                        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem]
-                                  flex items-start gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2"
-                                class="shrink-0 mt-0.5 sm:w-[14px] sm:h-[14px]">
-                                <path d="M20 10c0 4.418-8 12-8 12s-8-7.582-8-10a8 8 0 1 1 16 0Z" />
+                        <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 min-h-[2.5rem]
+                                  flex items-start gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 mt-0.5">
+                                <path d="M20 10c0 4.418-8 12-8 12s-8-7.582-8-12a8 8 0 1 1 16 0Z" />
                                 <circle cx="12" cy="10" r="3" />
                             </svg>
                             {{ $pd->alamat ?? 'Pemerintah Kabupaten Malang' }}
                         </p>
 
                         @if (isset($pd->jenis))
-                        <span class="inline-flex items-center gap-1 mt-3 sm:mt-4 text-[10px] sm:text-xs px-2 sm:px-3 py-1
+                        <span class="inline-flex items-center gap-1 mt-4 text-xs px-3 py-1
                                    bg-gradient-to-r from-accent/10 to-primary/10
                                    text-accent rounded-full border border-accent/20">
                             <span class="w-1 h-1 rounded-full bg-accent animate-pulse"></span>
@@ -243,15 +243,15 @@
                     </div>
 
                     {{-- Footer --}}
-                    <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800
+                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800
                               flex items-center justify-between">
-                        <div class="flex items-center gap-1.5 sm:gap-2">
-                            <span class="text-[10px] sm:text-xs text-gray-400 flex items-center gap-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 flex items-center gap-1">
                                 <span class="w-1 h-1 rounded-full bg-green-500"></span>
                                 Buka
                             </span>
-                            <span class="text-[10px] sm:text-xs text-gray-300">•</span>
-                            <span class="text-[10px] sm:text-xs text-gray-400">
+                            <span class="text-xs text-gray-300">•</span>
+                            <span class="text-xs text-gray-400">
                                 {{ number_format($pd->guests_count, 0, ',', '.') }} kunjungan
                             </span>
                         </div>
@@ -260,17 +260,17 @@
                             <div class="absolute inset-0 bg-accent rounded-full blur-md
                                       opacity-0 group-hover:opacity-60 transition-opacity">
                             </div>
-                            <div class="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent/10
+                            <div class="relative w-10 h-10 rounded-full bg-accent/10
                                       flex items-center justify-center
                                       group-hover:bg-gradient-to-r group-hover:from-primary
                                       group-hover:to-secondary group-hover:text-white
                                       group-hover:scale-110 group-hover:rotate-0
                                       transition-all duration-500 text-accent
                                       border border-accent/20 group-hover:border-transparent">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                     stroke-linejoin="round"
-                                    class="group-hover:translate-x-1 transition-transform duration-300 sm:w-[18px] sm:h-[18px]">
+                                    class="group-hover:translate-x-1 transition-transform duration-300">
                                     <path d="m9 18 6-6-6-6" />
                                 </svg>
                             </div>
@@ -279,29 +279,29 @@
                 </div>
             </a>
             @empty
-            <div class="col-span-full py-12 sm:py-20 text-center">
-                <div class="max-w-md mx-auto px-4">
-                    <div class="relative mb-6 sm:mb-8">
+            <div class="col-span-full py-20 text-center">
+                <div class="max-w-md mx-auto">
+                    <div class="relative mb-8">
                         <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20
                                   rounded-full blur-3xl animate-pulse">
                         </div>
                         <div class="relative bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm
-                                  p-6 sm:p-8 rounded-full w-24 h-24 sm:w-32 sm:h-32 mx-auto
+                                  p-8 rounded-full w-32 h-32 mx-auto
                                   flex items-center justify-center
                                   border-4 border-gray-200 dark:border-gray-700/50">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-400"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-gray-400" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                     </div>
 
-                    <h4 class="text-xl sm:text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">
+                    <h4 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">
                         Instansi Tidak Ditemukan
                     </h4>
 
-                    <p class="text-sm sm:text-base text-gray-500 mb-4 sm:mb-6">
+                    <p class="text-gray-500 mb-6">
                         @if (!empty($search))
                         Tidak ada hasil untuk "{{ $search }}". Coba gunakan kata kunci lain.
                         @else
@@ -310,12 +310,12 @@
                     </p>
 
                     @if (!empty($search))
-                    <button wire:click="$set('search', '')" class="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-primary to-secondary
-                                   text-white rounded-xl font-semibold text-sm sm:text-base
+                    <button wire:click="$set('search', '')" class="px-6 py-3 bg-gradient-to-r from-primary to-secondary
+                                   text-white rounded-xl font-semibold
                                    hover:shadow-lg hover:shadow-primary/30
                                    transition-all duration-300 hover:scale-105
                                    active:scale-95 inline-flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5">
                             <path d="M3 12h4l3-3 3 3h4" />
                             <path d="M5 6v3h14V6" />
@@ -329,7 +329,7 @@
         </div>
 
         @if (method_exists($daftarPd, 'links'))
-        <div class="mt-8 sm:mt-12">
+        <div class="mt-12">
             {{ $daftarPd->links() }}
         </div>
         @endif
