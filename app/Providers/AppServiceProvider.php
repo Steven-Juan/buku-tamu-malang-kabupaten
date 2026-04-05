@@ -5,8 +5,8 @@ namespace App\Providers;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 // 1. IMPORT LIVEWIRE & BREEZY
 use Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo;
@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             'panels::head.start',
-            fn(): string => '<meta name="robots" content="noindex,nofollow">'
+            fn (): string => '<meta name="robots" content="noindex,nofollow">'
         );
     }
 
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentView::registerRenderHook(
             'panels::auth.before',
-            fn(): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
+            fn (): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
         );
 
         Validator::extend('turnstile', function ($attribute, $value, $parameters, $validator) {
@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         $appUrl = config('app.url');
 
         // Jika APP_URL bukan localhost atau 127.0.0.1, maka paksa Root URL ke IP tersebut
-        if (app()->environment('local') && !str_contains($appUrl, 'localhost') && !str_contains($appUrl, '127.0.0.1')) {
+        if (app()->environment('local') && ! str_contains($appUrl, 'localhost') && ! str_contains($appUrl, '127.0.0.1')) {
             URL::forceRootUrl($appUrl);
         }
 
