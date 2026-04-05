@@ -5,7 +5,8 @@
         <nav class="flex items-center justify-between px-4 md:px-6 py-3 rounded-2xl transition-all duration-500
                     bg-slate-100/90 dark:bg-slate-950/90 backdrop-blur-md
                     border border-slate-100/40 dark:border-slate-800/50
-                    shadow-lg shadow-black/20" :class="{
+                    shadow-lg shadow-black/20"
+            :class="{
                 'lg:rounded-full': !scrolled,
                 'lg:rounded-2xl shadow-xl shadow-primary/10 scale-[0.98]': scrolled,
                 'ring-2 ring-primary/20': isHovered
@@ -16,7 +17,8 @@
                 aria-label="Buku Tamu Digital">
 
                 {{-- Background shimmer effect --}}
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
                           -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
                 </div>
 
@@ -36,7 +38,8 @@
                                 Malang<span class="text-primary italic">Kab</span>
                             </span>
                         </span>
-                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest
+                        <span
+                            class="text-[9px] font-bold text-gray-400 uppercase tracking-widest
                              group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-300">
                             Buku Tamu Digital
                         </span>
@@ -50,48 +53,55 @@
 
                 {{-- Date & Digital Clock (Desktop & Tablet) --}}
                 @unless ($hideClock)
-                <div class="hidden md:flex flex-col items-end leading-none pr-4 mr-1 relative">
-                    {{-- Decorative line --}}
-                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8
+                    <div class="hidden md:flex flex-col items-end leading-none pr-4 mr-1 relative">
+                        {{-- Decorative line --}}
+                        <div
+                            class="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8
                               bg-gradient-to-b from-transparent via-gray-300 dark:via-gray-700 to-transparent">
-                    </div>
+                        </div>
 
-                    {{-- Tanggal --}}
-                    <span class="text-sm md:text-base font-bold mb-1 px-3 py-1 rounded-full
+                        {{-- Tanggal --}}
+                        <span
+                            class="text-sm md:text-base font-bold mb-1 px-3 py-1 rounded-full
                                bg-gradient-to-r from-primary/10 to-accent/10
                                text-primary dark:text-accent">
-                        {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
-                    </span>
+                            {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
+                        </span>
 
-                    {{-- Jam --}}
-                    <div class="flex items-center gap-2">
-                        <div class="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80
+                        {{-- Jam --}}
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/80
                                   px-2 py-1 rounded-lg border border-gray-200/50 dark:border-gray-700/50
                                   backdrop-blur-sm">
-                            <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                            <span id="digital-clock" class="font-mono font-bold text-[13px] tracking-widest
+                                <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                                <span id="digital-clock"
+                                    class="font-mono font-bold text-[13px] tracking-widest
                                                            text-gray-700 dark:text-gray-300">
-                                00:00:00
-                            </span>
-                            <span class="text-[8px] font-black uppercase px-1.5 py-0.5
+                                    00:00:00
+                                </span>
+                                <span
+                                    class="text-[8px] font-black uppercase px-1.5 py-0.5
                                        bg-gray-200/50 dark:bg-gray-700/50 rounded
                                        text-gray-500 dark:text-gray-400">
-                                WIB
-                            </span>
+                                    WIB
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endunless
 
                 {{-- Theme toggle - DIPERBAIKI --}}
-                <button @click="toggleDarkMode()" class="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800
+                <button @click="toggleDarkMode()"
+                    class="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800
                                border border-gray-200 dark:border-gray-700 transition-all duration-300
                                text-gray-600 dark:text-gray-400 relative group/theme
                                hover:border-primary/50 hover:text-primary dark:hover:text-accent
                                hover:shadow-lg hover:shadow-primary/10">
 
                     {{-- Tooltip --}}
-                    <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px]
+                    <span
+                        class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px]
                                  bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900
                                  px-2 py-1 rounded opacity-0 group-hover/theme:opacity-100
                                  transition-opacity duration-200 whitespace-nowrap pointer-events-none">
@@ -116,9 +126,7 @@
                 </button>
 
                 {{-- Login Button - Hanya tampil di desktop, di mobile akan muncul di footer --}}
-                <x-button :url="Filament\Pages\Dashboard::getUrl()" :color="Auth::check() ? 'primary' : 'dark'"
-                    size="sm" :icon="Auth::check() ? 'heroicon-o-cog-6-tooth' : 'heroicon-s-user'"
-                    class="hidden sm:inline-flex">
+                <x-button :url="Filament\Pages\Dashboard::getUrl()" :color="Auth::check() ? 'primary' : 'dark'" size="sm" :icon="Auth::check() ? 'heroicon-o-cog-6-tooth' : 'heroicon-s-user'" class="hidden sm:block">
                     <span>{{ Auth::check() ? 'Dashboard' : 'Login Admin' }}</span>
                 </x-button>
             </div>
@@ -127,69 +135,69 @@
 </header>
 
 <script>
-document.addEventListener('alpine:init', () => {
-    Alpine.data('header', () => ({
-        scrolled: false,
-        isHovered: false,
-        darkMode: false,
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('header', () => ({
+            scrolled: false,
+            isHovered: false,
+            darkMode: false,
 
-        init() {
-            // Initialize dark mode dari localStorage
-            const savedMode = localStorage.getItem('darkMode');
-            if (savedMode !== null) {
-                this.darkMode = savedMode === 'true';
-            } else {
-                this.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            }
+            init() {
+                // Initialize dark mode dari localStorage
+                const savedMode = localStorage.getItem('darkMode');
+                if (savedMode !== null) {
+                    this.darkMode = savedMode === 'true';
+                } else {
+                    this.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                }
 
-            // Apply dark mode
-            this.applyDarkMode();
-
-            // Scroll listener
-            window.addEventListener('scroll', () => {
-                this.scrolled = window.scrollY > 50;
-            });
-
-            // Digital clock
-            this.updateClock();
-            setInterval(() => this.updateClock(), 1000);
-
-            // Listen untuk event dari komponen lain
-            window.addEventListener('theme-toggled', (event) => {
-                this.darkMode = event.detail;
+                // Apply dark mode
                 this.applyDarkMode();
-            });
-        },
 
-        toggleDarkMode() {
-            this.darkMode = !this.darkMode;
-            this.applyDarkMode();
-            // Dispatch event agar komponen lain bisa merespon
-            window.dispatchEvent(new CustomEvent('theme-toggled', {
-                detail: this.darkMode
-            }));
-        },
+                // Scroll listener
+                window.addEventListener('scroll', () => {
+                    this.scrolled = window.scrollY > 50;
+                });
 
-        applyDarkMode() {
-            if (this.darkMode) {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('darkMode', 'true');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('darkMode', 'false');
+                // Digital clock
+                this.updateClock();
+                setInterval(() => this.updateClock(), 1000);
+
+                // Listen untuk event dari komponen lain
+                window.addEventListener('theme-toggled', (event) => {
+                    this.darkMode = event.detail;
+                    this.applyDarkMode();
+                });
+            },
+
+            toggleDarkMode() {
+                this.darkMode = !this.darkMode;
+                this.applyDarkMode();
+                // Dispatch event agar komponen lain bisa merespon
+                window.dispatchEvent(new CustomEvent('theme-toggled', {
+                    detail: this.darkMode
+                }));
+            },
+
+            applyDarkMode() {
+                if (this.darkMode) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                }
+            },
+
+            updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const timeString = `${hours}:${minutes}:${seconds}`;
+
+                const desktopClock = document.getElementById('digital-clock');
+                if (desktopClock) desktopClock.textContent = timeString;
             }
-        },
-
-        updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
-
-            const desktopClock = document.getElementById('digital-clock');
-            if (desktopClock) desktopClock.textContent = timeString;
-        }
-    }));
-});
+        }));
+    });
 </script>

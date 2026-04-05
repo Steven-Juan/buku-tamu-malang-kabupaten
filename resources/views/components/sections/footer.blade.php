@@ -44,7 +44,7 @@
             {{-- Mobile Login Button --}}
             <div class="sm:hidden mt-6 flex justify-center">
                 <x-button :url="Filament\Pages\Dashboard::getUrl()" :color="Auth::check() ? 'primary' : 'dark'" size="xs"
-                    class="w-full max-w-[240px] sm:max-w-[280px] justify-center !px-3 !py-2" :icon="Auth::check() ? 'heroicon-o-cog-6-tooth' : 'heroicon-s-user'">
+                    class="w-full max-w-[240px] sm:max-w-[280px] justify-center" :icon="Auth::check() ? 'heroicon-o-cog-6-tooth' : 'heroicon-s-user'">
 
                     <span class="text-[12px] sm:text-sm">
                         {{ Auth::check() ? 'Masuk ke Dashboard' : 'Login Admin' }}
