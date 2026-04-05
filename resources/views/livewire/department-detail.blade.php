@@ -44,21 +44,27 @@
             </div>
 
             <h1
-                class="text-center text-text-dark dark:text-text-light text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mx-auto px-4 relative z-10">
-                Portal
-                <span class="relative inline-block">
+                class="text-center text-text-dark dark:text-text-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mx-auto px-4 relative z-10">
+                <span class="inline-block animate-fade-in-up">Portal</span>
+
+                <br />
+
+                <span class="relative inline-block mt-2 animate-fade-in-up animation-delay-200">
+                    {{-- Teks Nama Instansi --}}
                     <span
                         class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent italic bg-size-200 animate-gradient">
                         {{ $instansiTujuan->nama_pd }}
                     </span>
 
-                    {{-- ANIMASI TAMBAHAN (✨ & ⭐) --}}
-                    <span class="absolute -top-6 -right-6 text-2xl animate-bounce animation-delay-400">✨</span>
-                    <span class="absolute -bottom-4 -left-6 text-2xl animate-bounce animation-delay-600">⭐</span>
-
-                    {{-- Animated underline --}}
                     <span
-                        class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#0100CC] via-[#0166FE] to-[#18D1FF] rounded-full scale-x-0 animate-slide-in"></span>
+                        class="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-1
+                     bg-gradient-to-r from-primary via-secondary to-accent
+                     rounded-full scale-x-0 animate-slide-in"></span>
+
+                    <span
+                        class="absolute -top-6 -right-8 z-20 text-2xl animate-bounce animation-delay-400 select-none">✨</span>
+                    <span
+                        class="absolute -bottom-5 -left-8 z-20 text-2xl animate-bounce animation-delay-600 select-none">⭐</span>
                 </span>
             </h1>
 
@@ -85,7 +91,7 @@
         <div class="block md:hidden space-y-6">
             {{-- STATISTICS CARD - Mobile --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                class="bg-white dark:bg-gray-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl transition-all duration-500">
 
                 <div class="flex items-start justify-between mb-4">
@@ -114,30 +120,30 @@
                 </div>
 
                 {{-- Stats grid --}}
-                <div class="grid grid-cols-3 gap-4">
+                <div class="grid grid-cols-3 gap-2 sm:gap-4">
                     <div class="p-4 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl text-center">
                         <span
                             class="text-3xl font-black bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                             {{ $totalKunjungan }}
                         </span>
-                        <p class="text-xs text-gray-500 mt-1">Total</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Total</p>
                     </div>
 
                     <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
                         <span class="text-2xl font-bold text-secondary">{{ $kunjunganHariIni }}</span>
-                        <p class="text-xs text-gray-500">Hari Ini</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500">Hari Ini</p>
                     </div>
 
                     <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
                         <span class="text-2xl font-bold text-blue-500">{{ $kunjunganMingguIni }}</span>
-                        <p class="text-xs text-gray-500">Minggu Ini</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500">Minggu Ini</p>
                     </div>
                 </div>
             </div>
 
             {{-- VISITOR HISTORY CARD - Mobile --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                class="bg-white dark:bg-gray-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl transition-all duration-500">
 
                 <div class="flex items-center justify-between mb-6">
@@ -161,7 +167,7 @@
                 <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                     @forelse($riwayatTerbaru as $index => $tamu)
                         <div
-                            class="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50
+                            class="flex items-start gap-3 sm:gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50
                                 transition-all group/item">
 
                             {{-- Avatar with gradient --}}
@@ -180,7 +186,8 @@
 
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between gap-2">
-                                    <p class="font-bold text-sm text-text-dark dark:text-text-light truncate">
+                                    <p
+                                        class="font-bold text-xs sm:text-sm text-text-dark dark:text-text-light truncate">
                                         {{ $tamu->nama }}
                                     </p>
                                     <span
@@ -247,7 +254,7 @@
 
             {{-- QR CODE CARD - Mobile (paling bawah) --}}
             <div
-                class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                class="bg-white dark:bg-gray-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700
                       hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group/qr
                       relative overflow-hidden">
                 {{-- Decorative elements --}}
@@ -293,17 +300,6 @@
                         <div class="w-[200px] h-[200px]">
                             {!! $qrCode !!}
                         </div>
-
-                        {{-- Scan guide overlay --}}
-                        <div
-                            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/qr:opacity-100
-                                  transition-opacity duration-300 pointer-events-none">
-                            <div
-                                class="bg-primary/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg
-                                      transform -rotate-12">
-                                SCAN ME
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -326,7 +322,7 @@
             {{-- QR CODE CARD - Kolom kiri (desktop) --}}
             <div class="md:col-span-1">
                 <div
-                    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700
                           hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group/qr
                           relative overflow-hidden">
 
@@ -405,7 +401,7 @@
             <div class="md:col-span-2 flex flex-col gap-6">
                 {{-- STATISTICS CARD --}}
                 <div
-                    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700
                           hover:shadow-2xl transition-all duration-500">
 
                     <div class="flex items-start justify-between mb-4">
@@ -457,7 +453,7 @@
 
                 {{-- VISITOR HISTORY CARD --}}
                 <div
-                    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700
+                    class="bg-white dark:bg-gray-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-xl border border-gray-200 dark:border-gray-700
                           hover:shadow-2xl transition-all duration-500 flex-1">
 
                     <div class="flex items-center justify-between mb-6">
@@ -571,10 +567,10 @@
     </div>
 
     {{-- FLOATING ACTION BUTTON - Tombol Mengambang untuk Mobile & Desktop --}}
-    <div class="fixed bottom-8 right-8 z-50 group">
+    <div class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 group">
         <a href="{{ route('guest.form', $instansiTujuan->slug) }}" wire:navigate
             class="group/btn flex items-center justify-center gap-3 bg-gradient-to-r from-primary to-accent
-                   hover:from-accent hover:to-primary text-white font-bold py-3 px-6 rounded-full
+                   hover:from-accent hover:to-primary text-white font-bold py-2.5 px-4 sm:py-3 sm:px-6 rounded-full
                    shadow-2xl shadow-primary/40 hover:shadow-xl transition-all duration-300
                    hover:scale-105 active:scale-95 backdrop-blur-sm bg-opacity-95">
 
