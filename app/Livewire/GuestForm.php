@@ -51,14 +51,18 @@ class GuestForm extends Component
             ]);
 
             // Validasi khusus berdasarkan metode foto yang dipilih
-            if ($this->foto_metode === 'avatar' && empty($this->selectedAvatar)) {
-                $this->addError('selectedAvatar', 'Silakan pilih avatar.');
+            if ($this->foto_metode === 'avatar') {
+                if (empty($this->selectedAvatar)) {
+                    $this->addError('selectedAvatar', 'Silakan pilih salah satu avatar terlebih dahulu.');
 
-                return;
-            } elseif ($this->foto_metode === 'kamera' && empty($this->foto_base64)) {
-                $this->addError('foto_base64', 'Silakan ambil foto terlebih dahulu.');
+                    return;
+                }
+            } elseif ($this->foto_metode === 'kamera') {
+                if (empty($this->foto_base64)) {
+                    $this->addError('foto_base64', 'Silakan ambil foto kamera terlebih dahulu.');
 
-                return;
+                    return;
+                }
             }
         }
 
@@ -106,7 +110,7 @@ class GuestForm extends Component
             'ttd_digital' => $this->ttd_digital,
         ]);
 
-        // Memicu event Javascript untuk pop-up sukses dan berikan URL kembalinya
+        // Pop-up sukses dan URL kembali
         $redirectUrl = route('department.detail', $this->instansiTujuan->slug);
         $this->dispatch('tamu-berhasil-disimpan', redirect_url: $redirectUrl);
     }
@@ -114,5 +118,15 @@ class GuestForm extends Component
     public function render()
     {
         return view('livewire.guest-form');
+    }
+
+    public function resetStepOne()
+    {
+        $this->nama = '';
+        $this->asal_instansi = '';
+        $this->keperluan = '';
+        $this->pesan_kesan = '';
+
+        $this->resetValidation(['nama', 'asal_instansi', 'keperluan']);
     }
 }
