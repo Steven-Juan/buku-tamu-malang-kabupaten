@@ -148,6 +148,16 @@ class GuestResource extends Resource
                     ->sortable()
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('jenis_kelamin')
+                    ->label('L/P')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Laki-laki' => 'info',
+                        'Perempuan' => 'danger',
+                        default => 'gray',
+                    })
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('perangkatDaerah.nama_pd')
                     ->label('Instansi Tujuan')
                     ->badge()
