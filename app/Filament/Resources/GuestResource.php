@@ -96,8 +96,8 @@ class GuestResource extends Resource
                                     ->searchable()
                                     ->preload()
                                     ->required()
-                                    ->default(fn () => Auth::user()->perangkat_daerah_id)
-                                    ->disabled(fn () => Auth::user()->perangkat_daerah_id !== null)
+                                    ->default(fn() => Auth::user()->perangkat_daerah_id)
+                                    ->disabled(fn() => Auth::user()->perangkat_daerah_id !== null)
                                     ->dehydrated(),
 
                                 Forms\Components\FileUpload::make('foto')
@@ -151,12 +151,12 @@ class GuestResource extends Resource
                 Tables\Columns\TextColumn::make('jenis_kelamin')
                     ->label('L/P')
                     ->badge() // Menggunakan tampilan badge agar lebih cantik
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'Laki-laki' => 'info',      // Biru
                         'Perempuan' => 'danger',    // Merah/Pink
                         default => 'gray',
                     })
-                    ->icon(fn (string $state): string => match ($state) {
+                    ->icon(fn(string $state): string => match ($state) {
                         'Laki-laki' => 'heroicon-m-user',
                         'Perempuan' => 'heroicon-m-user-circle',
                         default => 'heroicon-m-question-mark-circle',
@@ -201,7 +201,7 @@ class GuestResource extends Resource
 
                         return response()->streamDownload(function () use ($pdf) {
                             echo $pdf->output();
-                        }, 'laporan-tamu-'.now()->format('Y-m-d').'.pdf');
+                        }, 'laporan-tamu-' . now()->format('Y-m-d') . '.pdf');
                     }),
             ])
             ->actions([
