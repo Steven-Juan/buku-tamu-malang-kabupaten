@@ -6,6 +6,7 @@ use App\Models\Guest;
 use App\Models\PerangkatDaerah;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class GuestForm extends Component
@@ -81,11 +82,18 @@ class GuestForm extends Component
 
     public function submit()
     {
-        $this->validate([
-            'turnstile_token' => 'required|turnstile',
-            'turnstile_token.required' => 'Silakan centang verifikasi keamanan.',
-            'turnstile_token.turnstile' => 'Verifikasi keamanan gagal, silakan coba lagi.',
-        ]);
+        try {
+            $this->validate([
+                'turnstile_token' => 'required|turnstile',
+            ], [
+                'turnstile_token.required' => 'Silakan centang verifikasi keamanan.',
+                'turnstile_token.turnstile' => 'Verifikasi keamanan gagal, silakan coba lagi.',
+            ]);
+        } catch (ValidationException $e) {
+            // Minta client untuk mereset widget Turnstile agar user bisa mencoba lagi
+            $this->emit('reset-turnstile');
+            throw $e;
+        }
 
         // Proses penyimpanan Foto (Avatar vs Kamera)
         $fotoPath = '';
