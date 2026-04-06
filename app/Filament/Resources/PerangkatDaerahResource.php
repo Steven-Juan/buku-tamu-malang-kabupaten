@@ -80,7 +80,7 @@ class PerangkatDaerahResource extends Resource
                                     ->label('Nama Perangkat Daerah')
                                     ->placeholder('Contoh: Dinas Komunikasi dan Informatika')
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                                     ->required()
                                     ->maxLength(255)
                                     ->autofocus(),
@@ -113,7 +113,7 @@ class PerangkatDaerahResource extends Resource
                                             ->color('primary')
                                             ->action(function (Forms\Set $set) {
                                                 // Membuat kunci acak 32 karakter
-                                                $set('api_key', 'pd_'.Str::random(32));
+                                                $set('api_key', 'pd_' . Str::random(32));
                                             })
                                     ),
                             ]),
@@ -127,7 +127,12 @@ class PerangkatDaerahResource extends Resource
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
-
+                                Forms\Components\TextInput::make('id_survey')
+                                    ->label('ID Survey Sukma Jatim')
+                                    ->placeholder('Contoh: 1990')
+                                    ->numeric()
+                                    ->maxLength(10)
+                                    ->helperText('ID ini digunakan untuk mengarahkan tamu ke kuesioner Sukma Jatim yang tepat.'),
                                 Forms\Components\FileUpload::make('logo')
                                     ->image()
                                     ->directory('logos')
@@ -179,13 +184,13 @@ class PerangkatDaerahResource extends Resource
                 Tables\Actions\EditAction::make(),
 
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn () => auth()->user()->perangkat_daerah_id === null),
+                    ->visible(fn() => auth()->user()->perangkat_daerah_id === null),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ])
-                    ->visible(fn () => auth()->user()->perangkat_daerah_id === null),
+                    ->visible(fn() => auth()->user()->perangkat_daerah_id === null),
             ]);
     }
 
