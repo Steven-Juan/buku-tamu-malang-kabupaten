@@ -81,8 +81,18 @@
                 <tr>
                     <td class="img-container">
                         @if ($guest->foto)
-                            {{-- Gunakan public_path untuk memastikan DomPDF bisa mengakses file lokal --}}
-                            <img src="{{ public_path('storage/' . $guest->foto) }}" class="photo-thumb">
+                            {{-- Jika foto berasal dari folder public/images (avatar), gunakan langsung;
+                                 jika foto disimpan di storage (public disk), gunakan public/storage path --}}
+                            @php
+                                $avatarPath = public_path($guest->foto);
+                                $storagePath = public_path('storage/' . $guest->foto);
+                                $imgPath = file_exists($avatarPath) ? $avatarPath : $storagePath;
+                            @endphp
+                            @if ($imgPath && file_exists($imgPath))
+                                <img src="{{ $imgPath }}" class="photo-thumb">
+                            @else
+                                <span style="color: #ccc;">No Photo</span>
+                            @endif
                         @else
                             <span style="color: #ccc;">No Photo</span>
                         @endif

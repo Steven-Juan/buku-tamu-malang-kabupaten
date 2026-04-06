@@ -5,6 +5,7 @@ namespace App\Providers;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -54,7 +55,19 @@ class AppServiceProvider extends ServiceProvider
                 'remoteip' => request()->ip(),
             ]);
 
-            return $response->json('success');
+            $json = $response->json();
+
+            // Jika verifikasi gagal, log lengkap response untuk debugging (kode error Cloudflare)
+            if (empty($json) || ! ($json['success'] ?? false)) {
+                Log::warning('Turnstile verification failed', [
+                    'attribute' => $attribute,
+                    'response' => $json,
+                    'status' => $response->status(),
+                    'url' => request()->fullUrl(),
+                ]);
+            }
+
+            return $json['success'] ?? false;
         });
 
         Validator::replacer('turnstile', function ($message, $attribute, $rule, $parameters) {

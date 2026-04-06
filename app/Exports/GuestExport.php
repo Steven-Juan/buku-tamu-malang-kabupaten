@@ -67,16 +67,28 @@ class GuestExport implements FromQuery, WithDrawings, WithEvents, WithHeadings, 
         foreach ($records as $index => $record) {
             $row = $index + 2;
 
-            // 1. Handling FOTO
-            if ($record->foto && File::exists(public_path('storage/'.$record->foto))) {
-                $drawingPhoto = new Drawing;
-                $drawingPhoto->setName('Photo');
-                $drawingPhoto->setPath(public_path('storage/'.$record->foto));
-                $drawingPhoto->setHeight(70);
-                $drawingPhoto->setCoordinates('A'.$row);
-                $drawingPhoto->setOffsetX(10);
-                $drawingPhoto->setOffsetY(10);
-                $drawings[] = $drawingPhoto;
+            // 1. Handling FOTO (support avatars in public/images/... and photos in public/storage/...)
+            if ($record->foto) {
+                $storagePath = public_path('storage/'.$record->foto);
+                $publicPath = public_path($record->foto);
+
+                $photoPath = null;
+                if (File::exists($publicPath)) {
+                    $photoPath = $publicPath;
+                } elseif (File::exists($storagePath)) {
+                    $photoPath = $storagePath;
+                }
+
+                if ($photoPath) {
+                    $drawingPhoto = new Drawing;
+                    $drawingPhoto->setName('Photo');
+                    $drawingPhoto->setPath($photoPath);
+                    $drawingPhoto->setHeight(70);
+                    $drawingPhoto->setCoordinates('A'.$row);
+                    $drawingPhoto->setOffsetX(10);
+                    $drawingPhoto->setOffsetY(10);
+                    $drawings[] = $drawingPhoto;
+                }
             }
             // 2. Handling TTD
             if ($record->ttd_digital && str_contains($record->ttd_digital, 'base64,')) {
