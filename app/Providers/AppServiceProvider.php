@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             'panels::head.start',
-            fn(): string => '<meta name="robots" content="noindex,nofollow">'
+            fn (): string => '<meta name="robots" content="noindex,nofollow">'
         );
     }
 
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentView::registerRenderHook(
             'panels::auth.before',
-            fn(): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
+            fn (): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
         );
 
         // REGISTER VALIDATOR TURNSTILE
