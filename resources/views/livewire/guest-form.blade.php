@@ -407,11 +407,6 @@
                                     class="absolute inset-2 rounded-full bg-blue-400/20 dark:bg-blue-600/10 blur-xl transition-all duration-300 group-hover:blur-2xl opacity-0 group-hover:opacity-100">
                                 </div>
 
-<<<<<<< HEAD
-                        @if ($turnstileSitekey)
-                            <div wire:ignore x-data="{
-                                widgetId: null,
-=======
                                 {{-- Gambar Mentah dengan Shadow Floating --}}
                                 <img src="{{ asset('images/avatars/' . $selectedAvatar) }}" alt="Preview Avatar"
                                     class="relative w-full h-full object-contain rounded-full shadow-[0_15px_30px_-5px_rgba(0,0,0,0.1)] transition-transform duration-500 hover:scale-110">
@@ -498,7 +493,6 @@
 
                     @if ($turnstileSitekey)
                     <div wire:ignore wire:key="turnstile-widget" x-data="{
->>>>>>> b98769d6261c51b8d97f8f100680057b0973a359
                                 initTurnstile() {
                                     // Pastikan container ada
                                     const container = this.$refs.turnstileContainer;
@@ -533,269 +527,28 @@
                                         setTimeout(() => this.initTurnstile(), 500);
                                     }
                                 }
-<<<<<<< HEAD
-                            }" x-init="initTurnstile()">
-                                <div x-ref="turnstileContainer" id="turnstile-container"></div>
-                            </div>
-                        @else
-                            <p class="text-sm text-red-500">Turnstile belum dikonfigurasi.</p>
-                        @endif
-
-                        @error('turnstile_token')
-                            <p class="text-red-500 text-xs mt-2 text-center">{{ $message }}</p>
-                        @enderror
-                    </div>
-=======
-                            }" x-init="initTurnstile()" x-ref="turnstile"></div>
-                    @else
-                    <p class="text-sm text-red-500">Turnstile belum dikonfigurasi. Periksa .env &
-                        config/services.php</p>
-                    @endif
->>>>>>> b98769d6261c51b8d97f8f100680057b0973a359
-                </div>
-            </div>
-            @endif
-
-            {{-- NAVIGATION BUTTONS --}}
-            <div class="flex justify-between pt-6 border-t border-gray-100 dark:border-gray-700">
-                @if ($currentStep > 1)
-                {{-- Tombol Kembali (Muncul di Step 2 & 3) --}}
-                <button type="button" wire:click="previousStep"
-                    class="group inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 md:px-8 py-2 sm:py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-all text-sm sm:text-base">
-                    <svg class="w-3 h-3 sm:w-4 sm:h-4 group-hover:-translate-x-1 transition-transform" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    <span class="hidden xs:inline">Kembali</span>
-                </button>
-                @else
-                {{-- TOMBOL CLEAR DATA (Hanya muncul di Step 1) --}}
-                <button type="button" wire:click="resetStepOne"
-                    onclick="confirm('Bersihkan semua data yang telah diisi?') || event.stopImmediatePropagation()"
-                    class="group inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-3 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 font-bold rounded-xl border border-red-100 dark:border-red-900/50 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all text-sm sm:text-base">
-                    <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    <span>Bersihkan</span>
-                </button>
-                @endif
-
-                @if ($currentStep < 3) <button type="button" wire:click="nextStep"
-                    class="group inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 md:px-10 py-2 sm:py-3 bg-gradient-to-r from-[#0100CC] to-[#18D1FF] text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl transition-all active:scale-95 text-sm sm:text-base">
-                    <span class="hidden xs:inline">Lanjutkan Formulir</span>
-                    <span class="xs:hidden">Lanjut</span>
-                    <svg class="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                    </svg>
-                    </button>
-                    @else
-                    <button type="submit" wire:loading.attr="disabled"
-                        class="group inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 md:px-10 py-2 sm:py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg shadow-green-500/30 hover:shadow-xl transition-all active:scale-95 text-sm sm:text-base">
-                        <svg wire:loading wire:target="submit" class="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-white"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                            </circle>
-                            <path class="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                            </path>
-                        </svg>
-                        <span wire:loading.remove wire:target="submit" class="hidden xs:inline">Kirim & Simpan
-                            Data</span>
-                        <span wire:loading.remove wire:target="submit" class="xs:hidden">Kirim</span>
-                        <span wire:loading wire:target="submit" class="inline">Memproses...</span>
-                    </button>
-                    @endif
-            </div>
-        </form>
-    </div>
-</section>
-
-@push('styles')
-<style>
-@keyframes fade-in-up {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+},
+start(e) {
+this.isDrawing = true;
+const pos = this.getCoordinates(e);
+this.ctx.beginPath();
+this.ctx.moveTo(pos.x, pos.y);
+},
+draw(e) {
+if (!this.isDrawing) return;
+const pos = this.getCoordinates(e);
+this.ctx.lineTo(pos.x, pos.y);
+this.ctx.stroke();
+},
+stop() {
+if (!this.isDrawing) return;
+this.isDrawing = false;
+this.signature = this.canvas.toDataURL('image/png');
+},
+clear() {
+this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+this.signature = null;
 }
-
-.animate-fade-in-up {
-    animation: fade-in-up 0.5s ease-out forwards;
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.animate-fade-in {
-    animation: fade-in 0.3s ease-out forwards;
-}
-</style>
-@endpush
-
-@script
-<script>
-// Listener untuk Pop-Up Sukses & Survei Berantai
-$wire.on('tamu-berhasil-disimpan', (event) => {
-
-    const idSurvey = event.id_survey;
-    const redirectUrl = event.redirect_url;
-
-    // MODAL 1: Notifikasi Berhasil
-    Swal.fire({
-        title: 'Berhasil Terkirim!',
-        text: 'Terima kasih, data kunjungan Anda telah tersimpan.',
-        icon: 'success',
-        confirmButtonText: 'Selesai',
-        confirmButtonColor: '#0100CC',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // MODAL 2: Pengalihan ke Sukma Jatim (Tanpa Tombol Batal)
-            Swal.fire({
-                title: 'Survei Kepuasan',
-                text: 'Mohon isi Survei Kepuasan Masyarakat (IKM) melalui tombol dibawah ini untuk membantu kami meningkatkan pelayanan.',
-                icon: 'info',
-                confirmButtonText: 'Isi Survei Sekarang',
-                confirmButtonColor: '#10b981',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-            }).then((surveyResult) => {
-                if (surveyResult.isConfirmed) {
-                    // Gunakan variabel yang sudah kita ambil di atas
-                    const urlSukma =
-                        `https://sukma.jatimprov.go.id/home/survei?idUser=${event.id_survey}`;
-
-                    // Buka survei di tab baru
-                    window.open(urlSukma, '_blank');
-
-                    // Redirect halaman asal ke detail PD
-                    window.location.href = redirectUrl;
-                }
-            });
-        }
-    });
-});
-
-// Script Kamera Webcam
-Alpine.data('cameraApp', () => ({
-    stream: null,
-    streamReady: false,
-
-    initCamera() {
-        if (this.$wire.foto_base64) return; // Jika sudah ada foto, tidak usah nyalakan kamera
-
-        navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: 'user'
-                }
-            })
-            .then(stream => {
-                this.stream = stream;
-                this.$refs.video.srcObject = stream;
-                this.streamReady = true;
-            })
-            .catch(err => {
-                alert("Kamera tidak dapat diakses. Pastikan Anda memberikan izin kamera browser.");
-                console.error("Camera error:", err);
-            });
-    },
-    takePhoto() {
-        let canvas = document.createElement('canvas');
-        canvas.width = this.$refs.video.videoWidth;
-        canvas.height = this.$refs.video.videoHeight;
-        let ctx = canvas.getContext('2d');
-        ctx.drawImage(this.$refs.video, 0, 0, canvas.width, canvas.height);
-
-        // Simpan gambar ke variabel Livewire
-        this.$wire.set('foto_base64', canvas.toDataURL('image/jpeg', 0.8));
-        this.stopCamera(); // Matikan kamera setelah jepret
-    },
-    retakePhoto() {
-        this.$wire.set('foto_base64', null);
-        this.initCamera(); // Nyalakan kamera lagi
-    },
-    stopCamera() {
-        if (this.stream) {
-            this.stream.getTracks().forEach(track => track.stop());
-            this.streamReady = false;
-        }
-    }
-}));
-
-// Script Tanda Tangan
-Alpine.data('signaturePad', (entangledSignature) => ({
-    signature: entangledSignature,
-    canvas: null,
-    ctx: null,
-    isDrawing: false,
-
-    init() {
-        this.canvas = this.$refs.canvas;
-        this.ctx = this.canvas.getContext('2d');
-        this.resizeCanvas();
-        window.addEventListener('resize', () => this.resizeCanvas());
-        this.ctx.lineWidth = 3;
-        this.ctx.lineCap = 'round';
-        this.ctx.strokeStyle = '#000000';
-    },
-    resizeCanvas() {
-        const rect = this.canvas.parentElement.getBoundingClientRect();
-        this.canvas.width = rect.width;
-        this.canvas.height = rect.height;
-    },
-    getCoordinates(e) {
-        const rect = this.canvas.getBoundingClientRect();
-        let clientX = e.clientX;
-        let clientY = e.clientY;
-        if (e.touches && e.touches.length > 0) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
-        }
-        return {
-            x: clientX - rect.left,
-            y: clientY - rect.top
-        };
-<<<<<<< HEAD
-    </script>
-@endscript
-=======
-    },
-    start(e) {
-        this.isDrawing = true;
-        const pos = this.getCoordinates(e);
-        this.ctx.beginPath();
-        this.ctx.moveTo(pos.x, pos.y);
-    },
-    draw(e) {
-        if (!this.isDrawing) return;
-        const pos = this.getCoordinates(e);
-        this.ctx.lineTo(pos.x, pos.y);
-        this.ctx.stroke();
-    },
-    stop() {
-        if (!this.isDrawing) return;
-        this.isDrawing = false;
-        this.signature = this.canvas.toDataURL('image/png');
-    },
-    clear() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.signature = null;
-    }
 }));
 </script>
 <script>
@@ -805,4 +558,3 @@ window.turnstileCallback = function(token) {
 console.log(token)
 </script>
 @endscript
->>>>>>> b98769d6261c51b8d97f8f100680057b0973a359
