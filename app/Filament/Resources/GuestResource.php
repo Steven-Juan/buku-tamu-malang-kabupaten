@@ -150,11 +150,16 @@ class GuestResource extends Resource
 
                 Tables\Columns\TextColumn::make('jenis_kelamin')
                     ->label('L/P')
-                    ->badge()
+                    ->badge() // Menggunakan tampilan badge agar lebih cantik
                     ->color(fn (string $state): string => match ($state) {
-                        'Laki-laki' => 'info',
-                        'Perempuan' => 'danger',
+                        'Laki-laki' => 'info',      // Biru
+                        'Perempuan' => 'danger',    // Merah/Pink
                         default => 'gray',
+                    })
+                    ->icon(fn (string $state): string => match ($state) {
+                        'Laki-laki' => 'heroicon-m-user',
+                        'Perempuan' => 'heroicon-m-user-circle',
+                        default => 'heroicon-m-question-mark-circle',
                     })
                     ->sortable(),
 
