@@ -87,14 +87,14 @@ class GuestForm extends Component
         // Proses penyimpanan Foto (Avatar vs Kamera)
         $fotoPath = '';
         if ($this->foto_metode === 'avatar') {
-            $fotoPath = 'images/avatars/' . $this->selectedAvatar; // Simpan path avatar
+            $fotoPath = 'images/avatars/'.$this->selectedAvatar; // Simpan path avatar
         } else {
             // Konversi Base64 dari kamera menjadi file fisik agar terbaca di Filament
             if (preg_match('/^data:image\/(\w+);base64,/', $this->foto_base64, $type)) {
                 $data = substr($this->foto_base64, strpos($this->foto_base64, ',') + 1);
                 $type = strtolower($type[1]);
                 $data = base64_decode($data);
-                $filename = 'guests/photos/' . Str::uuid() . '.' . $type;
+                $filename = 'guests/photos/'.Str::uuid().'.'.$type;
                 Storage::disk('public')->put($filename, $data);
                 $fotoPath = $filename;
             }
