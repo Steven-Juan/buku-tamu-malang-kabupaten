@@ -118,10 +118,8 @@
                 </div>
 
                 <div x-data="{ 
-    keperluanOpen: false,
-    keperluanSearch: '',
-    selectedKeperluan: @entangle('keperluan'),
     isMobile: false,
+    selectedKeperluan: @entangle('keperluan'),
     keperluanOptions: [
         'Konsultasi layanan', 'Pengajuan permohonan', 'Pengurusan perizinan',
         'Pengambilan dokumen', 'Penyerahan berkas', 'Klarifikasi data',
@@ -141,123 +139,58 @@
     ],
     init() {
         this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    },
-    get filteredOptions() {
-        if (this.keperluanSearch === '') return this.keperluanOptions;
-        return this.keperluanOptions.filter(option => 
-            option.toLowerCase().includes(this.keperluanSearch.toLowerCase())
-        );
-    },
-    selectKeperluan(option) {
-        this.selectedKeperluan = option;
-        this.keperluanSearch = option;
-        this.keperluanOpen = false;
-    },
-    openDropdown() {
-        if (this.isMobile) {
-            // Di mobile, buka modal bottom sheet
-            this.keperluanOpen = true;
-        } else {
-            this.keperluanOpen = !this.keperluanOpen;
-        }
     }
 }">
                     <label class="block text-sm font-bold mb-2 text-gray-700 dark:text-gray-300">
                         Keperluan Kunjungan <span class="text-red-500">*</span>
                     </label>
 
-                    <div class="relative">
-                        <input type="text" x-model="keperluanSearch" @focus="openDropdown()" @click="openDropdown()"
-                            @blur="setTimeout(() => { if(!isMobile) keperluanOpen = false }, 200)"
-                            class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#0100CC] transition-all cursor-pointer"
-                            placeholder="Ketik atau pilih keperluan..." readonly>
-
-                        <button type="button" @click="openDropdown()"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                            <svg class="w-5 h-5 transition-transform" :class="{'rotate-180': keperluanOpen}" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    {{-- Hidden input untuk Livewire --}}
-                    <input type="hidden" wire:model="keperluan" x-model="selectedKeperluan">
-
-                    {{-- MOBILE BOTTOM SHEET MODAL --}}
-                    <div x-show="keperluanOpen && isMobile" x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
-                        @click="keperluanOpen = false">
-
-                        <div @click.stop x-transition:enter="transition ease-out duration-300 transform"
-                            x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
-                            x-transition:leave="transition ease-in duration-200 transform"
-                            x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full"
-                            class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-t-3xl shadow-2xl max-h-[80vh] flex flex-col">
-
-                            {{-- Header --}}
-                            <div
-                                class="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 rounded-t-3xl">
-                                <div class="flex justify-between items-center mb-3">
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Pilih Keperluan
-                                        Kunjungan</h3>
-                                    <button @click="keperluanOpen = false" class="text-gray-400 hover:text-gray-600">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                </div>
-
-                                {{-- Search input di modal --}}
-                                <input type="text" x-model="keperluanSearch" @input="keperluanOpen = true"
-                                    class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#0100CC]"
-                                    placeholder="Cari keperluan..." autofocus>
-                            </div>
-
-                            {{-- Options list --}}
-                            <div class="overflow-y-auto flex-1 p-2">
-                                <template x-for="option in filteredOptions" :key="option">
-                                    <div @click="selectKeperluan(option)"
-                                        class="px-4 py-3 cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-colors mb-1"
-                                        :class="{'bg-blue-50 dark:bg-blue-900/30': selectedKeperluan === option}">
-                                        <span x-text="option" class="text-gray-700 dark:text-gray-300"></span>
-                                    </div>
-                                </template>
-
-                                <div x-show="filteredOptions.length === 0" class="text-center py-8 text-gray-500">
-                                    Tidak ada hasil untuk "<span x-text="keperluanSearch"></span>"
-                                </div>
-                            </div>
-
-                            {{-- Tombol Lainnya di bagian bawah --}}
-                            <div
-                                class="sticky bottom-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4">
-                                <button @click="selectKeperluan('Lainnya')"
-                                    class="w-full py-3 bg-gradient-to-r from-[#0100CC] to-[#18D1FF] text-white font-bold rounded-xl">
-                                    Atau pilih "Lainnya"
-                                </button>
+                    {{-- Mobile: Gunakan select native --}}
+                    <div x-show="isMobile">
+                        <select x-model="selectedKeperluan"
+                            class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#0100CC] transition-all appearance-none">
+                            <option value="" disabled>Pilih keperluan kunjungan...</option>
+                            <template x-for="option in keperluanOptions" :key="option">
+                                <option x-text="option" :value="option"></option>
+                            </template>
+                        </select>
+                        <div class="relative">
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
                             </div>
                         </div>
                     </div>
 
-                    {{-- DESKTOP DROPDOWN (tetap menggunakan dropdown biasa) --}}
-                    <div x-show="keperluanOpen && !isMobile && filteredOptions.length > 0"
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 transform -translate-y-2"
-                        x-transition:enter-end="opacity-100 transform translate-y-0"
-                        class="absolute z-20 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg max-h-60 overflow-y-auto">
-                        <template x-for="option in filteredOptions" :key="option">
-                            <div @click="selectKeperluan(option)"
-                                class="px-4 py-2 cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
-                                :class="{'bg-blue-50 dark:bg-blue-900/30': selectedKeperluan === option}">
-                                <span x-text="option" class="text-gray-700 dark:text-gray-300"></span>
-                            </div>
-                        </template>
+                    {{-- Desktop: Tetap menggunakan input dengan dropdown --}}
+                    <div x-show="!isMobile" x-data="{ 
+        open: false,
+        search: '',
+        get filtered() {
+            if (this.search === '') return keperluanOptions;
+            return keperluanOptions.filter(opt => opt.toLowerCase().includes(this.search.toLowerCase()));
+        }
+    }" class="relative">
+                        <input type="text" x-model="search" @focus="open = true"
+                            @blur="setTimeout(() => open = false, 200)"
+                            class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#0100CC] transition-all"
+                            placeholder="Ketik atau pilih keperluan...">
+
+                        <div x-show="open && filtered.length > 0" x-transition
+                            class="absolute z-20 w-full mt-1 bg-white dark:bg-gray-800 border rounded-xl shadow-lg max-h-60 overflow-y-auto">
+                            <template x-for="option in filtered" :key="option">
+                                <div @click="selectedKeperluan = option; search = option; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/30">
+                                    <span x-text="option"></span>
+                                </div>
+                            </template>
+                        </div>
                     </div>
+
+                    <input type="hidden" wire:model="keperluan" x-model="selectedKeperluan">
 
                     @error('keperluan')
                     <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
