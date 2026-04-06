@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             'panels::head.start',
-            fn (): string => '<meta name="robots" content="noindex,nofollow">'
+            fn(): string => '<meta name="robots" content="noindex,nofollow">'
         );
     }
 
@@ -40,12 +40,16 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentView::registerRenderHook(
             'panels::auth.before',
-            fn (): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
+            fn(): string => '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>'
         );
 
+        // REGISTER VALIDATOR TURNSTILE
         Validator::extend('turnstile', function ($attribute, $value, $parameters, $validator) {
+            // Gunakan config() agar lebih aman saat production
+            $secretKey = config('services.turnstile.secret');
+
             $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-                'secret' => env('TURNSTILE_SECRET'),
+                'secret' => $secretKey,
                 'response' => $value,
                 'remoteip' => request()->ip(),
             ]);

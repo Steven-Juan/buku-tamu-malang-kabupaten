@@ -450,21 +450,52 @@
                         @php $turnstileSitekey = config('services.turnstile.sitekey'); @endphp
 
                         @if ($turnstileSitekey)
-                            <div wire:ignore wire:key="turnstile-widget" x-data="{
+                            <div wire:ignore x-data="{
+                                widgetId: null,
                                 initTurnstile() {
-                                    turnstile.render($refs.turnstile, {
-                                        sitekey: '{{ $turnstileSitekey }}',
-                                        callback: (token) => {
-                                            $wire.set('turnstile_token', token);
+                                    // Pastikan container ada
+                                    const container = this.$refs.turnstileContainer;
+                                    console.log('initTurnstile called', { containerExists: !!container, turnstileType: typeof turnstile });
+                                    if (!container) return;
+                            
+                                    if (typeof turnstile !== 'undefined') {
+                                        // Hanya render jika belum ada anak (menghindari render ganda)
+                                        if (container.childElementCount === 0) {
+                                            try {
+                                                const id = turnstile.render(container, {
+                                                    sitekey: '{{ $turnstileSitekey }}',
+                                                    callback: (token) => {
+                                                        @this.set('turnstile_token', token);
+                                                    }
+                                                });
+                                                this.widgetId = id;
+                                                // Tandai container sebagai sudah dirender
+                                                container.dataset.rendered = '1';
+                                                console.log('Turnstile rendered', { id, container });
+                                            } catch (e) {
+                                                // Jika gagal, log error dan coba lagi
+                                                console.error('Turnstile render error', e);
+                                                setTimeout(() => this.initTurnstile(), 500);
+                                            }
+                                        } else {
+                                            console.log('Turnstile container already has children; skipping render', container.childElementCount);
                                         }
-                                    });
+                                    } else {
+                                        // Jika script belum siap, coba lagi setelah 500ms
+                                        console.log('Turnstile not ready, retrying in 500ms');
+                                        setTimeout(() => this.initTurnstile(), 500);
+                                    }
                                 }
-                            }"
-                                x-init="initTurnstile()" x-ref="turnstile"></div>
+                            }" x-init="initTurnstile()">
+                                <div x-ref="turnstileContainer" id="turnstile-container"></div>
+                            </div>
                         @else
-                            <p class="text-sm text-red-500">Turnstile belum dikonfigurasi. Periksa .env &
-                                config/services.php</p>
+                            <p class="text-sm text-red-500">Turnstile belum dikonfigurasi.</p>
                         @endif
+
+                        @error('turnstile_token')
+                            <p class="text-red-500 text-xs mt-2 text-center">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             @endif
@@ -715,6 +746,5 @@
         window.turnstileCallback = function(token) {
             @this.set('turnstile_token', token);
         };
-        console.log(token)
     </script>
 @endscript
