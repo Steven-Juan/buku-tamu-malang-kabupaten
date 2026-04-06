@@ -58,6 +58,12 @@ class PerangkatDaerahResource extends Resource
         return $query;
     }
 
+    protected static ?string $navigationLabel = 'Perangkat Daerah';
+
+    protected static ?string $pluralModelLabel = 'Perangkat Daerah';
+
+    protected static ?string $modelLabel = 'Perangkat Daerah';
+
     public static function canCreate(): bool
     {
         return Auth::user()->perangkat_daerah_id === null;
