@@ -45,7 +45,7 @@
 
             <h1
                 class="text-center text-text-dark dark:text-text-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight mx-auto px-4 relative z-10">
-                <span class="inline-block animate-fade-in-up">Portal</span>
+                <span class="inline-block animate-fade-in-up">Buku Tamu</span>
 
                 <br />
 
@@ -240,14 +240,6 @@
 
                 @if ($riwayatTerbaru->count() > 0)
                     <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
-                        <a href="#"
-                            class="text-xs text-primary hover:text-accent transition-colors flex items-center justify-center gap-1">
-                            Lihat Semua Riwayat
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
                     </div>
                 @endif
             </div>
@@ -270,7 +262,7 @@
                     <span
                         class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full
                                shadow-lg shadow-primary/30 inline-block mb-6">
-                        PORTAL LAYANAN TAMU
+                        BUKU TAMU
                     </span>
 
                     <h2
@@ -339,7 +331,7 @@
                         <span
                             class="bg-gradient-to-r from-primary to-accent text-white text-xs font-bold px-4 py-2 rounded-full
                                    shadow-lg shadow-primary/30 inline-block mb-6">
-                            PORTAL LAYANAN TAMU
+                            BUKU TAMU
                         </span>
 
                         <h2
@@ -551,14 +543,6 @@
 
                     @if ($riwayatTerbaru->count() > 0)
                         <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
-                            <a href="#"
-                                class="text-xs text-primary hover:text-accent transition-colors flex items-center justify-center gap-1">
-                                Lihat Semua Riwayat
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
                         </div>
                     @endif
                 </div>

@@ -110,7 +110,7 @@
                             </label>
                             <input wire:model="asal_instansi" type="text"
                                 class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#0100CC] transition-all"
-                                placeholder="Contoh: Universitas Brawijaya">
+                                placeholder="Contoh: Universitas Merdeka Malang">
                             @error('asal_instansi')
                                 <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
                             @enderror
@@ -573,6 +573,10 @@
     <script>
         // Listener untuk Pop-Up Sukses & Survei Berantai
         $wire.on('tamu-berhasil-disimpan', (event) => {
+
+            const idSurvey = event.id_survey;
+            const redirectUrl = event.redirect_url;
+
             // MODAL 1: Notifikasi Berhasil
             Swal.fire({
                 title: 'Berhasil Terkirim!',
@@ -581,27 +585,30 @@
                 confirmButtonText: 'Selesai',
                 confirmButtonColor: '#0100CC',
                 allowOutsideClick: false,
+                allowEscapeKey: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // MODAL 2: Ajakan Survei (Muncul setelah Modal 1 ditutup)
+                    // MODAL 2: Pengalihan ke Sukma Jatim (Tanpa Tombol Batal)
                     Swal.fire({
-                        title: 'Bantu Kami Berkembang',
-                        text: 'Mohon kesediaan Anda sebentar untuk mengisi Survei Kepuasan Masyarakat (IKM).',
+                        title: 'Survei Kepuasan',
+                        text: 'Mohon isi Survei Kepuasan Masyarakat (IKM) melalui tombol dibawah ini untuk membantu kami meningkatkan pelayanan.',
                         icon: 'info',
-                        showCancelButton: true,
-                        confirmButtonText: 'Ya, Isi Survei',
-                        cancelButtonText: 'Lain Kali',
+                        confirmButtonText: 'Isi Survei Sekarang',
                         confirmButtonColor: '#10b981',
-                        cancelButtonColor: '#6b7280',
                         allowOutsideClick: false,
+                        allowEscapeKey: false,
                     }).then((surveyResult) => {
                         if (surveyResult.isConfirmed) {
-                            // Buka survei di tab baru
-                            window.open('https://forms.gle/rEdzVztFAXKsvAfJA', '_blank');
-                        }
+                            // Gunakan variabel yang sudah kita ambil di atas
+                            const urlSukma =
+                                `https://sukma.jatimprov.go.id/home/survei?idUser=${event.id_survey}`;
 
-                        // Apapun pilihannya (Isi atau Lain Kali), baru redirect ke halaman tujuan
-                        window.location.href = event.redirect_url;
+                            // Buka survei di tab baru
+                            window.open(urlSukma, '_blank');
+
+                            // Redirect halaman asal ke detail PD
+                            window.location.href = redirectUrl;
+                        }
                     });
                 }
             });

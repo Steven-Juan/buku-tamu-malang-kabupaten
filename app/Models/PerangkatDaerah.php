@@ -22,6 +22,7 @@ class PerangkatDaerah extends Model
         'email',
         'alamat',
         'telepon',
+        'id_survey',
         'logo',
     ];
 

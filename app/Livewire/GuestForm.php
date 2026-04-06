@@ -87,18 +87,28 @@ class GuestForm extends Component
         // Proses penyimpanan Foto (Avatar vs Kamera)
         $fotoPath = '';
         if ($this->foto_metode === 'avatar') {
-            $fotoPath = 'images/avatars/'.$this->selectedAvatar; // Simpan path avatar
+            $fotoPath = 'images/avatars/' . $this->selectedAvatar; // Simpan path avatar
         } else {
             // Konversi Base64 dari kamera menjadi file fisik agar terbaca di Filament
             if (preg_match('/^data:image\/(\w+);base64,/', $this->foto_base64, $type)) {
                 $data = substr($this->foto_base64, strpos($this->foto_base64, ',') + 1);
                 $type = strtolower($type[1]);
                 $data = base64_decode($data);
-                $filename = 'guests/photos/'.Str::uuid().'.'.$type;
+                $filename = 'guests/photos/' . Str::uuid() . '.' . $type;
                 Storage::disk('public')->put($filename, $data);
                 $fotoPath = $filename;
             }
         }
+
+        $this->instansiTujuan->refresh();
+        $idSurvey = $this->instansiTujuan->id_survey;
+        $redirectUrl = route('department.detail', $this->instansiTujuan->slug);
+
+        $this->dispatch(
+            'tamu-berhasil-disimpan',
+            id_survey: $idSurvey,
+            redirect_url: $redirectUrl
+        );
 
         Guest::create([
             'perangkat_daerah_id' => $this->instansiTujuan->id,
@@ -109,10 +119,6 @@ class GuestForm extends Component
             'foto' => $fotoPath,
             'ttd_digital' => $this->ttd_digital,
         ]);
-
-        // Pop-up sukses dan URL kembali
-        $redirectUrl = route('department.detail', $this->instansiTujuan->slug);
-        $this->dispatch('tamu-berhasil-disimpan', redirect_url: $redirectUrl);
     }
 
     public function render()

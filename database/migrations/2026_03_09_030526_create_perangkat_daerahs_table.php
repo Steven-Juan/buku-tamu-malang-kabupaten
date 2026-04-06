@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('alamat')->nullable();
             $table->string('telepon')->nullable();
+            $table->string('id_survey')->default('1992');
             $table->string('logo')->nullable();
             $table->timestamps();
         });
