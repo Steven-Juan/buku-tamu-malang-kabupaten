@@ -17,6 +17,8 @@ class GuestForm extends Component
     // Step 1: Identitas
     public $nama;
 
+    public $jenis_kelamin;
+
     public $asal_instansi;
 
     public $keperluan;
@@ -42,6 +44,7 @@ class GuestForm extends Component
         if ($this->currentStep == 1) {
             $this->validate([
                 'nama' => 'required|min:3',
+                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
                 'asal_instansi' => 'required',
                 'keperluan' => 'required',
             ]);
@@ -113,6 +116,7 @@ class GuestForm extends Component
         Guest::create([
             'perangkat_daerah_id' => $this->instansiTujuan->id,
             'nama' => $this->nama,
+            'jenis_kelamin' => $this->jenis_kelamin,
             'asal_instansi' => $this->asal_instansi,
             'keperluan' => $this->keperluan,
             'pesan_kesan' => $this->pesan_kesan,

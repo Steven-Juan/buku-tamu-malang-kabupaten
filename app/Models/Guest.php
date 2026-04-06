@@ -18,6 +18,7 @@ class Guest extends Model
     protected $fillable = [
         'perangkat_daerah_id',
         'nama',
+        'jenis_kelamin',
         'asal_instansi',
         'keperluan',
         'pesan_kesan',

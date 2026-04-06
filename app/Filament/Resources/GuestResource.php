@@ -148,6 +148,21 @@ class GuestResource extends Resource
                     ->sortable()
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('jenis_kelamin')
+                    ->label('L/P')
+                    ->badge() // Menggunakan tampilan badge agar lebih cantik
+                    ->color(fn (string $state): string => match ($state) {
+                        'Laki-laki' => 'info',      // Biru
+                        'Perempuan' => 'danger',    // Merah/Pink
+                        default => 'gray',
+                    })
+                    ->icon(fn (string $state): string => match ($state) {
+                        'Laki-laki' => 'heroicon-m-user',
+                        'Perempuan' => 'heroicon-m-user-circle',
+                        default => 'heroicon-m-question-mark-circle',
+                    })
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('perangkatDaerah.nama_pd')
                     ->label('Instansi Tujuan')
                     ->badge()
