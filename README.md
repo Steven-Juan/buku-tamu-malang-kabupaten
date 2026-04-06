@@ -64,7 +64,7 @@ php artisan migrate --seed
 php artisan storage:link
 
 # 4. Menjalankan Aplikasi
-php artisan serve --host=0.0.0.0
+php artisan serve --host=0.0.0.0 --port=8000
 npm run dev
 
 🔑 Akses Login Super Admin
