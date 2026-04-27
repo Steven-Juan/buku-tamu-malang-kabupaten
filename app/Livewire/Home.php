@@ -14,9 +14,9 @@ class Home extends Component
     {
         // Cari perangkat daerah berdasarkan nama atau slug yang diketik, atau tampilkan semua jika kosong
         $daftarPd = PerangkatDaerah::withCount('guests')
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('nama_pd', 'like', '%'.$this->search.'%')
-                      ->orWhere('slug', 'like', '%'.$this->search.'%');
+                    ->orWhere('slug', 'like', '%'.$this->search.'%');
             })
             ->orderBy('nama_pd')
             ->get();
