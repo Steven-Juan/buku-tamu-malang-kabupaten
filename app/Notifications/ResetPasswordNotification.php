@@ -19,7 +19,7 @@ class ResetPasswordNotification extends BaseResetPassword
             ->greeting('Halo!')
             ->line('Anda menerima email ini karena kami menerima permintaan reset password untuk akun admin Anda.')
             ->action('Reset Password', $url)
-            ->line('Link reset password ini akan kedaluwarsa dalam ' . config('auth.passwords.users.expire') . ' menit.')
+            ->line('Link reset password ini akan kedaluwarsa dalam '.config('auth.passwords.users.expire').' menit.')
             ->line('Jika Anda tidak merasa meminta reset password, abaikan email ini.')
             ->salutation('Salam, Tim Buku Tamu Kabupaten Malang');
     }
