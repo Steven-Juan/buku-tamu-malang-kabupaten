@@ -11,12 +11,19 @@
 
     @stack('head')
 
+    <script>
+        if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }" x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))" :class="{ 'dark': darkMode }"
-    class="font-sans text-base leading-normal tracking-tight text-text-dark dark:text-text-light antialiased transition-colors duration-300">
+<body class="font-sans text-base leading-normal tracking-tight text-text-dark dark:text-text-light antialiased transition-colors duration-300">
     <div
         class="min-h-screen
             bg-gradient-to-b
