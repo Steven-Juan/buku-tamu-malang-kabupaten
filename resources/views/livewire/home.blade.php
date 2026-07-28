@@ -136,12 +136,43 @@
                         </div>
                     </form>
 
-                    {{-- Search stats --}}
-                    <div class="flex justify-between items-center mt-4 text-xs
-                              text-gray-500 dark:text-gray-400 px-2">
+                    {{-- Search stats & Top Quick Pagination --}}
+                    <div class="flex justify-between items-center mt-4 text-xs text-gray-500 dark:text-gray-400 px-1 sm:px-2">
                         <span>
-                            Menampilkan <span class="font-semibold text-primary">{{ $daftarPd->count() }}</span> dari <span class="font-semibold text-primary">{{ $daftarPd->total() }}</span> Perangkat Daerah
+                            Menampilkan <span class="font-semibold text-primary">{{ $daftarPd->count() }}</span> dari <span class="font-semibold text-primary">{{ $daftarPd->total() }}</span> <span class="hidden sm:inline">Perangkat Daerah</span><span class="sm:hidden">Instansi</span>
                         </span>
+
+                        @if ($daftarPd->hasPages())
+                        <div class="flex items-center gap-1 sm:gap-1.5" x-data @click="document.getElementById('daftar-instansi')?.scrollIntoView({ behavior: 'smooth' })">
+                            <span class="text-[11px] font-medium text-gray-500 dark:text-gray-400 mr-1">
+                                Hal {{ $daftarPd->currentPage() }}/{{ $daftarPd->lastPage() }}
+                            </span>
+
+                            {{-- Previous button --}}
+                            @if ($daftarPd->onFirstPage())
+                                <span class="p-1 sm:p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed border border-gray-100 dark:border-gray-800">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                                </span>
+                            @else
+                                <button wire:click="previousPage('{{ $daftarPd->getPageName() }}')" wire:loading.attr="disabled"
+                                    class="p-1 sm:p-1.5 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary transition-all shadow-sm active:scale-95">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                                </button>
+                            @endif
+
+                            {{-- Next button --}}
+                            @if ($daftarPd->hasMorePages())
+                                <button wire:click="nextPage('{{ $daftarPd->getPageName() }}')" wire:loading.attr="disabled"
+                                    class="p-1 sm:p-1.5 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary transition-all shadow-sm active:scale-95">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                                </button>
+                            @else
+                                <span class="p-1 sm:p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed border border-gray-100 dark:border-gray-800">
+                                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            @endif
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -152,34 +183,34 @@
     <x-container size="lg" id="daftar-instansi" class="pb-24 w-full">
 
         {{-- SKELETON LOADING GRID (ditampilkan saat pencarian / ganti halaman) --}}
-        <div wire:loading.grid class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
+        <div wire:loading.grid class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 w-full auto-rows-fr">
             @for ($i = 0; $i < 6; $i++)
-                <div class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-3xl p-6 min-h-[240px] flex flex-col justify-between animate-pulse">
+                <div class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 min-h-[170px] sm:min-h-[240px] flex flex-col justify-between animate-pulse">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="w-12 h-12 bg-gray-200 dark:bg-gray-700/60 rounded-2xl"></div>
-                            <div class="w-20 h-6 bg-gray-200 dark:bg-gray-700/60 rounded-full"></div>
+                        <div class="flex items-center justify-between mb-2.5 sm:mb-4">
+                            <div class="w-8 h-8 sm:w-12 sm:h-12 bg-gray-200 dark:bg-gray-700/60 rounded-xl sm:rounded-2xl"></div>
+                            <div class="w-14 sm:w-20 h-5 sm:h-6 bg-gray-200 dark:bg-gray-700/60 rounded-full"></div>
                         </div>
-                        <div class="h-6 bg-gray-200 dark:bg-gray-700/60 rounded-xl w-3/4 mb-3"></div>
-                        <div class="h-4 bg-gray-200 dark:bg-gray-700/60 rounded-xl w-1/2 mb-2"></div>
-                        <div class="h-4 bg-gray-200 dark:bg-gray-700/60 rounded-xl w-2/3"></div>
+                        <div class="h-4 sm:h-6 bg-gray-200 dark:bg-gray-700/60 rounded-lg sm:rounded-xl w-3/4 mb-2 sm:mb-3"></div>
+                        <div class="h-3 sm:h-4 bg-gray-200 dark:bg-gray-700/60 rounded-lg sm:rounded-xl w-1/2 mb-1.5 sm:mb-2"></div>
+                        <div class="h-3 sm:h-4 bg-gray-200 dark:bg-gray-700/60 rounded-lg sm:rounded-xl w-2/3"></div>
                     </div>
-                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                        <div class="w-24 h-4 bg-gray-200 dark:bg-gray-700/60 rounded-xl"></div>
-                        <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700/60 rounded-full"></div>
+                    <div class="mt-3 sm:mt-6 pt-2.5 sm:pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                        <div class="w-16 sm:w-24 h-3 sm:h-4 bg-gray-200 dark:bg-gray-700/60 rounded-lg sm:rounded-xl"></div>
+                        <div class="w-7 h-7 sm:w-10 sm:h-10 bg-gray-200 dark:bg-gray-700/60 rounded-full"></div>
                     </div>
                 </div>
             @endfor
         </div>
 
         {{-- REAL CARDS GRID --}}
-        <div wire:loading.remove class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
+        <div wire:loading.remove class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 w-full auto-rows-fr">
             @forelse ($daftarPd as $index => $pd)
             <a href="{{ route('department.detail', $pd->slug) }}" wire:navigate class="group relative block bg-white dark:bg-gray-800/50
                       hover:shadow-xl hover:shadow-primary/25
                       dark:hover:shadow-2xl dark:hover:shadow-primary/20
                       transition-all duration-500 border border-gray-200
-                      dark:border-gray-700/50 rounded-3xl p-6 min-h-[240px]
+                      dark:border-gray-700/50 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 min-h-[170px] sm:min-h-[240px]
                       hover:border-primary dark:hover:border-primary
                       hover:-translate-y-2
                       overflow-hidden" style="animation: fadeInUp 0.5s ease-out {{ $index * 0.05 }}s both;">
@@ -189,7 +220,7 @@
                           opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
 
-                {{-- Shine effect: diubah ke indigo agar cocok dengan template PrebuiltUI --}}
+                {{-- Shine effect --}}
                 <div class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%]
                           bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent
                           transition-transform duration-1000">
@@ -198,22 +229,22 @@
                 <div class="flex flex-col h-full justify-between relative z-10">
                     {{-- Header section --}}
                     <div>
-                        <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center justify-between mb-2.5 sm:mb-4">
                             <div class="relative">
                                 {{-- Glow effect --}}
-                                <div class="absolute inset-0 bg-primary/30 rounded-2xl blur-xl
+                                <div class="absolute inset-0 bg-primary/30 rounded-xl sm:rounded-2xl blur-xl
                                           opacity-0 group-hover:opacity-100 transition-all duration-500
                                           group-hover:scale-150">
                                 </div>
 
                                 {{-- Icon container --}}
                                 <div class="relative bg-gradient-to-br from-primary/15 to-accent/15
-                                          p-3.5 rounded-2xl group-hover:bg-gradient-to-br
+                                          p-2 sm:p-3.5 rounded-xl sm:rounded-2xl group-hover:bg-gradient-to-br
                                           group-hover:from-primary group-hover:to-secondary
                                           transition-all duration-500 shadow-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="text-primary group-hover:text-white
+                                        stroke-linejoin="round" class="w-4 h-4 sm:w-6 sm:h-6 text-primary group-hover:text-white
                                                transition-colors duration-500
                                                group-hover:scale-110 group-hover:rotate-3">
                                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -222,9 +253,9 @@
                             </div>
 
                             {{-- Badge --}}
-                            <span class="text-[10px] font-bold text-gray-600 uppercase tracking-tighter
+                            <span class="text-[9px] sm:text-[10px] font-bold text-gray-600 uppercase tracking-tighter
                                        bg-white dark:bg-gray-800/80
-                                       px-3 py-1.5 rounded-full border border-gray-200
+                                       px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-gray-200
                                        dark:border-gray-700/50 shadow-sm">
                                 <span class="bg-gradient-to-r from-primary to-accent
                                            bg-clip-text text-transparent">
@@ -233,24 +264,24 @@
                             </span>
                         </div>
 
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200
+                        <h3 class="text-xs sm:text-xl font-bold text-slate-800 dark:text-slate-200
                                    group-hover:text-primary transition-colors duration-300
-                                   line-clamp-2 min-h-[3.5rem] mb-2">
+                                   line-clamp-2 min-h-[2rem] sm:min-h-[3.5rem] mb-1 sm:mb-2 leading-tight">
                             {{ $pd->nama_pd }}
                         </h3>
 
-                        <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 min-h-[2.5rem]
-                                  flex items-start gap-1.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 mt-0.5">
+                        <p class="text-[11px] sm:text-sm text-gray-500 dark:text-gray-400 line-clamp-1 sm:line-clamp-2
+                                  flex items-start gap-1 sm:gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" class="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 mt-0.5">
                                 <path d="M20 10c0 4.418-8 12-8 12s-8-7.582-8-12a8 8 0 1 1 16 0Z" />
                                 <circle cx="12" cy="10" r="3" />
                             </svg>
-                            {{ $pd->alamat ?? 'Pemerintah Kabupaten Malang' }}
+                            {{ $pd->alamat ?? 'Pemerintah Kab. Malang' }}
                         </p>
 
                         @if (isset($pd->jenis))
-                        <span class="inline-flex items-center gap-1 mt-4 text-xs px-3 py-1
+                        <span class="inline-flex items-center gap-1 mt-2 sm:mt-4 text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1
                                    bg-gradient-to-r from-accent/10 to-primary/10
                                    text-accent rounded-full border border-accent/20">
                             <span class="w-1 h-1 rounded-full bg-accent animate-pulse"></span>
@@ -260,16 +291,16 @@
                     </div>
 
                     {{-- Footer --}}
-                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800
+                    <div class="mt-3 sm:mt-6 pt-2.5 sm:pt-4 border-t border-gray-100 dark:border-gray-800
                               flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-400 flex items-center gap-1">
+                        <div class="flex items-center gap-1 sm:gap-2">
+                            <span class="text-[10px] sm:text-xs text-gray-400 flex items-center gap-1">
                                 <span class="w-1 h-1 rounded-full bg-green-500"></span>
                                 Buka
                             </span>
-                            <span class="text-xs text-gray-300">•</span>
-                            <span class="text-xs text-gray-400">
-                                {{ number_format($pd->guests_count, 0, ',', '.') }} kunjungan
+                            <span class="text-[10px] sm:text-xs text-gray-300">•</span>
+                            <span class="text-[10px] sm:text-xs text-gray-400">
+                                {{ number_format($pd->guests_count, 0, ',', '.') }} <span class="hidden sm:inline">kunjungan</span>
                             </span>
                         </div>
 
@@ -277,17 +308,17 @@
                             <div class="absolute inset-0 bg-accent rounded-full blur-md
                                       opacity-0 group-hover:opacity-60 transition-opacity">
                             </div>
-                            <div class="relative w-10 h-10 rounded-full bg-accent/10
+                            <div class="relative w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-accent/10
                                       flex items-center justify-center
                                       group-hover:bg-gradient-to-r group-hover:from-primary
                                       group-hover:to-secondary group-hover:text-white
                                       group-hover:scale-110 group-hover:rotate-0
                                       transition-all duration-500 text-accent
                                       border border-accent/20 group-hover:border-transparent">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                     stroke-linejoin="round"
-                                    class="group-hover:translate-x-1 transition-transform duration-300">
+                                    class="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform duration-300">
                                     <path d="m9 18 6-6-6-6" />
                                 </svg>
                             </div>
