@@ -60,11 +60,12 @@
                         </span>
                         <span class="flex items-center gap-1">
                             <span class="w-1 h-1 rounded-full bg-accent"></span>
-                            {{ $daftarPd->count() }} Instansi tersedia
+                            {{ $daftarPd->total() }} Instansi tersedia
                         </span>
                     </div>
 
-                    <div class="relative group" :class="{ 'scale-[1.02]': focused }">
+                    <form @submit.prevent="$refs.searchInput.blur(); document.getElementById('daftar-instansi')?.scrollIntoView({ behavior: 'smooth' })"
+                        class="relative group" :class="{ 'scale-[1.02]': focused }">
 
                         {{-- Glow effects --}}
                         <div class="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent
@@ -101,14 +102,16 @@
                                     x-cloak></span>
                             </div>
 
-                            <input wire:model.live.debounce.300ms="search" class="px-3 sm:px-4 w-full h-full outline-none border-none focus:ring-0
+                            <input wire:model.live.debounce.300ms="search"
+                                @keydown.enter.prevent="$refs.searchInput.blur(); document.getElementById('daftar-instansi')?.scrollIntoView({ behavior: 'smooth' })"
+                                class="px-3 sm:px-4 w-full h-full outline-none border-none focus:ring-0
                                           placeholder:text-gray-400 text-slate-700 dark:text-slate-200
                                           bg-transparent text-sm sm:text-base" type="text"
                                 placeholder="Cari Perangkat Daerah (Misal: Diskominfo, Bappeda...)"
                                 x-ref="searchInput" />
 
                             {{-- Clear button --}}
-                            <button wire:click="$set('search', '')" x-show="$wire.search.length > 0" x-cloak
+                            <button type="button" wire:click="$set('search', '')" x-show="$wire.search.length > 0" x-cloak
                                 x-transition:enter="transition ease-out duration-200"
                                 x-transition:enter-start="opacity-0 scale-50"
                                 x-transition:enter-end="opacity-100 scale-100" class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700
@@ -123,7 +126,7 @@
                             </button>
 
                             {{-- Search button --}}
-                            <button class="px-4 sm:px-6 py-2 bg-gradient-to-r from-primary to-secondary
+                            <button type="submit" class="px-4 sm:px-6 py-2 bg-gradient-to-r from-primary to-secondary
                                          text-white rounded-xl font-semibold text-xs sm:text-sm
                                          hover:shadow-lg hover:shadow-primary/30
                                          transition-all duration-300 hover:scale-105
@@ -131,23 +134,14 @@
                                 Cari
                             </button>
                         </div>
-                    </div>
+                    </form>
 
                     {{-- Search stats --}}
                     <div class="flex justify-between items-center mt-4 text-xs
                               text-gray-500 dark:text-gray-400 px-2">
-                        <span x-show="$wire.daftarPd.length > 0" x-transition:enter="transition ease-out duration-300"
-                            x-transition:enter-start="opacity-0 translate-y-2"
-                            x-transition:enter-end="opacity-100 translate-y-0">
-                            📊 Menampilkan <span class="font-semibold text-primary"
-                                x-text="$wire.daftarPd.length"></span>
-                            Perangkat Daerah
+                        <span>
+                            Menampilkan <span class="font-semibold text-primary">{{ $daftarPd->count() }}</span> dari <span class="font-semibold text-primary">{{ $daftarPd->total() }}</span> Perangkat Daerah
                         </span>
-                        <!-- <span x-show="$wire.daftarPd.length === 0 && $wire.search.length > 0"
-                            class="text-amber-500 flex items-center gap-1">
-                            <span>🔍</span>
-                            Tidak ada hasil untuk "{{ $search }}"
-                        </span> -->
                     </div>
                 </div>
             </div>
@@ -155,8 +149,31 @@
     </x-hero>
 
     {{-- Grid Kartu Instansi --}}
-    <x-container size="lg" class="pb-24 w-full">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
+    <x-container size="lg" id="daftar-instansi" class="pb-24 w-full">
+
+        {{-- SKELETON LOADING GRID (ditampilkan saat pencarian / ganti halaman) --}}
+        <div wire:loading.grid class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
+            @for ($i = 0; $i < 6; $i++)
+                <div class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-3xl p-6 min-h-[240px] flex flex-col justify-between animate-pulse">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-gray-200 dark:bg-gray-700/60 rounded-2xl"></div>
+                            <div class="w-20 h-6 bg-gray-200 dark:bg-gray-700/60 rounded-full"></div>
+                        </div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700/60 rounded-xl w-3/4 mb-3"></div>
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700/60 rounded-xl w-1/2 mb-2"></div>
+                        <div class="h-4 bg-gray-200 dark:bg-gray-700/60 rounded-xl w-2/3"></div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                        <div class="w-24 h-4 bg-gray-200 dark:bg-gray-700/60 rounded-xl"></div>
+                        <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700/60 rounded-full"></div>
+                    </div>
+                </div>
+            @endfor
+        </div>
+
+        {{-- REAL CARDS GRID --}}
+        <div wire:loading.remove class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full auto-rows-fr">
             @forelse ($daftarPd as $index => $pd)
             <a href="{{ route('department.detail', $pd->slug) }}" wire:navigate class="group relative block bg-white dark:bg-gray-800/50
                       hover:shadow-xl hover:shadow-primary/25
@@ -328,9 +345,9 @@
             @endforelse
         </div>
 
-        @if (method_exists($daftarPd, 'links'))
-        <div class="mt-12">
-            {{ $daftarPd->links() }}
+        @if ($daftarPd->hasPages())
+        <div class="mt-12 flex justify-center">
+            {{ $daftarPd->links('vendor.livewire.custom-pagination') }}
         </div>
         @endif
     </x-container>
