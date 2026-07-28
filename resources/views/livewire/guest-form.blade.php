@@ -1,5 +1,5 @@
 <section
-    class="flex flex-col items-center bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 px-4 py-10 min-h-screen transition-colors duration-300">
+    class="flex flex-col items-center bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 px-4 pt-2 pb-10 min-h-screen transition-colors duration-300">
 
     {{-- SweetAlert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

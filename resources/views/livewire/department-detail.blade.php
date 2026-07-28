@@ -5,7 +5,7 @@
             transition-colors duration-300 flex flex-col items-center">
 
     {{-- HERO SECTION with animated background --}}
-    <div class="w-full relative overflow-hidden bg-transparent py-16 md:py-24">
+    <div class="w-full relative overflow-hidden bg-transparent pt-2 sm:pt-4 pb-6 md:pb-8">
 
         {{-- Animated background elements --}}
         <div class="absolute inset-0 overflow-hidden pointer-events-none">

@@ -4,7 +4,7 @@
             transition-colors duration-300 flex flex-col items-center">
 
     {{-- Hero Section --}}
-    <x-hero class="bg-transparent !mb-0 !py-16 md:!py-24 w-full relative overflow-hidden">
+    <x-hero class="bg-transparent !mb-0 !pt-2 sm:!pt-4 !pb-6 md:!pb-8 w-full relative overflow-hidden">
         <x-slot name="title">
             <div class="relative">
                 <div aria-hidden="true"
@@ -40,8 +40,8 @@
 
         <x-slot name="afterTitle">
             <div class="flex flex-col items-center relative z-10">
-                <p class="text-gray-500 dark:text-gray-400 text-base md:text-lg text-center
-                         max-w-2xl mt-8 px-6 leading-relaxed font-medium mx-auto
+                <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg text-center
+                         max-w-2xl mt-3 sm:mt-5 px-6 leading-relaxed font-medium mx-auto
                          animate-fade-in-up animation-delay-600">
                     Selamat datang di portal resmi pendataan kunjungan.
                     Silakan cari dan pilih Perangkat Daerah tujuan Anda untuk memulai
@@ -49,7 +49,7 @@
                 </p>
 
                 {{-- Search Bar --}}
-                <div class="mt-12 w-full max-w-2xl mx-auto animate-fade-in-up animation-delay-800"
+                <div class="mt-6 sm:mt-8 w-full max-w-2xl mx-auto animate-fade-in-up animation-delay-800"
                     @click.away="focused = false">
 
                     {{-- Search tips --}}
