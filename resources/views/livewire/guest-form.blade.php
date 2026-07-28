@@ -110,29 +110,29 @@
                                 Jenis Kelamin
                             </label>
 
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-2 gap-2.5 sm:gap-4">
                                 {{-- Opsi Laki-laki --}}
                                 <label class="cursor-pointer group">
                                     <input type="radio" name="jk" value="Laki-laki" class="hidden"
                                         wire:model.live="jenis_kelamin" x-model="jk">
                                     <div :class="jk === 'Laki-laki' ? 'border-[#0100CC] bg-blue-50/70 dark:bg-blue-900/30' :
                                         'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'"
-                                        class="p-4 rounded-2xl border-2 transition-all flex items-center justify-between hover:border-blue-300">
-                                        <div class="flex items-center gap-3">
+                                        class="p-2.5 sm:p-4 rounded-2xl border-2 transition-all flex items-center justify-between hover:border-blue-300">
+                                        <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
                                             <div :class="jk === 'Laki-laki' ? 'bg-[#0100CC] text-white shadow-md shadow-blue-500/20' : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 group-hover:bg-blue-100 dark:group-hover:bg-gray-600'"
-                                                class="w-10 h-10 rounded-xl flex items-center justify-center transition-all">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                class="w-7 h-7 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 transition-all">
+                                                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                                     <circle cx="10" cy="14" r="5" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 5l-5.4 5.4M19 5h-5M19 5v5" />
                                                 </svg>
                                             </div>
                                             <span :class="jk === 'Laki-laki' ? 'text-[#0100CC] dark:text-white font-bold' : 'text-gray-600 dark:text-gray-400 font-semibold'"
-                                                class="text-sm transition-colors">Laki-laki</span>
+                                                class="text-xs sm:text-sm transition-colors truncate">Laki-laki</span>
                                         </div>
                                         <div :class="jk === 'Laki-laki' ? 'border-[#0100CC] bg-[#0100CC]' : 'border-gray-300 dark:border-gray-600 bg-transparent'"
-                                            class="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all">
+                                            class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shrink-0 ml-1 sm:ml-2 transition-all">
                                             <template x-if="jk === 'Laki-laki'">
-                                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                                                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                                 </svg>
                                             </template>
@@ -146,22 +146,22 @@
                                         wire:model.live="jenis_kelamin" x-model="jk">
                                     <div :class="jk === 'Perempuan' ? 'border-[#0100CC] bg-blue-50/70 dark:bg-blue-900/30' :
                                         'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'"
-                                        class="p-4 rounded-2xl border-2 transition-all flex items-center justify-between hover:border-blue-300">
-                                        <div class="flex items-center gap-3">
+                                        class="p-2.5 sm:p-4 rounded-2xl border-2 transition-all flex items-center justify-between hover:border-blue-300">
+                                        <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
                                             <div :class="jk === 'Perempuan' ? 'bg-[#0100CC] text-white shadow-md shadow-blue-500/20' : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 group-hover:bg-blue-100 dark:group-hover:bg-gray-600'"
-                                                class="w-10 h-10 rounded-xl flex items-center justify-center transition-all">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                class="w-7 h-7 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 transition-all">
+                                                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                                     <circle cx="12" cy="9" r="5" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7M9 18h6" />
                                                 </svg>
                                             </div>
                                             <span :class="jk === 'Perempuan' ? 'text-[#0100CC] dark:text-white font-bold' : 'text-gray-600 dark:text-gray-400 font-semibold'"
-                                                class="text-sm transition-colors">Perempuan</span>
+                                                class="text-xs sm:text-sm transition-colors truncate">Perempuan</span>
                                         </div>
                                         <div :class="jk === 'Perempuan' ? 'border-[#0100CC] bg-[#0100CC]' : 'border-gray-300 dark:border-gray-600 bg-transparent'"
-                                            class="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all">
+                                            class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shrink-0 ml-1 sm:ml-2 transition-all">
                                             <template x-if="jk === 'Perempuan'">
-                                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                                                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                                 </svg>
                                             </template>
