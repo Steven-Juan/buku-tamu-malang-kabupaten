@@ -110,6 +110,40 @@ npm run dev
 
 ---
 
+## 🐳 Menjalankan dengan Docker
+
+Alternatif dari langkah instalasi di atas — tidak perlu PHP, Composer, Node, atau MySQL di komputer, cukup **Docker Desktop**.
+
+1. Pastikan file `.env` sudah ada dan `APP_KEY` terisi (salin dari `.env.example` bila belum).
+   Pengaturan `DB_*` di `.env` otomatis di-override oleh `docker-compose.yml` agar mengarah ke container MySQL.
+2. Build & jalankan:
+
+   ```bash
+   docker compose up -d --build
+   ```
+
+   Saat pertama kali, container otomatis menjalankan `migrate`, `db:seed` (hanya jika database kosong — butuh ±2–3 menit), dan `storage:link`.
+3. Buka `http://127.0.0.1:8000` (admin: `http://127.0.0.1:8000/admin`).
+
+| Service | Keterangan |
+|---|---|
+| `app` | PHP 8.3 + Apache, port host `8000` (ubah via `APP_PORT`) |
+| `db` | MySQL 8.0, port host `3307` (user/pass/db: `bukutamu`), data di volume `db-data` |
+
+Perintah berguna:
+
+```bash
+docker compose logs -f app                 # lihat log
+docker compose exec app php artisan ...    # jalankan artisan
+docker compose up -d --build               # rebuild setelah mengubah kode
+docker compose down                        # stop (data DB tetap tersimpan)
+docker compose down -v                     # stop + hapus database
+```
+
+> File upload (`storage/app/public`) di-mount dari folder proyek, jadi tetap tersimpan di host.
+
+---
+
 ## 🔑 Akses Login Super Admin
 
 Untuk mengelola data tamu dan pengaturan Perangkat Daerah, silakan akses panel administrasi:
