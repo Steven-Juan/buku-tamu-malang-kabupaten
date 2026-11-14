@@ -1,0 +1,18 @@
+# Image uji: turunan image aplikasi + dependency dev + PHPUnit. Tidak dipakai untuk produksi.
+# Pemakaian (dari root repo):
+#   docker network create bukutamu-test
+#   docker run -d --name bukutamu-testdb --network bukutamu-test --tmpfs /var/lib/mysql -e MYSQL_DATABASE=bukutamu_test -e MYSQL_USER=test -e MYSQL_PASSWORD=test -e MYSQL_ROOT_PASSWORD=root mysql:8.0
+#   docker build -f docker/test/Dockerfile.test -t buku-tamu-malang:test docker/test
+#   docker run --rm --network bukutamu-test -v "$PWD/tests:/var/www/html/tests:ro" buku-tamu-malang:test php artisan test
+#   docker rm -f bukutamu-testdb && docker network rm bukutamu-test
+FROM buku-tamu-malang:latest
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN apt-get update && apt-get install -y --no-install-recommends zbar-tools librsvg2-bin unzip && rm -rf /var/lib/apt/lists/*
+WORKDIR /var/www/html
+# composer.json/lock di dalam image ini saja yang berubah (menambah phpunit); repo tidak disentuh
+RUN composer install --no-interaction --prefer-dist \
+ && composer require --dev --no-interaction -W phpunit/phpunit
+COPY phpunit.xml /var/www/html/phpunit.xml
+# .env kosong: Collision (php artisan test) membaca file ini; konfigurasi uji tetap dari phpunit.xml
+RUN touch .env
+ENTRYPOINT []
