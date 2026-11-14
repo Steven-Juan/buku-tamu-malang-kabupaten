@@ -21,15 +21,15 @@ class Show extends Component
     /**
      * Mount the component.
      *
-     * @param  int  $id
      * @return void
      */
-    public function mount($id)
+    public function mount(Guest $guest)
     {
-        /**
-         * Retrieve the guest by ID with its office relationship.
-         */
-        $this->guest = Guest::with('perangkatDaerah')->findOrFail($id);
+        // Admin Perangkat Daerah hanya boleh melihat tamu instansinya sendiri
+        $user = auth()->user();
+        abort_if($user->perangkat_daerah_id && (int) $user->perangkat_daerah_id !== (int) $guest->perangkat_daerah_id, 404);
+
+        $this->guest = $guest->load('perangkatDaerah');
 
         /**
          * Handle preview logic from Filament Peek.

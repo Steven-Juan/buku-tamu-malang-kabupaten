@@ -112,9 +112,16 @@ class GuestResource extends Resource
                                             return 'Awaiting signature...';
                                         }
 
+                                        // Hanya data URI gambar base64 yang ditampilkan, dan tetap di-escape
+                                        if (! $signature = $record->signatureDataUri()) {
+                                            return 'Tanda tangan tidak valid.';
+                                        }
+
+                                        $src = e($signature);
+
                                         return new HtmlString("
             <div class='mt-2 p-2 bg-white border rounded-lg' style='width: fit-content;'>
-                <img src='{$record->ttd_digital}'
+                <img src='{$src}'
                      alt='Tanda Tangan'
                      style='height: 100px; width: auto;'
                      class='block' />

@@ -16,19 +16,18 @@ class CheckApiKey
         // Mengambil {slug} dari URL (contoh: /api/v1/kunjungan/diskominfo -> mengambil 'diskominfo')
         $slug = $request->route('slug');
 
-        if (! $apiKey) {
+        if (! is_string($apiKey) || $apiKey === '') {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized. Harap sertakan Header x-api-key.',
             ], 401);
         }
 
-        // Cek ke database: Apakah ada instansi dengan slug X yang memiliki api_key Y?
-        $instansi = PerangkatDaerah::where('slug', $slug)
-            ->where('api_key', $apiKey)
-            ->first();
+        // api_key di database berupa hash; dibandingkan di PHP dengan hash_equals
+        // (case-sensitive dan tahan timing attack), bukan lewat WHERE di SQL.
+        $instansi = PerangkatDaerah::where('slug', $slug)->first();
 
-        if (! $instansi) {
+        if (! $instansi || ! $instansi->apiKeyMatches($apiKey)) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized. API Key tidak valid atau tidak cocok dengan instansi tersebut.',

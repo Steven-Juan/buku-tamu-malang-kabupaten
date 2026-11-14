@@ -9,6 +9,7 @@ use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -108,18 +109,33 @@ class PerangkatDaerahResource extends Resource
                                     ->placeholder('0341-xxxxxx')
                                     ->maxLength(20),
 
-                                Forms\Components\TextInput::make('api_key')
+                                // Yang disimpan hanya hash API key; kunci asli ditampilkan sekali saat dibuat
+                                Forms\Components\Placeholder::make('api_key_status')
+                                    ->key('api_key_status')
                                     ->label('API Key (Kunci Akses)')
-                                    ->readOnly() // Dibuat read-only agar admin tidak mengetik sembarangan
-                                    ->maxLength(255)
-                                    ->helperText('Gunakan tombol di sebelah kanan untuk membuat kunci baru.')
-                                    ->suffixAction(
+                                    ->content(fn (?PerangkatDaerah $record): string => match (true) {
+                                        $record === null => 'Simpan instansi terlebih dahulu, lalu buat API key dari halaman edit.',
+                                        filled($record->api_key) => 'Sudah dibuat. Kunci hanya ditampilkan sekali saat dibuat; buat ulang jika hilang.',
+                                        default => 'Belum ada API key.',
+                                    })
+                                    ->hintAction(
                                         Action::make('generate_key')
+                                            ->label(fn (?PerangkatDaerah $record): string => filled($record?->api_key) ? 'Buat ulang' : 'Buat API key')
                                             ->icon('heroicon-m-arrow-path')
                                             ->color('primary')
-                                            ->action(function (Forms\Set $set) {
-                                                // Membuat kunci acak 32 karakter
-                                                $set('api_key', 'pd_'.Str::random(32));
+                                            ->visible(fn (?PerangkatDaerah $record): bool => $record !== null)
+                                            ->requiresConfirmation()
+                                            ->modalHeading('Buat API key baru?')
+                                            ->modalDescription('Kunci lama (jika ada) langsung tidak berlaku. Kunci baru hanya ditampilkan satu kali.')
+                                            ->action(function (PerangkatDaerah $record) {
+                                                $plainKey = $record->regenerateApiKey();
+
+                                                Notification::make()
+                                                    ->title('API key baru dibuat')
+                                                    ->body("Salin sekarang, kunci ini tidak akan ditampilkan lagi:<br><code>{$plainKey}</code>")
+                                                    ->success()
+                                                    ->persistent()
+                                                    ->send();
                                             })
                                     ),
                             ]),

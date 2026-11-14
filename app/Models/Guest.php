@@ -33,4 +33,19 @@ class Guest extends Model
     {
         return $this->belongsTo(PerangkatDaerah::class, 'perangkat_daerah_id');
     }
+
+    /**
+     * Tanda tangan sebagai data URI gambar base64, atau null jika isinya tidak valid
+     * (mis. data lama yang dimanipulasi). Selalu pakai ini saat menampilkan tanda tangan.
+     */
+    public function signatureDataUri(): ?string
+    {
+        $value = $this->ttd_digital;
+
+        if (! is_string($value) || ! preg_match('/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+\/=]+$/', $value)) {
+            return null;
+        }
+
+        return $value;
+    }
 }

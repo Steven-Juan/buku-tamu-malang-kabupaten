@@ -7,7 +7,10 @@
     </div>
 
     <article>
-        <x-hero :title="'Detail Kunjungan: ' . $guest->nama">
+        {{-- Judul lewat slot (di-escape), bukan :title yang dirender mentah oleh komponen hero --}}
+        <x-hero>
+            Detail Kunjungan: {{ $guest->nama }}
+
             @slot('afterTitle')
                 <div class="text-lg opacity-90">{{ $guest->asal_instansi }}</div>
 
@@ -50,7 +53,7 @@
                     <div class="mt-8">
                         <label class="block mb-2 text-sm font-bold text-gray-500 uppercase">Tanda Tangan Digital</label>
                         <div class="inline-block p-2 bg-gray-50 border-2 border-dashed rounded-lg">
-                            <img src="{{ $guest->ttd_digital }}" alt="Tanda tangan {{ $guest->nama }}"
+                            <img src="{{ $guest->signatureDataUri() }}" alt="Tanda tangan {{ $guest->nama }}"
                                 class="max-h-32">
                         </div>
                     </div>

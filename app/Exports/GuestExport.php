@@ -91,10 +91,10 @@ class GuestExport implements FromQuery, WithDrawings, WithEvents, WithHeadings, 
                 }
             }
             // 2. Handling TTD
-            if ($record->ttd_digital && str_contains($record->ttd_digital, 'base64,')) {
+            if ($signature = $record->signatureDataUri()) {
                 try {
                     // Convert Base64 to Image File
-                    $data = explode('base64,', $record->ttd_digital);
+                    $data = explode('base64,', $signature);
                     $decodedImage = base64_decode($data[1]);
 
                     $fileName = 'sig_'.$record->id.'_'.time().'.png';

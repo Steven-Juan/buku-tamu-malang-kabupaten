@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Hash;
 
 class PerangkatDaerahSeeder extends Seeder
 {
-    public function run(): void
+    /**
+     * Data awal Perangkat Daerah. Sebagian entri memakai key 'telepon', sebagian 'telp':
+     * pakai telepon() untuk membacanya.
+     *
+     * @return list<array{nama: string, slug: string, email: ?string, alamat: string, telepon?: ?string, telp?: ?string}>
+     */
+    public static function data(): array
     {
-        $data = [
+        return [
             // DINAS
             ['nama' => 'Dinas Komunikasi dan Informatika', 'slug' => 'diskominfo', 'email' => 'kominfo@malangkab.go.id', 'alamat' => 'Jl. K.H. Agus Salim No. 7 Malang 65119', 'telepon' => '0341364776'],
             ['nama' => 'Dinas Kependudukan dan Pencatatan Sipil', 'slug' => 'dispendukcapil', 'email' => 'dispendukcapil@malangkab.go.id', 'alamat' => 'Jl. Trunojoyo Kepanjen', 'telepon' => '0341399744'],
@@ -567,14 +573,22 @@ class PerangkatDaerahSeeder extends Seeder
             ['nama' => 'Wringinsongo', 'slug' => 'wringinsongo', 'email' => 'desa-wringinsongo@malangkab.go.id', 'alamat' => 'Wringinsongo', 'telp' => '0341'],
 
         ];
+    }
 
-        foreach ($data as $item) {
+    public static function telepon(array $item): string
+    {
+        return $item['telepon'] ?? $item['telp'] ?? '-';
+    }
+
+    public function run(): void
+    {
+        foreach (static::data() as $item) {
             $pd = PerangkatDaerah::create([
                 'nama_pd' => $item['nama'],
                 'slug' => $item['slug'],
                 'email' => $item['email'],
                 'alamat' => $item['alamat'],
-                'telepon' => $item['telp'] ?? '-',
+                'telepon' => static::telepon($item),
             ]);
 
             User::create([

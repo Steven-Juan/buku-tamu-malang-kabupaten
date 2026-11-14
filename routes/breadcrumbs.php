@@ -11,6 +11,13 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 });
 
 /**
+ * Home > [Guest]
+ */
+Breadcrumbs::for('guest', function (BreadcrumbTrail $trail, $guest) {
+    $trail->parent('home')->push($guest->nama, route('guest.show', $guest));
+});
+
+/**
  * Home > [Post]
  */
 Breadcrumbs::for('post', function (BreadcrumbTrail $trail, $post) {

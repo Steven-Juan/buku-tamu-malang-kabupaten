@@ -6,11 +6,37 @@ use App\Models\Guest;
 use App\Models\PerangkatDaerah;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class GuestForm extends Component
 {
+    /**
+     * Avatar yang tersedia di public/images/avatars.
+     */
+    public const AVATARS = [
+        'scholar-man.png',
+        'officer-man.png',
+        'guest-man.png',
+        'scholar-woman.png',
+        'officer-woman.png',
+        'guest-woman.png',
+    ];
+
+    /**
+     * Jenis foto kamera yang diterima (MIME hasil deteksi isi file => ekstensi file).
+     */
+    private const FOTO_MIMES = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp',
+    ];
+
+    private const MAX_FOTO_BYTES = 5 * 1024 * 1024;
+
+    private const MAX_TTD_BYTES = 1024 * 1024;
+
     public $instansiTujuan;
 
     public $currentStep = 1;
@@ -29,11 +55,13 @@ class GuestForm extends Component
     // Step 2: Avatar / Kamera & TTD
     public $foto_metode = 'avatar'; // Pilihan: 'avatar' atau 'kamera'
 
-    public $selectedAvatar = 'man-young.png';
+    public $selectedAvatar;
 
     public $foto_base64; // Menampung data kamera
 
     public $ttd_digital;
+
+    public $turnstile_token;
 
     public function mount($slug)
     {
@@ -43,31 +71,9 @@ class GuestForm extends Component
     public function nextStep()
     {
         if ($this->currentStep == 1) {
-            $this->validate([
-                'nama' => 'required|min:3',
-                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-                'asal_instansi' => 'required',
-                'keperluan' => 'required',
-            ]);
+            $this->validate($this->stepOneRules());
         } elseif ($this->currentStep == 2) {
-            $this->validate([
-                'ttd_digital' => 'required',
-            ]);
-
-            // Validasi khusus berdasarkan metode foto yang dipilih
-            if ($this->foto_metode === 'avatar') {
-                if (empty($this->selectedAvatar)) {
-                    $this->addError('selectedAvatar', 'Silakan pilih salah satu avatar terlebih dahulu.');
-
-                    return;
-                }
-            } elseif ($this->foto_metode === 'kamera') {
-                if (empty($this->foto_base64)) {
-                    $this->addError('foto_base64', 'Silakan ambil foto kamera terlebih dahulu.');
-
-                    return;
-                }
-            }
+            $this->validateStepTwo();
         }
 
         $this->currentStep++;
@@ -78,10 +84,13 @@ class GuestForm extends Component
         $this->currentStep--;
     }
 
-    public $turnstile_token;
-
     public function submit()
     {
+        // Validasi ulang semua langkah: submit() bisa dipanggil langsung tanpa melewati nextStep().
+        // Dilakukan sebelum Turnstile agar token (sekali pakai) tidak terbuang saat data tidak valid.
+        $this->validate($this->stepOneRules());
+        [$ttd, $foto] = $this->validateStepTwo();
+
         try {
             $this->validate([
                 'turnstile_token' => 'required|turnstile',
@@ -91,35 +100,18 @@ class GuestForm extends Component
             ]);
         } catch (ValidationException $e) {
             // Minta client untuk mereset widget Turnstile agar user bisa mencoba lagi
-            $this->emit('reset-turnstile');
+            $this->dispatch('reset-turnstile');
             throw $e;
         }
 
         // Proses penyimpanan Foto (Avatar vs Kamera)
-        $fotoPath = '';
-        if ($this->foto_metode === 'avatar') {
-            $fotoPath = 'images/avatars/'.$this->selectedAvatar; // Simpan path avatar
+        if ($foto) {
+            // Ekstensi berasal dari isi file yang sudah diverifikasi, bukan dari data kiriman browser
+            $fotoPath = 'guests/photos/'.Str::uuid().'.'.$foto['ext'];
+            Storage::disk('public')->put($fotoPath, $foto['binary']);
         } else {
-            // Konversi Base64 dari kamera menjadi file fisik agar terbaca di Filament
-            if (preg_match('/^data:image\/(\w+);base64,/', $this->foto_base64, $type)) {
-                $data = substr($this->foto_base64, strpos($this->foto_base64, ',') + 1);
-                $type = strtolower($type[1]);
-                $data = base64_decode($data);
-                $filename = 'guests/photos/'.Str::uuid().'.'.$type;
-                Storage::disk('public')->put($filename, $data);
-                $fotoPath = $filename;
-            }
+            $fotoPath = 'images/avatars/'.$this->selectedAvatar;
         }
-
-        $this->instansiTujuan->refresh();
-        $idSurvey = $this->instansiTujuan->id_survey;
-        $redirectUrl = route('department.detail', $this->instansiTujuan->slug);
-
-        $this->dispatch(
-            'tamu-berhasil-disimpan',
-            id_survey: $idSurvey,
-            redirect_url: $redirectUrl
-        );
 
         Guest::create([
             'perangkat_daerah_id' => $this->instansiTujuan->id,
@@ -129,8 +121,17 @@ class GuestForm extends Component
             'keperluan' => $this->keperluan,
             'pesan_kesan' => $this->pesan_kesan,
             'foto' => $fotoPath,
-            'ttd_digital' => $this->ttd_digital,
+            // Disimpan ulang dari hasil decode agar isinya pasti data URI PNG yang bersih
+            'ttd_digital' => 'data:image/png;base64,'.base64_encode($ttd['binary']),
         ]);
+
+        $this->instansiTujuan->refresh();
+
+        $this->dispatch(
+            'tamu-berhasil-disimpan',
+            id_survey: $this->instansiTujuan->id_survey,
+            redirect_url: route('department.detail', $this->instansiTujuan->slug)
+        );
     }
 
     public function render()
@@ -146,5 +147,89 @@ class GuestForm extends Component
         $this->pesan_kesan = '';
 
         $this->resetValidation(['nama', 'asal_instansi', 'keperluan']);
+    }
+
+    protected function stepOneRules(): array
+    {
+        return [
+            'nama' => 'required|string|min:3|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'asal_instansi' => 'required|string|max:255',
+            'keperluan' => 'required|string|max:1000',
+            'pesan_kesan' => 'nullable|string|max:1000',
+        ];
+    }
+
+    /**
+     * Validasi tanda tangan dan foto, termasuk memeriksa isi gambarnya.
+     *
+     * @return array{0: array{binary: string, mime: string, ext: string}, 1: array{binary: string, mime: string, ext: string}|null}
+     */
+    protected function validateStepTwo(): array
+    {
+        $this->validate([
+            'ttd_digital' => ['required', 'string'],
+            'foto_metode' => ['required', 'in:avatar,kamera'],
+            'selectedAvatar' => [Rule::requiredIf($this->foto_metode === 'avatar'), 'nullable', Rule::in(self::AVATARS)],
+            'foto_base64' => [Rule::requiredIf($this->foto_metode === 'kamera'), 'nullable', 'string'],
+        ], [
+            'selectedAvatar.required' => 'Silakan pilih salah satu avatar terlebih dahulu.',
+            'selectedAvatar.in' => 'Silakan pilih salah satu avatar terlebih dahulu.',
+            'foto_base64.required' => 'Silakan ambil foto kamera terlebih dahulu.',
+        ]);
+
+        $ttd = $this->decodeImage($this->ttd_digital, ['image/png' => 'png'], self::MAX_TTD_BYTES);
+
+        if (! $ttd) {
+            throw ValidationException::withMessages([
+                'ttd_digital' => 'Tanda tangan tidak valid, silakan ulangi tanda tangan.',
+            ]);
+        }
+
+        $foto = null;
+
+        if ($this->foto_metode === 'kamera') {
+            $foto = $this->decodeImage($this->foto_base64, self::FOTO_MIMES, self::MAX_FOTO_BYTES);
+
+            if (! $foto) {
+                throw ValidationException::withMessages([
+                    'foto_base64' => 'Foto tidak valid (hanya JPG/PNG/WEBP, maks. 5 MB). Silakan ambil ulang foto.',
+                ]);
+            }
+        }
+
+        return [$ttd, $foto];
+    }
+
+    /**
+     * Decode data URI base64 dan pastikan isinya benar-benar gambar dengan jenis yang diizinkan.
+     *
+     * @param  array<string, string>  $allowedMimes  MIME => ekstensi
+     * @return array{binary: string, mime: string, ext: string}|null
+     */
+    protected function decodeImage(mixed $dataUri, array $allowedMimes, int $maxBytes): ?array
+    {
+        if (! is_string($dataUri) || ! preg_match('/^data:image\/[a-z0-9.+-]+;base64,/i', $dataUri, $prefix)) {
+            return null;
+        }
+
+        // Tolak sebelum decode jika jelas melebihi batas (base64 ~4/3 ukuran asli)
+        if (strlen($dataUri) > (int) ceil($maxBytes * 4 / 3) + strlen($prefix[0]) + 4) {
+            return null;
+        }
+
+        $binary = base64_decode(substr($dataUri, strlen($prefix[0])), true);
+
+        if ($binary === false || $binary === '' || strlen($binary) > $maxBytes) {
+            return null;
+        }
+
+        $mime = (new \finfo(FILEINFO_MIME_TYPE))->buffer($binary);
+
+        if (! isset($allowedMimes[$mime]) || @getimagesizefromstring($binary) === false) {
+            return null;
+        }
+
+        return ['binary' => $binary, 'mime' => $mime, 'ext' => $allowedMimes[$mime]];
     }
 }

@@ -104,8 +104,9 @@
                     <td>{{ $guest->perangkatDaerah->nama_pd ?? '-' }}</td>
                     <td style="text-align: center;">{{ $guest->created_at->format('d/m/Y H:i') }}</td>
                     <td class="img-container">
-                        @if ($guest->ttd_digital)
-                            <img src="{{ $guest->ttd_digital }}" class="sig-thumb">
+                        {{-- Hanya data URI: PDF dibuat dengan isRemoteEnabled, jadi URL lain tidak boleh diikuti --}}
+                        @if ($signature = $guest->signatureDataUri())
+                            <img src="{{ $signature }}" class="sig-thumb">
                         @else
                             -
                         @endif
